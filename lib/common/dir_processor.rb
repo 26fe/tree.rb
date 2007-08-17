@@ -21,6 +21,12 @@ class DirProcessor
     self
   end
 
+  def add_processor( re, &action )
+    @processors[ re ] = action
+  end
+
+  private
+
   def process_file( pn )
     # puts "file: #{f}"
     pair = @processors.find { |re,action| re =~ pn.to_s }
@@ -29,10 +35,6 @@ class DirProcessor
     else
        @default_processor.call( pn ) if @default_processor
     end
-  end
-
-  def add_processor( re, &action )
-    @processors[ re ] = action
   end
 
 end
