@@ -47,6 +47,10 @@ class CliPrintDirTree
     puts dirname
 
     pdt = PrintDirTreeProcessor.new( dirname )
+
+    pdt.add_ignore_dir( ".svn" )
+    pdt.add_ignore_dir( "catalog_data" )
+
     treeNode = pdt.run
 
     puts treeNode.convert()

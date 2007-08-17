@@ -8,21 +8,19 @@ class PrintDirTreeProcessor < DirTreeProcessor
 
   def initialize( *args )
     super( *args )
-    add_ignore_dir( ".svn" )
-    add_ignore_dir( "catalog_data" )
   end
 
   protected
 
-  def visit_file( filename )
+  def visit_file( treeNode, filename )
     filename
   end
 
-  def visited_file( parentNode, attrNode )
+  def visited_file( treeNode, attrNode )
     parentNode.add_value( attrNode )
   end
 
-  def visit_dir( dirname )
+  def visit_dir( treeNode, dirname )
     TreeNode.new( dirname )
   end
 
