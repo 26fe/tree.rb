@@ -17,11 +17,11 @@ class PrintDirTreeProcessor < DirTreeProcessor
   end
 
   def visited_file( treeNode, attrNode )
-    parentNode.add_value( attrNode )
+    treeNode.add_value( attrNode )
   end
 
-  def visit_dir( treeNode, dirname )
-    TreeNode.new( dirname )
+  def visit_dir( parentNode, dirname )
+    TreeNode.new( parentNode, dirname )
   end
 
   def visited_dir( parentNode, childNode )

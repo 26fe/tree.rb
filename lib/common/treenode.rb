@@ -1,7 +1,10 @@
 
 class TreeNode
 
-  def initialize( name)
+  attr_reader :parent
+
+  def initialize( parent, name )
+    @parent = parent
     @name = name
     @values = []
     @treeNodes = []
