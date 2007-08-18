@@ -13,7 +13,7 @@ class PrintDirTreeProcessor < DirTreeProcessor
   protected
 
   def visit_file( treeNode, filename )
-    filename
+    LeafNode.new( treeNode, filename )
   end
 
   def visited_file( treeNode, nodeItem )

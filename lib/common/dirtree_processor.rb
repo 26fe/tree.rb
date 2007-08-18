@@ -92,18 +92,22 @@ class DirTreeProcessor
   def process_directory( parentNode, dirname )
     return nil if ignore_dir?( dirname )
 
+    if parentNode.nil?
+      dirname = File.expand_path( dirname )
+    end
+
     # puts dirname
     treeNode = visit_dir( parentNode, dirname )
 
-    Dir.entries( dirname ).each { |basename|
+    Dir.entries( treeNode.path ).each { |basename|
       next if basename == "." or basename == ".."
-      pathname = dirname + File::Separator + basename
+      pathname = File.join( treeNode.path, basename )
 
       if File.directory?( pathname )
 
         # directory
         if ! ignore_dir?( basename )
-          ret = process_directory( treeNode, pathname )
+          ret = process_directory( treeNode, basename )
           if ! treeNode.nil? && ! ret.nil?
             visited_dir( treeNode, ret )
           end
@@ -113,7 +117,7 @@ class DirTreeProcessor
 
         # file
         if inspect_file?( basename ) && ! ignore_file?( basename )
-          ret = visit_file( treeNode, pathname )
+          ret = visit_file( treeNode, basename )
           if ! treeNode.nil? && ! ret.nil?
             visited_file( treeNode, ret )
           end

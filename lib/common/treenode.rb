@@ -1,11 +1,13 @@
 
-class TreeNode
+require 'common/leafnode'
 
-  attr_reader :parent
+class TreeNode < LeafNode
 
   def initialize( parent, name )
-    @parent = parent
-    @name = name
+    super( parent, name )
+    # @parent = parent
+    # @name = name
+    # @path = nil
     @items = []
     @treeNodes = []
   end
@@ -21,7 +23,7 @@ class TreeNode
   def convert( depth = 0 )
 
     str = ""
-    (0..depth).step(1) {
+    (0...depth).step {
       str << " |-"
     }
 
@@ -30,15 +32,13 @@ class TreeNode
 
     if ! @items.empty?
       @items.each{ |v|
-        (0..depth).step(1) {
+        (0...depth-1).step {
           str << " |-"
         }
-        str << "  " + v
+        str << " |  " + v
         str << "\n"
       }
     end
-
-    str << "\n"
 
     @treeNodes.each { |tn|
       str << tn.convert( depth + 1 )
