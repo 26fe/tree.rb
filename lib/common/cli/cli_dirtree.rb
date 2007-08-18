@@ -1,10 +1,11 @@
 require 'optparse'
-require 'common/printdirtree_processor'
+require 'common/builddirtree_processor'
+require 'common/visitdirtree_processor'
 
 #
 #
 #
-class CliPrintDirTree
+class CliDirTree
 
   def self.run
     self.new.parse_args( ARGV )
@@ -12,7 +13,7 @@ class CliPrintDirTree
 
   def parse_args( argv )
 
-    options = { :verbose => true, :force => false }
+    options = { :verbose => true, :force => false, :algo => 'build' }
 
     opts = OptionParser.new
     opts.banner = "Usage: example.rb [options]"
@@ -30,13 +31,21 @@ class CliPrintDirTree
       options[:verbose] = false
     end
 
+    algos = %w[build visit]
+    algo_aliases = { "b" => "build", "v" => "visit" }
+
+    algo_list = (algo_aliases.keys + algos).join(',')
+    opts.on("-a", "--algo ALGO", algos, algo_aliases, "Select algo","  (#{algo_list})") do |algo|
+      options[:algo] = algo
+    end
+
     rest = opts.parse(argv)
 
     # p options
     # p ARGV
 
     if rest.length < 1
-      puts "inserire il nome della directory di cui creare il catalogo"
+      puts "inserire il nome della directory da cui costuire il tree"
       puts "-h to print help"
       return
     end
@@ -46,14 +55,19 @@ class CliPrintDirTree
 
     puts "reading : #{dirname}"
 
-    pdt = PrintDirTreeProcessor.new( dirname )
+    pdt =
+      case options[:algo]
+      when 'build' then BuildDirTreeProcessor.new( dirname )
+      when 'visit' then VisitDirTreeProcessor.new( dirname )
+      end
 
     pdt.add_ignore_dir( ".svn" )
     pdt.add_ignore_dir( "catalog_data" )
-
     treeNode = pdt.run
 
-    puts treeNode.convert()
+    if treeNode
+      puts treeNode.to_s()
+    end
 
   end
 

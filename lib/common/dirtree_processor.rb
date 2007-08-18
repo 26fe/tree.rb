@@ -6,6 +6,9 @@ class DirTreeProcessor
 
   def initialize( dirname )
     @dirname = dirname
+    unless File.directory?( dirname )
+      raise "#{dirname} is not a directory!"
+    end
 
     @ignore_dir_patterns = []
     @inspect_file_patterns = []
@@ -13,7 +16,7 @@ class DirTreeProcessor
   end
 
   def run
-    process_directory( nil, @dirname )
+    process_directory( nil, File.expand_path( @dirname ) )
   end
 
   def add_ignore_dir( pattern )
@@ -92,22 +95,18 @@ class DirTreeProcessor
   def process_directory( parentNode, dirname )
     return nil if ignore_dir?( dirname )
 
-    if parentNode.nil?
-      dirname = File.expand_path( dirname )
-    end
-
     # puts dirname
     treeNode = visit_dir( parentNode, dirname )
 
-    Dir.entries( treeNode.path ).each { |basename|
+    Dir.entries( dirname ).each { |basename|
       next if basename == "." or basename == ".."
-      pathname = File.join( treeNode.path, basename )
+      pathname = File.join( dirname, basename )
 
       if File.directory?( pathname )
 
         # directory
         if ! ignore_dir?( basename )
-          ret = process_directory( treeNode, basename )
+          ret = process_directory( treeNode, pathname )
           if ! treeNode.nil? && ! ret.nil?
             visited_dir( treeNode, ret )
           end
@@ -117,7 +116,7 @@ class DirTreeProcessor
 
         # file
         if inspect_file?( basename ) && ! ignore_file?( basename )
-          ret = visit_file( treeNode, basename )
+          ret = visit_file( treeNode, pathname )
           if ! treeNode.nil? && ! ret.nil?
             visited_file( treeNode, ret )
           end
