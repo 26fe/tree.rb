@@ -20,7 +20,7 @@ class TreeNode < LeafNode
     @treeNodes << treeNode
   end
 
-  def convert( depth = 0 )
+  def to_s( depth = 0 )
 
     str = ""
     (0...depth).step {
@@ -35,13 +35,18 @@ class TreeNode < LeafNode
         (0...depth-1).step {
           str << " |-"
         }
-        str << " |  " + v
+        if @treeNodes.empty?
+          str << " |    "
+        else
+          str << " |  | "
+        end
+        str << v
         str << "\n"
       }
     end
 
     @treeNodes.each { |tn|
-      str << tn.convert( depth + 1 )
+      str << tn.to_s( depth + 1 )
     }
     str
   end

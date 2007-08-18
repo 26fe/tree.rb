@@ -2,9 +2,10 @@ require 'common/treenode'
 require 'common/dirtree_processor'
 
 #
-# Esempio di utilizzo della classa astratta DirTreeProcessor
+# Utilizzo della classa astratta DirTreeProcessor
+# per costruire un albero di oggetti
 #
-class PrintDirTreeProcessor < DirTreeProcessor
+class BuildDirTreeProcessor < DirTreeProcessor
 
   def initialize( *args )
     super( *args )
@@ -12,8 +13,9 @@ class PrintDirTreeProcessor < DirTreeProcessor
 
   protected
 
-  def visit_file( treeNode, filename )
-    LeafNode.new( treeNode, filename )
+  def visit_file( treeNode, pathname )
+    basename = File.basename( pathname )
+    LeafNode.new( treeNode, basename )
   end
 
   def visited_file( treeNode, nodeItem )
@@ -21,6 +23,9 @@ class PrintDirTreeProcessor < DirTreeProcessor
   end
 
   def visit_dir( parentNode, dirname )
+    if ! parentNode.nil?
+      dirname = File.basename( dirname )
+    end
     TreeNode.new( parentNode, dirname )
   end
 
