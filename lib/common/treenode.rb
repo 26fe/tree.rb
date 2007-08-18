@@ -8,12 +8,12 @@ class TreeNode < LeafNode
     # @parent = parent
     # @name = name
     # @path = nil
-    @items = []
+    @leaves = []
     @treeNodes = []
   end
 
-  def add_item( item )
-    @items << item
+  def add_leaf( leaf )
+    @leaves << leaf
   end
 
   def add_child( treeNode )
@@ -30,8 +30,8 @@ class TreeNode < LeafNode
     str << @name
     str << "\n"
 
-    if ! @items.empty?
-      @items.each{ |v|
+    if ! @leaves.empty?
+      @leaves.each{ |v|
         (0...depth-1).step {
           str << " |-"
         }

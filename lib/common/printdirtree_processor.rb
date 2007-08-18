@@ -17,7 +17,7 @@ class PrintDirTreeProcessor < DirTreeProcessor
   end
 
   def visited_file( treeNode, nodeItem )
-    treeNode.add_item( nodeItem )
+    treeNode.add_leaf( nodeItem )
   end
 
   def visit_dir( parentNode, dirname )
