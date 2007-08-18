@@ -2,10 +2,6 @@
 require 'rubygems'   # if installed with 'gem install'
 require 'abstract'
 
-  class Foo
-    abstract_method 'arg1, arg2=""', :method1, :method2, :method3
-  end
-
 class DirTreeProcessor
 
   def initialize( dirname )

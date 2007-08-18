@@ -6,12 +6,12 @@ class TreeNode
   def initialize( parent, name )
     @parent = parent
     @name = name
-    @values = []
+    @items = []
     @treeNodes = []
   end
 
-  def add_value( value )
-    @values << value
+  def add_item( item )
+    @items << item
   end
 
   def add_child( treeNode )
@@ -28,8 +28,8 @@ class TreeNode
     str << @name
     str << "\n"
 
-    if ! @values.empty?
-      @values.each{ |v|
+    if ! @items.empty?
+      @items.each{ |v|
         (0..depth).step(1) {
           str << " |-"
         }
