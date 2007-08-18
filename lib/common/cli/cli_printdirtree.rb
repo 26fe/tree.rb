@@ -44,7 +44,7 @@ class CliPrintDirTree
     dirname = rest[0]
     dirname = File.expand_path( dirname )
 
-    puts dirname
+    puts "reading : #{dirname}"
 
     pdt = PrintDirTreeProcessor.new( dirname )
 
