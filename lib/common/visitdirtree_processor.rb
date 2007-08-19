@@ -1,17 +1,10 @@
 
-
-#
-# Utilizzo della classa astratta DirTreeProcessor
-# per visitare un albero di directory
-#
-class VisitDirTreeProcessor < DirTreeProcessor
+class PrintDirTreeVisitor < DirTreeVisitor
 
   def initialize( *args )
     super( *args )
     @depth = 0
   end
-
-  protected
 
   def visit_file( treeNode, pathname )
     str = ""
@@ -20,9 +13,6 @@ class VisitDirTreeProcessor < DirTreeProcessor
     }
     str << " |  "
     puts str + File.basename( pathname )
-  end
-
-  def visited_file( treeNode, nodeItem )
   end
 
   def visit_dir( parentNode, dirname )
@@ -43,6 +33,14 @@ class VisitDirTreeProcessor < DirTreeProcessor
   def visited_dir( parentNode, childNode )
     @depth -= 1
   end
+end
 
-
+#
+# Utilizzo della classa astratta DirTreeProcessor
+# per visitare un albero di directory
+#
+class VisitDirTreeProcessor < DirTreeWalker
+  def run
+    super( PrintDirTreeVisitor.new )
+  end
 end

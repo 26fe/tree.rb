@@ -1,23 +1,47 @@
-
+# common
 require 'common/leafnode'
 
-class TreeNode < LeafNode
+#
+# Un treeNode e' come un LeafNode
+# in piu' ha la possibilita' di contenere
+# altri treeNode e LeafNode
+#
+class TreeNode < AbsNode
 
   def initialize( parent, name )
-    super( parent, name )
-    # @parent = parent
-    # @name = name
-    # @path = nil
+    super( name )
+    if parent
+      parent.add_child( self )
+    end
     @leaves = []
     @treeNodes = []
   end
 
+  def root?
+    @parent.nil?
+  end
+
   def add_leaf( leaf )
+    return if leaf.parent == self
+    leaf.parent = self
     @leaves << leaf
   end
 
   def add_child( treeNode )
+    return if treeNode.parent == self
+    treeNode.parent = self
     @treeNodes << treeNode
+  end
+
+  def accept( visitor )
+
+    visitor.visit_treeNode( self )
+    @leaves.each{ |l|
+      l.accept( visitor )
+    }
+    @treeNodes.each { |tn|
+      tn.accept( visitor )
+    }
   end
 
   def to_s( depth = 0 )

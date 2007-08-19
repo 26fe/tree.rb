@@ -1,22 +1,15 @@
-class LeafNode
 
-  attr_reader :parent
-  attr_reader :name
+require "common/absnode"
+
+class LeafNode < AbsNode
 
   def initialize( parent, name )
-    @parent = parent
-    @name = name
-    @path = nil
+    super( name )
+    parent.add_leaf( self )
   end
 
-  def path
-    return @path unless @path.nil?
-    if @parent.nil?
-      @path = @name
-    else
-      @path = File.join( @parent.path, @name )
-    end
-    @path
+  def accept( visitor )
+    visitor.visit_leafNode( self )
   end
 
   def to_str
