@@ -1,17 +1,7 @@
 require 'common/treenode'
 require 'common/dirtree_processor'
 
-#
-# Utilizzo della classa astratta DirTreeProcessor
-# per costruire un albero di oggetti
-#
-class BuildDirTreeProcessor < DirTreeProcessor
-
-  def initialize( *args )
-    super( *args )
-  end
-
-  protected
+class BuildDirTreeVisitor < DirTreeVisitor
 
   def visit_file( treeNode, pathname )
     basename = File.basename( pathname )
@@ -33,5 +23,15 @@ class BuildDirTreeProcessor < DirTreeProcessor
     parentNode.add_child( childNode )
   end
 
+end
+#
+# Utilizzo della classa astratta DirTreeProcessor
+# per costruire un albero di oggetti
+#
+class BuildDirTreeProcessor < DirTreeWalker
+
+  def run
+    super( BuildDirTreeVisitor.new )
+  end
 
 end
