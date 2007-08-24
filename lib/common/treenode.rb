@@ -2,50 +2,63 @@
 require 'common/leafnode'
 
 #
-# Un treeNode e' come un LeafNode
+# Un treeNode e' come un AbsNode
 # in piu' ha la possibilita' di contenere
 # altri treeNode e LeafNode
 #
+# TreeNode @childs -1---n-> TreeNode
+#          @leaves -1---n-> LeafNode
+#
 class TreeNode < AbsNode
 
-  def initialize( parent, name )
+  def initialize( name, parent = nil )
     super( name )
     if parent
       parent.add_child( self )
     end
     @leaves = []
-    @treeNodes = []
+    @childs = []
   end
 
   def root?
     @parent.nil?
   end
-
+  
+  def nr_nodes
+    nr = @leaves.length + @childs.length
+    @childs.inject( nr ) { |nr,c| nr + c.nr_nodes }
+  end
+  
   def add_leaf( leaf )
     return if leaf.parent == self
+    if not leaf.parent.nil?
+      leaf.remove_from_parent()
+    end  
     leaf.parent = self
     @leaves << leaf
   end
 
   def add_child( treeNode )
     return if treeNode.parent == self
+    if not treeNode.parent.nil?
+      treeNode.remove_from_parent()
+    end  
     treeNode.parent = self
-    @treeNodes << treeNode
+    @childs << treeNode
   end
 
   def accept( visitor )
-
-    visitor.visit_treeNode( self )
+    visitor.enter_treeNode( self )
     @leaves.each{ |l|
       l.accept( visitor )
     }
-    @treeNodes.each { |tn|
+    @childs.each { |tn|
       tn.accept( visitor )
     }
+    visitor.exit_treeNode( self )
   end
 
-  def to_s( depth = 0 )
-
+  def to_str( depth = 0 )
     str = ""
     (0...depth).step {
       str << " |-"
@@ -55,22 +68,22 @@ class TreeNode < AbsNode
     str << "\n"
 
     if ! @leaves.empty?
-      @leaves.each{ |v|
+      @leaves.each{ |l|
         (0...depth-1).step {
           str << " |-"
         }
-        if @treeNodes.empty?
+        if @childs.empty?
           str << " |    "
         else
           str << " |  | "
         end
-        str << v
+        str << l.to_str
         str << "\n"
       }
     end
 
-    @treeNodes.each { |tn|
-      str << tn.to_s( depth + 1 )
+    @childs.each { |tn|
+      str << tn.to_str( depth + 1 )
     }
     str
   end

@@ -1,3 +1,19 @@
+# rubygems
+require "rubygems"
+require "abstract"
+
+#
+# Nodo Astratto
+#   Gerarchia delle classi
+#
+#   AbsNode ha un nome, un parent
+#    |      definisce un path
+#    |
+#    |- LeafNode
+#    |
+#    |- TreeNode
+# 
+#
 class AbsNode
 
   attr_reader :parent
@@ -7,6 +23,7 @@ class AbsNode
     @parent = nil
     @name = name
     @path = nil
+    @depth = nil
   end
 
   def path
@@ -17,6 +34,20 @@ class AbsNode
       @path = File.join( @parent.path, @name )
     end
     @path
+  end
+  
+  def depth
+    return @depth unless @depth.nil?
+    if @parent.nil?
+      @depth = 1
+    else
+      @depth = @parent.depth + 1
+    end
+    @depth
+  end
+  
+  def accept( visitor )
+    not_implemented
   end
 
   protected
