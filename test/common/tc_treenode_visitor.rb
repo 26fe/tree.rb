@@ -9,24 +9,34 @@ require 'common/treenodevisitor.rb'
 
 class TestTreeNodeVisitor < Test::Unit::TestCase
 
-  def test_simple
+  def setup
+    ta = TreeNode.new( "a", nil )
+    LeafNode.new("1", ta )
+    LeafNode.new("2", ta )
+    
+    tb = TreeNode.new( "b", ta )
+    LeafNode.new( "3", tb ) 
+    
+    @tree = ta
+  end
 
-    #puts TreeNode.new( "a" ).convert( 0 )
-    #puts TreeNode.new( "a" ).convert( 1 )
-    #
-    ta = TreeNode.new( nil, "a" )
-    ta.add_leaf( LeafNode.new(ta, "1") )
-    ta.add_leaf( LeafNode.new(ta, "2") )
-    #
-    tb = TreeNode.new( ta, "b" )
-    tb.add_leaf( LeafNode.new( tb, "3" ) )
+  def test_blocktreenodevisitor
 
-    ta.add_child( tb )
-    # puts ta.to_s
-
-    visitor = PrintTreeNodeVisitor.new
-    ta.accept( visitor )
-
+    accumulator = []
+    visitor = BlockTreeNodeVisitor.new { |node| accumulator << node.name}
+    @tree.accept( visitor )
+    assert_equal( 5, accumulator.length )
+    assert_equal( %w{ a 1 2 b 3 }, accumulator )
+  end
+  
+  def test_depthtreenodevisitor
+    visitor = DepthTreeNodeVisitor.new
+    @tree.accept( visitor )
+    assert_equal( 0, visitor.depth )
+    
+    visitor = CloneTreeNodeVisitor.new
+    @tree.accept( visitor )
+    assert_equal(@tree.nr_nodes, visitor.clonedRoot.nr_nodes )
   end
 
 

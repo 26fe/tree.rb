@@ -17,12 +17,14 @@ class CliDirTree
 
     opts = OptionParser.new
     opts.banner = "Usage: example.rb [options]"
-
-    opts.on("-h", "--help", "Print this message") do
-      puts opts
-      return
-    end
-
+    
+    opts.separator ""
+    opts.separator "programma per testare la classe DirProcessor"
+    opts.separator "Inserire il nome della directory da cui costuire il tree"
+    
+    opts.separator ""
+    opts.separator "opzioni: "
+    
     opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
       options[:verbose] = v
     end
@@ -30,6 +32,12 @@ class CliDirTree
     opts.on("-q", "--quiet", "quiet mode as --no-verbose") do |v|
       options[:verbose] = false
     end
+    
+    opts.on("-h", "--help", "Show this message") do
+      puts opts
+      exit
+    end
+
 
     algos = %w[build visit]
     algo_aliases = { "b" => "build", "v" => "visit" }
@@ -45,9 +53,8 @@ class CliDirTree
     # p ARGV
 
     if rest.length < 1
-      puts "inserire il nome della directory da cui costuire il tree"
-      puts "-h to print help"
-      return
+      puts opts
+      return 1
     end
 
     dirname = rest[0]

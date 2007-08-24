@@ -1,11 +1,19 @@
-
+# common
 require "common/absnode"
 
+#
+# Deriva da AbsNode
+# 
+# definisce un metodo to_str
+#
+#
 class LeafNode < AbsNode
 
-  def initialize( parent, name )
+  def initialize( name, parent = nil )
     super( name )
-    parent.add_leaf( self )
+    if parent
+      parent.add_leaf( self ) 
+    end
   end
 
   def accept( visitor )
@@ -13,7 +21,7 @@ class LeafNode < AbsNode
   end
 
   def to_str
-    "item #@name"
+    name.to_str
   end
 
 end
