@@ -8,9 +8,12 @@ require "kwartz/main"
 #
 def compile( template_dir, template_include_dir, template_out_dir )
 
-  incs = Dir.new( template_include_dir ).find_all { |f| f =~ /\.html$/ }
-  incs = incs.map{ |f| File.join(template_include_dir, f) }.join(",")
-
+  incs = []
+  if File.directory?( template_include_dir ) 
+    incs = Dir.new( template_include_dir ).find_all { |f| f =~ /\.html$/ }
+    incs = incs.map{ |f| File.join(template_include_dir, f) }.join(",")
+  end
+  
   Dir.foreach( template_dir ) { |f|
     next unless f =~ /.html$/
     inpath = File.join(template_dir, f)
@@ -25,7 +28,7 @@ def compile( template_dir, template_include_dir, template_out_dir )
     end
     argv.push( inpath )
 
-    puts "kwarts " + argv.join(" ")
+    puts "kwartz " + argv.join(" ")
     main = Kwartz::Main.new(argv)
     output = main.execute()
     File.open(outpath, 'w') { |f| f.write(output) }
