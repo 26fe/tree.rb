@@ -23,6 +23,7 @@ class AbsNode
     @parent = nil
     @name = name
     @path = nil
+    @path_from_root = nil
     @depth = nil
   end
 
@@ -36,6 +37,16 @@ class AbsNode
     @path
   end
   
+  def path_from_root
+    return @path_from_root unless @path_from_root.nil?
+    if @parent.nil?
+      @path_from_root = "root"
+    else
+      @path_from_root = File.join( @parent.path_from_root, @name )
+    end
+    @path_from_root
+  end
+
   def depth
     return @depth unless @depth.nil?
     if @parent.nil?
