@@ -8,3 +8,4 @@ $:.unshift( File.join($COMMON_HOME, "test" ) )
 
 require "common/tc_treenode"
 require "common/tc_treenode_visitor"
+require "common/tc_dirtreewalker"

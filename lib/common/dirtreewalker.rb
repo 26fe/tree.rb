@@ -6,15 +6,10 @@ class DirTreeWalker
       raise "#{dirname} is not a directory!"
     end
 
-    @dirTreeVisitor = nil
+    @visitor = nil
     @ignore_dir_patterns = []
     @inspect_file_patterns = []
     @ignore_file_patterns = []
-  end
-
-  def run( dirTreeVisitor )
-    @dirTreeVisitor = dirTreeVisitor
-    process_directory( nil, File.expand_path( @dirname ) )
   end
 
   def add_ignore_dir( pattern )
@@ -63,17 +58,21 @@ class DirTreeWalker
     }
   end
 
+  def run( treeNodeVisitor )
+    @visitor = treeNodeVisitor
+    process_directory( File.expand_path( @dirname ) )
+  end
 
   private
 
   #
   # recurse on other directories
   #
-  def process_directory( parentNode, dirname )
-    return nil if ignore_dir?( dirname )
+  # def process_directory( parentNode, dirname )
+  def process_directory( dirname )
+    return if ignore_dir?( dirname )
 
-    # puts dirname
-    treeNode = @dirTreeVisitor.visit_dir( parentNode, dirname )
+    @visitor.enter_treeNode( dirname )
 
     Dir.entries( dirname ).each { |basename|
       next if basename == "." or basename == ".."
@@ -83,24 +82,18 @@ class DirTreeWalker
 
         # directory
         if ! ignore_dir?( basename )
-          ret = process_directory( treeNode, pathname )
-          if ! treeNode.nil? && ! ret.nil?
-            @dirTreeVisitor.visited_dir( treeNode, ret )
-          end
+          process_directory( pathname )
         end
 
       else
 
         # file
         if inspect_file?( basename ) && ! ignore_file?( basename )
-          ret = @dirTreeVisitor.visit_file( treeNode, pathname )
-          if ! treeNode.nil? && ! ret.nil?
-            @dirTreeVisitor.visited_file( treeNode, ret )
-          end
+          @visitor.visit_leafNode( pathname )
         end
 
       end
     }
-    treeNode
+    @visitor.exit_treeNode( dirname )
   end
 end

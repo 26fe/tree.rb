@@ -1,6 +1,9 @@
+# stdlib
 require 'optparse'
-require 'common/builddirtree_processor'
-require 'common/visitdirtree_processor'
+
+# common
+require 'common/dirtreewalker'
+require 'common/builddirtreevisitor'
 
 #
 #
@@ -62,18 +65,18 @@ class CliDirTree
 
     puts "reading : #{dirname}"
 
-    pdt =
-      case options[:algo]
-      when 'build' then BuildDirTreeProcessor.new( dirname )
-      when 'visit' then VisitDirTreeProcessor.new( dirname )
-      end
+    dtw = DirTreeWalker.new( dirname )
+    dtw.add_ignore_dir( ".svn" )
+    dtw.add_ignore_dir( "catalog_data" )
 
-    pdt.add_ignore_dir( ".svn" )
-    pdt.add_ignore_dir( "catalog_data" )
-    treeNode = pdt.run
-
-    if treeNode
-      puts treeNode.to_s()
+    case options[:algo]
+    when 'build'
+      visitor = BuildDirTreeVisitor.new
+      dtw.run( visitor )
+      puts visitor.root.to_str
+    when 'visit'  
+      visitor = PrintDirTreeVisitor.new
+      dtw.run( visitor )
     end
 
   end

@@ -8,6 +8,10 @@ class DirProcessor
     @default_processor = action
   end
 
+  def add_processor( re, &action )
+    @processors[ re ] = action
+  end
+
   def run()
     old_dirname = Dir.pwd
     Dir.chdir( @dirname )
@@ -19,10 +23,6 @@ class DirProcessor
     }
     Dir.chdir( old_dirname )
     self
-  end
-
-  def add_processor( re, &action )
-    @processors[ re ] = action
   end
 
   private
