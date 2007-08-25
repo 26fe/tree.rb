@@ -1,3 +1,6 @@
+# stdlib
+require 'md5'
+
 #
 # calcola md5 di file grandi, copiata da usenet
 #
