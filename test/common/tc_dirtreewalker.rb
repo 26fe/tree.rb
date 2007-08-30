@@ -14,6 +14,8 @@ class TestTreeNode < Test::Unit::TestCase
 
   def test_simple  
     dirTreeWalker = DirTreeWalker.new( $TEST_DATA )
+    dirTreeWalker.add_ignore_dir( ".svn" )
+
     accumulator = []
     visitor = BlockTreeNodeVisitor.new { |pathname| accumulator << File.basename( pathname ) }
     dirTreeWalker.run( visitor )
