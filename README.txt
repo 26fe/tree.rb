@@ -1,5 +1,22 @@
 
-utilizza la libreria abstract
+=== Dipendenze
+utilizza la libreria abstract di kwartz
+gui: dipende da fxruby e/o wxruby
+
+=== TODO
+
+* rendere consistente i nomi dei file
+  se un file contiene la casse OneTwoThree il file si deve chiamare one_two_three.rb
+
+* gui rendere consistenti i treeviewer
+  - stessi menu
+  - stesso look
+  - stesse icone
+
+=== Log
+
+* 2007 08 30
+  aggiunte le gui fxruby e wxruby (preliminari)
 
 * 2007 08 25
   cambiato il dirtreewalker in modo che utizzi gli stessi visitor del treenode
