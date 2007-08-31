@@ -3,7 +3,7 @@ require 'common/dir_tree_walker'
 require 'common/gui_wx/gui_wx_constants'
 require 'common/gui_wx/gui_wx_dir_tree_visitor'
 
-class MyTreeCtrl < Wx::TreeCtrl
+class WxTreeCtrl < Wx::TreeCtrl
   
   def initialize(parent, id,pos, size,style)
     super(parent, id, pos, size, style)
