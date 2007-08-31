@@ -1,5 +1,5 @@
 
-class MyFrame < Wx::Frame
+class WxTreeNodeViewerFrame < Wx::Frame
   
   def initialize(title, x, y, w, h)
     super(nil, -1, title, Wx::Point.new(x, y), Wx::Size.new(w, h))
@@ -63,7 +63,7 @@ class MyFrame < Wx::Frame
     style = Wx::TR_DEFAULT_STYLE|Wx::TR_EDIT_LABELS|
             Wx::TR_TWIST_BUTTONS|Wx::TR_ROW_LINES|Wx::TR_FULL_ROW_HIGHLIGHT|Wx::SUNKEN_BORDER
 
-    @treectrl = MyTreeCtrl.new(self, TreeTest_Ctrl,
+    @treectrl = WxTreeCtrl.new(self, TreeTest_Ctrl,
                                Wx::DEFAULT_POSITION, Wx::DEFAULT_SIZE,
                                style)
   end
