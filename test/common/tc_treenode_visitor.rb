@@ -4,8 +4,8 @@ $COMMON_HOME = File.expand_path( File.join( File.dirname( __FILE__), "..", ".." 
 $:.unshift( File.join($COMMON_HOME, "lib" ) )
 $:.unshift( File.join($COMMON_HOME, "test" ) )
 
-require 'common/treenode.rb'
-require 'common/treenodevisitor.rb'
+require 'common/tree_node.rb'
+require 'common/tree_node_visitor.rb'
 
 class TestTreeNodeVisitor < Test::Unit::TestCase
 

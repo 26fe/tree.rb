@@ -7,8 +7,8 @@ $:.unshift( File.join($COMMON_HOME, "lib" ) )
 $:.unshift( File.join($COMMON_HOME, "test" ) )
 $TEST_DATA = File.join( $COMMON_HOME, "test", "common", "test_data" )
 
-require 'common/dirtreewalker.rb'
-require 'common/treenodevisitor.rb'
+require 'common/dir_tree_walker.rb'
+require 'common/tree_node_visitor.rb'
 
 class TestTreeNode < Test::Unit::TestCase
 

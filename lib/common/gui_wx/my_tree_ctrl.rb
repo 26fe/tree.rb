@@ -1,14 +1,24 @@
+# common
+require 'common/dir_tree_walker'
+require 'common/gui_wx/gui_wx_constants'
+require 'common/gui_wx/gui_wx_dir_tree_visitor'
+
 class MyTreeCtrl < Wx::TreeCtrl
   
   def initialize(parent, id,pos, size,style)
     super(parent, id, pos, size, style)
 
-    @reverse_sort = false
-
     create_image_list
 
     # add some items to the tree
-    add_test_items_to_tree(5, 2)
+    # add_test_items_to_tree(5, 2)
+    
+    
+    image = TreeCtrlIcon_Folder
+    root_id = add_root("Root",image, image)
+    set_item_image(root_id, TreeCtrlIcon_FolderOpened, Wx::TREE_ITEM_ICON_EXPANDED)
+    # add_items_recursively(root_id, num_children, depth, 0)
+    makeTree(".", root_id)
   end
 
   def show_info(id)
@@ -85,67 +95,6 @@ class MyTreeCtrl < Wx::TreeCtrl
     end
   end
 
-  def add_items_recursively(parent_id, num_children, depth, folder)
-    if depth > 0
-      has_children = depth > 1
-
-      for n in 0 ... num_children
-        # at depth 1 elements won't have any more children
-        if has_children
-          str = sprintf("%s child %d", "Folder", n + 1)
-        else
-          str = sprintf("%s child %d.%d", "File", folder, n + 1)
-        end
-        # here we pass to append_item() normal and selected item images (we
-        # suppose that selected image follows the normal one in the enum)
-        image = depth == 1 ? TreeCtrlIcon_File : TreeCtrlIcon_Folder
-        imageSel = image + 1
-        id = append_item(parent_id, str, image, imageSel)
-
-        # and now we also set the expanded one (only for the folders)
-        if has_children 
-          set_item_image(id, TreeCtrlIcon_FolderOpened,
-                         Wx::TREE_ITEM_ICON_EXPANDED)
-        end
-
-        # remember the last child for OnEnsureVisible()
-        if ! has_children && n == num_children - 1
-          @last_item = id
-        end
-
-        add_items_recursively(id, num_children, depth - 1, n + 1)
-      end
-    end
-  end
-
-  def add_test_items_to_tree(num_children,depth)
-    image = TreeCtrlIcon_Folder
-    root_id = add_root("Root",image, image)
-    if image != -1
-      set_item_image(root_id, TreeCtrlIcon_FolderOpened, 
-                      Wx::TREE_ITEM_ICON_EXPANDED)
-    end
-
-    add_items_recursively(root_id, num_children, depth, 0)
-
-    # set some colours/fonts for testing
-    # note that font sizes can also be varied, but only on platforms
-    # that use the generic TreeCtrl - OS X and GTK, and only if
-    # Wx::TR_HAS_VARIABLE_ROW_HEIGHT style was used in the constructor
-    font = get_font
-    font.set_style(Wx::FONTSTYLE_ITALIC)
-    set_item_font(root_id, font)
-
-    id,cookie = get_first_child(root_id)
-    set_item_text_colour(id, Wx::BLUE)
-
-    id,cookie = get_next_child(root_id,cookie)
-    id,cookie = get_next_child(root_id,cookie)
-    if Wx::PLATFORM == "WXMSW"
-      set_item_text_colour(id, Wx::RED)      
-      set_item_background_colour(id, Wx::LIGHT_GREY)
-    end
-  end
 
 
   def do_toggle_icon(item)
@@ -201,5 +150,71 @@ class MyTreeCtrl < Wx::TreeCtrl
     menu.append(TreeTest_Dump, "&Dump")
     popup_menu(menu, pos)
   end
+
+  #
+  #
+  #
+  
+  def makeTree( dirname, root_id )
+    dirname = File.expand_path( dirname )
+    
+    # Wx::log_message "reading : #{dirname}"
+
+    dtw = DirTreeWalker.new( dirname )
+    dtw.add_ignore_dir( ".svn" )
+    dtw.add_ignore_dir( "catalog_data" )
+    visitor = GuiWxDirTreeVisitor.new( self, root_id,
+              TreeCtrlIcon_FolderOpened,
+              TreeCtrlIcon_Folder, TreeCtrlIcon_Folder + 1, 
+              TreeCtrlIcon_File, TreeCtrlIcon_File + 1 )
+    dtw.run( visitor )
+  end
+
+
+#  def add_test_items_to_tree(num_children,depth)
+#    image = TreeCtrlIcon_Folder
+#    
+#    root_id = add_root("Root",image, image)
+#
+#    set_item_image(root_id, TreeCtrlIcon_FolderOpened, 
+#                    Wx::TREE_ITEM_ICON_EXPANDED)
+#
+#    # add_items_recursively(root_id, num_children, depth, 0)
+#    makeTree(".")
+#
+#  end
+#
+#  def add_items_recursively(parent_id, num_children, depth, folder)
+#    if depth > 0
+#      has_children = depth > 1
+#
+#      for n in 0 ... num_children
+#        # at depth 1 elements won't have any more children
+#        if has_children
+#          str = sprintf("%s child %d", "Folder", n + 1)
+#        else
+#          str = sprintf("%s child %d.%d", "File", folder, n + 1)
+#        end
+#        # here we pass to append_item() normal and selected item images (we
+#        # suppose that selected image follows the normal one in the enum)
+#        image = depth == 1 ? TreeCtrlIcon_File : TreeCtrlIcon_Folder
+#        imageSel = image + 1
+#        id = append_item(parent_id, str, image, imageSel)
+#
+#        # and now we also set the expanded one (only for the folders)
+#        if has_children 
+#          set_item_image(id, TreeCtrlIcon_FolderOpened,
+#                         Wx::TREE_ITEM_ICON_EXPANDED)
+#        end
+#
+#        # remember the last child for OnEnsureVisible()
+#        if ! has_children && n == num_children - 1
+#          @last_item = id
+#        end
+#
+#        add_items_recursively(id, num_children, depth - 1, n + 1)
+#      end
+#    end
+#  end
 
 end

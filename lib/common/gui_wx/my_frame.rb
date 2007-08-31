@@ -1,4 +1,3 @@
-DIALOGS_DIR_CHOOSE = 100
 
 class MyFrame < Wx::Frame
   
@@ -24,26 +23,24 @@ class MyFrame < Wx::Frame
     menu_bar.append(file_menu, "&File")
     set_menu_bar(menu_bar)
 
-    # create the controls
-    @textctrl = Wx::TextCtrl.new(self, -1, "",
-                             Wx::DEFAULT_POSITION, Wx::DEFAULT_SIZE,
-                             Wx::TE_MULTILINE|Wx::SUNKEN_BORDER)
-
-    create_tree_with_default_style()
-
-    # create a status bar with 3 panes
-    create_status_bar(3)
-    set_status_text("", 0)
-
-    # set our text control as the log target
-    logWindow = Wx::LogTextCtrl.new(@textctrl)
-    Wx::Log::set_active_target(logWindow)
-
-
     evt_menu(Wx::ID_EXIT) {|event| on_quit(event) }
     evt_menu(Wx::ID_ABOUT) {|event| on_about(event) }
     evt_menu(DIALOGS_DIR_CHOOSE) {|event| on_dir_choose(event) }
 
+
+
+    create_tree
+
+    # set our text control as the log target
+    # create the controls
+    @textctrl = Wx::TextCtrl.new(self, -1, "",
+                             Wx::DEFAULT_POSITION, Wx::DEFAULT_SIZE,
+                             Wx::TE_MULTILINE|Wx::SUNKEN_BORDER)
+    logWindow = Wx::LogTextCtrl.new(@textctrl)
+    Wx::Log::set_active_target(logWindow)
+
+
+    resize()
     evt_size {|event| on_size(event) }
     evt_close {|event| on_close(event) }
   end
@@ -55,25 +52,20 @@ class MyFrame < Wx::Frame
 
     dialog = Wx::DirDialog.new(self, "Testing directory picker", dir_home)
 
-    if dialog.show_modal() == ID_OK
-      # log_message("Selected path: %s", dialog.get_path())
+    if dialog.show_modal() == Wx::ID_OK
+      Wx::log_message("Selected path: %s", dialog.get_path())
     end
   end
   
 
-  def create_tree_with_default_style()
+  def create_tree
 
     style = Wx::TR_DEFAULT_STYLE|Wx::TR_EDIT_LABELS|
-            Wx::TR_TWIST_BUTTONS|Wx::TR_ROW_LINES|Wx::TR_FULL_ROW_HIGHLIGHT
+            Wx::TR_TWIST_BUTTONS|Wx::TR_ROW_LINES|Wx::TR_FULL_ROW_HIGHLIGHT|Wx::SUNKEN_BORDER
 
-    create_tree(style|Wx::SUNKEN_BORDER)
-  end
-
-  def create_tree(style)
     @treectrl = MyTreeCtrl.new(self, TreeTest_Ctrl,
                                Wx::DEFAULT_POSITION, Wx::DEFAULT_SIZE,
                                style)
-    resize()
   end
 
 
