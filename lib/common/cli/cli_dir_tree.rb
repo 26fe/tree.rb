@@ -2,8 +2,8 @@
 require 'optparse'
 
 # common
-require 'common/dirtreewalker'
-require 'common/builddirtreevisitor'
+require 'common/dir_tree_walker'
+require 'common/build_dir_tree_visitor'
 
 #
 #

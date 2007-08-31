@@ -1,7 +1,7 @@
 # common
-require 'common/treenode'
-require 'common/dirtreewalker'
-require 'common/treenodevisitor'
+require 'common/tree_node'
+require 'common/dir_tree_walker'
+require 'common/tree_node_visitor'
 
 #
 # costruisce una albero TreeNode a partire dalla struttura

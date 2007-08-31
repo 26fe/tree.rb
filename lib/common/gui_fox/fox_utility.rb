@@ -1,4 +1,4 @@
-class Utility
+class FoxUtility
   
   def self.makeIcon(app, filename)
     filename = File.join($COMMON_HOME, "lib", "common", "gui_fox", "icons", filename)

@@ -1,20 +1,20 @@
 # common
-require 'common/dirtreewalker'
-require 'common/builddirtreevisitor'
+require 'common/dir_tree_walker'
+require 'common/build_dir_tree_visitor'
 
-require 'common/gui_fox/utility'
-require 'common/gui_fox/gui_dir_tree_visitor'
+require 'common/gui_fox/fox_utility'
+require 'common/gui_fox/fox_dir_tree_visitor'
 
-class TreeNodeViewer  < FXMainWindow
+class FoxTreeNodeViewer  < FXMainWindow
   
   def initialize(app)
     # Do base class initialize first
     super(app, "Splitter Test", :opts => DECOR_ALL, :width => 800, :height => 600)
 
     # Construct some icons we'll use
-    @folder_open   = Utility.makeIcon(getApp(), "minifolderopen.png")
-    @folder_closed = Utility.makeIcon(getApp(), "minifolder.png")
-    @doc           = Utility.makeIcon(getApp(), "minidoc.png")
+    @folder_open   = FoxUtility.makeIcon(getApp(), "minifolderopen.png")
+    @folder_closed = FoxUtility.makeIcon(getApp(), "minifolder.png")
+    @doc           = FoxUtility.makeIcon(getApp(), "minidoc.png")
 
     makeMenu()
     # Main window interior
@@ -86,7 +86,7 @@ class TreeNodeViewer  < FXMainWindow
     dtw = DirTreeWalker.new( dirname )
     dtw.add_ignore_dir( ".svn" )
     dtw.add_ignore_dir( "catalog_data" )
-    visitor = GuiDirTreeVisitor.new( @guitree, @folder_open, @folder_closed, @doc )
+    visitor = FoxDirTreeVisitor.new( @guitree, @folder_open, @folder_closed, @doc )
     dtw.run( visitor )
   end
    

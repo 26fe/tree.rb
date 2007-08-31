@@ -8,7 +8,7 @@ $:.unshift( File.join($COMMON_HOME, "test" ) )
 
 require 'common/tree_node.rb'
 
-class TestTreeNode < Test::Unit::TestCase
+class TCTreeNode < Test::Unit::TestCase
 
   def test_simple_build
     ta = TreeNode.new( "a" )

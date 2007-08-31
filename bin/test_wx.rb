@@ -35,7 +35,7 @@ class MyApp < Wx::App
     Wx::StaticText.new(p2, -1, "Panel Two", Wx::Point.new(5,5)).set_background_colour(Wx::BLUE)
     
     splitter.set_minimum_pane_size(20)
-    splitter.split_vertically(p1, p2, 100)
+    splitter.split_vertically(p1, p2, -50)
 
     frame.show(true)
   end

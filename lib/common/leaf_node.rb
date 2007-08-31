@@ -1,5 +1,5 @@
 # common
-require "common/absnode"
+require "common/abs_node"
 
 #
 # Deriva da AbsNode
