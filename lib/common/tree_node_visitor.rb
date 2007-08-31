@@ -48,7 +48,7 @@ end
 # Utilizzo della classa astratta DirTreeProcessor
 # per stampare i nodi di un TreeNode
 #
-class PrintTreeNodeVisitor < TreeNodeVisitor
+class FlatPrintTreeNodeVisitor < TreeNodeVisitor
 
   def enter_treeNode( treeNode )
     puts treeNode.name
@@ -62,6 +62,44 @@ class PrintTreeNodeVisitor < TreeNodeVisitor
   end
 
 end
+
+
+class PrintTreeNodeVisitor < TreeNodeVisitor
+
+  def initialize( *args )
+    super( *args )
+    @depth = 0
+  end
+
+  def visit_leafNode( leafNode )
+    str = ""
+    (0...@depth-1).step {
+      str << " |-"
+    }
+    str << " |  "
+    puts str + leafNode.name
+  end
+
+  def enter_treeNode( treeNode )
+
+    str = ""
+    (0...@depth).step {
+      str << " |-"
+    }
+
+    if @depth == 0
+      puts str + treeNode.name
+    else
+      puts str + treeNode.name
+    end
+    @depth += 1
+  end
+
+  def exit_treeNode( treeNode )
+    @depth -= 1
+  end
+end
+
 
 #
 #
