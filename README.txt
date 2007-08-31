@@ -5,8 +5,6 @@ gui: dipende da fxruby e/o wxruby
 
 === TODO
 
-* rendere consistente i nomi dei file
-  se un file contiene la casse OneTwoThree il file si deve chiamare one_two_three.rb
 
 * gui rendere consistenti i treeviewer
   - stessi menu
@@ -14,6 +12,10 @@ gui: dipende da fxruby e/o wxruby
   - stesse icone
 
 === Log
+
+* 2007 08 31
+  rinominati molti file per renderli consistenti
+  se un file contiene la casse OneTwoThree il file si deve chiamare one_two_three.rb
 
 * 2007 08 30
   aggiunte le gui fxruby e wxruby (preliminari)

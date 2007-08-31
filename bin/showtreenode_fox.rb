@@ -9,9 +9,9 @@ include Fox
 $COMMON_HOME = File.expand_path( File.join( File.dirname( __FILE__), ".." ) )
 $:.unshift( File.join($COMMON_HOME, "lib" ) )
 
-require 'common/gui_fox/tree_node_viewer'
+require 'common/gui_fox/fox_tree_node_viewer'
 
 application = FXApp.new("Splitter", "FoxTest")
-TreeNodeViewer.new(application)
+FoxTreeNodeViewer.new(application)
 application.create
 application.run

@@ -1,5 +1,5 @@
 # common
-require 'common/leafnode'
+require 'common/leaf_node'
 
 #
 # Un treeNode e' come un AbsNode

@@ -10,7 +10,7 @@ $TEST_DATA = File.join( $COMMON_HOME, "test", "common", "test_data" )
 require 'common/dir_tree_walker.rb'
 require 'common/tree_node_visitor.rb'
 
-class TestTreeNode < Test::Unit::TestCase
+class TCDirTreeWalker < Test::Unit::TestCase
 
   def test_simple  
     dirTreeWalker = DirTreeWalker.new( $TEST_DATA )

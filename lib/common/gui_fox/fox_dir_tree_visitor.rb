@@ -1,12 +1,12 @@
 # common
-require 'common/treenodevisitor'
+require 'common/tree_node_visitor'
 
 #
 # costruisce una albero TreeNode a partire dalla struttura
 # della directory, simile a clona
 # Clona un TreeNode
 #
-class GuiFoxDirTreeVisitor < TreeNodeVisitor
+class FoxDirTreeVisitor < TreeNodeVisitor
       
   def initialize( guitree, folder_open, folder_closed, doc )
     super()

@@ -6,7 +6,7 @@ $:.unshift( File.join($COMMON_HOME, "test" ) )
 
 require 'common/dir_processor'
 
-class TestDirProcessor < Test::Unit::TestCase
+class TCDirProcessor < Test::Unit::TestCase
   def test_simple
     dp = DirProcessor.new($TEST_GALLERIES) { |f| puts f }
     dp.run

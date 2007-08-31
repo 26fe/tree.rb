@@ -7,7 +7,7 @@ $:.unshift( File.join($COMMON_HOME, "test" ) )
 require 'common/tree_node.rb'
 require 'common/tree_node_visitor.rb'
 
-class TestTreeNodeVisitor < Test::Unit::TestCase
+class TCTreeNodeVisitor < Test::Unit::TestCase
 
   def setup
     ta = TreeNode.new( "a", nil )

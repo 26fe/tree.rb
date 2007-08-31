@@ -6,7 +6,7 @@ $:.unshift( File.join($COMMON_HOME, "test" ) )
 
 require 'common/dirtreeprocessor'
 
-class TestDirTreeProcessor < Test::Unit::TestCase
+class TCDirTreeProcessor < Test::Unit::TestCase
 
   def test_ignore_dir
     dtp = DirTreeProcessor.new( "." )
