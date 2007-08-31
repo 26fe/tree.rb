@@ -90,50 +90,6 @@ class TreeNodeViewer  < FXMainWindow
     dtw.run( visitor )
   end
    
-#  def makeTree( tree )
-#      topmost = tree.appendItem(nil, "Top", @folder_open, @folder_closed)
-#    tree.expandTree(topmost)
-#      tree.appendItem(topmost, "First", @doc, @doc)
-#      tree.appendItem(topmost, "Second", @doc, @doc)
-#      tree.appendItem(topmost, "Third", @doc, @doc)
-#      branch = tree.appendItem(topmost, "Fourth", @folder_open, @folder_closed)
-#      tree.expandTree(branch)
-#        tree.appendItem(branch, "Fourth-First", @doc, @doc)
-#        tree.appendItem(branch, "Fourth-Second", @doc, @doc)
-#        twig = tree.appendItem(branch, "Fourth-Third",
-#                                @folder_open, @folder_closed)
-#          tree.appendItem(twig, "Fourth-Third-First", @doc, @doc)
-#          tree.appendItem(twig, "Fourth-Third-Second", @doc, @doc)
-#          tree.appendItem(twig, "Fourth-Third-Third", @doc, @doc)
-#          leaf = tree.appendItem(twig, "Fourth-Third-Fourth",
-#                                  @folder_open, @folder_closed)
-#          leaf.setEnabled(false)
-#            tree.appendItem(leaf, "Fourth-Third-Fourth-First", @doc, @doc)
-#            tree.appendItem(leaf, "Fourth-Third-Fourth-Second", @doc, @doc)
-#            tree.appendItem(leaf, "Fourth-Third-Fourth-Third", @doc, @doc)
-#        twig = tree.appendItem(branch, "Fourth-Fourth",
-#                                @folder_open, @folder_closed)
-#          tree.appendItem(twig, "Fourth-Fourth-First", @doc, @doc)
-#          tree.appendItem(twig, "Fourth-Fourth-Second", @doc, @doc)
-#          tree.appendItem(twig, "Fourth-Fourth-Third", @doc, @doc)
-#          0.upto(9) { |i| tree.appendItem(twig, i.to_s, @doc, @doc) }
-#        twig = tree.appendItem(branch, "Fourth-Fifth",
-#                                @folder_open, @folder_closed)
-#        tree.expandTree(twig)
-#          tree.appendItem(twig, "Fourth-Fifth-First", @doc, @doc)
-#          tree.appendItem(twig, "Fourth-Fifth-Second", @doc, @doc)
-#          tree.appendItem(twig, "Fourth-Fifth-Third", @doc, @doc)
-#          0.upto(9) { |i| tree.appendItem(twig, i.to_s, @doc, @doc) }
-#      tree.appendItem(topmost, "Fifth", @doc, @doc)
-#      tree.appendItem(topmost, "Sixth", @doc, @doc)
-#      branch = tree.appendItem(topmost, "Seventh", @folder_open, @folder_closed)
-#        tree.appendItem(branch, "Seventh-First", @doc, @doc)
-#        tree.appendItem(branch, "Seventh-Second", @doc, @doc)
-#        tree.appendItem(branch, "Seventh-Third", @doc, @doc)
-#      tree.appendItem(topmost, "Eighth", @doc, @doc)
-#
-#  end
-
   def create
     super
     show(PLACEMENT_SCREEN)

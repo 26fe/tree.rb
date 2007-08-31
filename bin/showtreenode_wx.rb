@@ -9,14 +9,6 @@ $:.unshift( File.join($COMMON_HOME, "lib" ) )
 require 'common/gui_wx/my_tree_ctrl'
 require 'common/gui_wx/my_frame'
 
-TreeTest_Ctrl = 1000
-
-TreeCtrlIcon_File,
-TreeCtrlIcon_FileSelected,
-TreeCtrlIcon_Folder,
-TreeCtrlIcon_FolderSelected,
-TreeCtrlIcon_FolderOpened = 0,1,2,3,4
-
 class MyApp < Wx::App
   def initialize
     super

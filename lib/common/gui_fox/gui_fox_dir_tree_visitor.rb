@@ -6,7 +6,7 @@ require 'common/treenodevisitor'
 # della directory, simile a clona
 # Clona un TreeNode
 #
-class GuiDirTreeVisitor < TreeNodeVisitor
+class GuiFoxDirTreeVisitor < TreeNodeVisitor
       
   def initialize( guitree, folder_open, folder_closed, doc )
     super()
