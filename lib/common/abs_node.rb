@@ -18,6 +18,10 @@ class AbsNode
 
   attr_reader :parent
   attr_reader :name
+  
+  # solo TreeNode puo' scrivere vedi funzione add_leaf
+  attr_accessor :prev
+  attr_accessor :next
 
   def initialize( name )
     @parent = nil

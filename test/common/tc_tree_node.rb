@@ -50,5 +50,20 @@ class TCTreeNode < Test::Unit::TestCase
     ta.add_child( tb )
     # puts ta.to_str
   end
+  
+  def test_next_prev
+    ta = TreeNode.new( "a" )
+    
+    ln1 = LeafNode.new("1", ta)
+    assert_nil( ln1.next )
+    assert_nil( ln1.prev )
+    
+    ln2 = LeafNode.new("2", ta)
+    assert_equal( ln1, ln2.prev )
+    assert_nil( ln2.next )
+    
+    ln3 = LeafNode.new("3", ta)
+    assert_equal( ln3, ln2.next )
+  end
 
 end
