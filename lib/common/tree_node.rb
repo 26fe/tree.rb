@@ -10,6 +10,8 @@ require 'common/leaf_node'
 #          @leaves -1---n-> LeafNode
 #
 class TreeNode < AbsNode
+  
+  attr_reader :leaves
 
   def initialize( name, parent = nil )
     super( name )
