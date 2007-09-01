@@ -20,10 +20,6 @@ class LeafNode < AbsNode
     visitor.visit_leafNode( self )
   end
 
-  # def basename
-  #   File.basename( @name )
-  # end
-
   def to_str
     name.to_str
   end

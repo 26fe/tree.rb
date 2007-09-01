@@ -35,6 +35,11 @@ class TreeNode < AbsNode
       leaf.remove_from_parent()
     end  
     leaf.parent = self
+    if @leaves.length > 0
+      @leaves.last.next = leaf
+      leaf.prev = @leaves.last
+      leaf.next = nil
+    end
     @leaves << leaf
   end
 
