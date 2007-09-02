@@ -31,6 +31,14 @@ class TreeNode < AbsNode
     @childs.inject( nr ) { |nr,c| nr + c.nr_nodes }
   end
   
+  def nr_leaves
+    @leaves.length + @childs.inject(0) { |sum, child| sum + child.nr_leaves }
+  end
+
+  def nr_childs
+    @childs.length + @childs.inject(0) { |sum, child| sum + child.nr_childs }
+  end
+        
   def add_leaf( leaf )
     return if leaf.parent == self
     if not leaf.parent.nil?
