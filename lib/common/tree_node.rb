@@ -12,6 +12,7 @@ require 'common/leaf_node'
 class TreeNode < AbsNode
   
   attr_reader :leaves
+  attr_reader :childs
 
   def initialize( name, parent = nil )
     super( name )
