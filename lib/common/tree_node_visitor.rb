@@ -77,7 +77,7 @@ class PrintTreeNodeVisitor < TreeNodeVisitor
       str << " |-"
     }
     str << " |  "
-    puts str + leafNode.name
+    puts str + leafNode.name.to_s
   end
 
   def enter_treeNode( treeNode )
@@ -88,9 +88,9 @@ class PrintTreeNodeVisitor < TreeNodeVisitor
     }
 
     if @depth == 0
-      puts str + treeNode.name
+      puts str + treeNode.name.to_s
     else
-      puts str + treeNode.name
+      puts str + treeNode.name.to_s
     end
     @depth += 1
   end
