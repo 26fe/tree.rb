@@ -65,5 +65,22 @@ class TCTreeNode < Test::Unit::TestCase
     ln3 = LeafNode.new("3", ta)
     assert_equal( ln3, ln2.next )
   end
+  
+  def test_nr_methods
+    ta = TreeNode.new( "a" )
+      ln1 = LeafNode.new("1", ta)
+      ln2 = LeafNode.new("2", ta)
+      tb = TreeNode.new( "b", ta )
+        ln3 = LeafNode.new( "3", tb )
+    
+    assert_equal( 4, ta.nr_nodes )
+    assert_equal( 3, ta.nr_leaves )
+    assert_equal( 1, ta.nr_childs )
+    
+    assert_equal( 1, tb.nr_nodes )
+    assert_equal( 1, tb.nr_leaves )
+    assert_equal( 0, tb.nr_childs )
+    
+  end
 
 end
