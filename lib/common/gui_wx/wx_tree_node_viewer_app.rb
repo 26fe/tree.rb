@@ -50,7 +50,7 @@ class WxTreeNodeViewerApp < Wx::App
 
     menu_bar = Wx::MenuBar.new
     menu_bar.append(file_menu, "&File")
-    @frame.set_menu_bar(menu_bar)
+    frame.set_menu_bar(menu_bar)
 
     evt_menu(Wx::ID_EXIT) {|event| on_quit(event) }
     evt_menu(Wx::ID_ABOUT) {|event| on_about(event) }
