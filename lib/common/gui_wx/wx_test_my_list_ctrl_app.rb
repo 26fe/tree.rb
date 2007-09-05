@@ -59,7 +59,7 @@ class WXTestListCtrlApp < Wx::App
   
   end
 
-  def tog_style(id,flag)
+  def tog_style(id, flag)
 
     style = @listCtrl.get_window_style_flag() ^ flag
 

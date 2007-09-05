@@ -1,4 +1,5 @@
 class WXMyListCtrl < Wx::ListCtrl
+
     def initialize(parent, log)
       
         super(parent, -1, 
@@ -35,14 +36,20 @@ class WXMyListCtrl < Wx::ListCtrl
     end
 
     def addItems
-      listItem = Wx::ListItem.new
-      listItem.set_id( 0 )
-      listItem.set_text( "prova" )
-      listItem.set_image( @idx1 )
-      # listItem.set_column(0, "prova")
-      insert_item(listItem)
+      (0..100).step { |i|
+        listItem = Wx::ListItem.new
+        listItem.set_id( i )
+        listItem.set_text( "prova " + i.to_s )
+        listItem.set_image( @idx1 )
+        # listItem.set_column(0, "prova")
+        insert_item(listItem)
+      }
     end
-        
+   
+    #
+    # Eventi
+    #
+
     def on_item_selected(event)
         @currentItem = event.get_index()
         @item = event.get_item()
