@@ -159,3 +159,44 @@ class CloneTreeNodeVisitor < TreeNodeVisitor
   end
 
 end
+
+#
+# CallbackTreeNodeVisitor
+#
+class CallbackTreeNodeVisitor < TreeNodeVisitor
+  
+  def initialize
+    super()
+    @root = nil
+    @stack = []
+  end
+  
+  def onEnterTreeNode( &action )
+    @action_enterTreeNode = action
+  end
+  
+  def onVisitLeafNode( &action )
+    @action_visitLeafNode = action
+  end
+
+  def enter_treeNode( treeNode )
+    parentNode = if @stack.empty? 
+                   nil
+                 else
+                   @stack.last
+                 end
+    @root = treeNode if @stack.empty?
+    @stack.push( treeNode ) 
+    @action_enterTreeNode.call( treeNode )
+  end
+
+  def exit_treeNode( treeNode )
+    @stack.pop
+  end
+
+  def visit_leafNode( leafNode )
+    @action_visitLeafNode.call( leafNode )
+  end
+    
+end  
+  
