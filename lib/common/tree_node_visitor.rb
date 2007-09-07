@@ -187,7 +187,7 @@ class CallbackTreeNodeVisitor < TreeNodeVisitor
                  end
     @root = treeNode if @stack.empty?
     @stack.push( treeNode ) 
-    @action_enterTreeNode.call( treeNode, parentNode )
+    @action_enterTreeNode.call( treeNode )
   end
 
   def exit_treeNode( treeNode )
@@ -196,7 +196,51 @@ class CallbackTreeNodeVisitor < TreeNodeVisitor
 
   def visit_leafNode( leafNode )
     parentNode = @stack.last
-    @action_visitLeafNode.call( leafNode, parentNode )
+    @action_visitLeafNode.call( leafNode )
+  end
+    
+end  
+  
+
+#
+# CallbackTreeNodeVisitor
+#
+class CallbackTreeNodeVisitor2 < TreeNodeVisitor
+  
+  attr_reader :root
+  
+  def initialize
+    super()
+    @root = nil
+    @stack = []
+  end
+  
+  def onEnterTreeNode( &action )
+    @action_enterTreeNode = action
+  end
+  
+  def onVisitLeafNode( &action )
+    @action_visitLeafNode = action
+  end
+
+  def enter_treeNode( treeNode )
+    newParentNode = if @stack.empty? 
+                      nil
+                    else
+                      @stack.last
+                    end
+    newTreeNode = @action_enterTreeNode.call( treeNode, newParentNode )
+    @root = newTreeNode if @stack.empty?
+    @stack.push( newTreeNode ) 
+  end
+
+  def exit_treeNode( treeNode )
+    @stack.pop
+  end
+
+  def visit_leafNode( leafNode )
+    newParentNode = @stack.last
+    @action_visitLeafNode.call( leafNode, newParentNode )
   end
     
 end  
