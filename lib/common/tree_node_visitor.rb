@@ -187,7 +187,7 @@ class CallbackTreeNodeVisitor < TreeNodeVisitor
                  end
     @root = treeNode if @stack.empty?
     @stack.push( treeNode ) 
-    @action_enterTreeNode.call( treeNode )
+    @action_enterTreeNode.call( treeNode, parentNode )
   end
 
   def exit_treeNode( treeNode )
@@ -195,7 +195,8 @@ class CallbackTreeNodeVisitor < TreeNodeVisitor
   end
 
   def visit_leafNode( leafNode )
-    @action_visitLeafNode.call( leafNode )
+    parentNode = @stack.last
+    @action_visitLeafNode.call( leafNode, parentNode )
   end
     
 end  

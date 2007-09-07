@@ -41,8 +41,8 @@ class TCTreeNodeVisitor < Test::Unit::TestCase
   def test_callback_tree_node_visitor
     accumulator = []
     visitor = CallbackTreeNodeVisitor.new
-    visitor.onEnterTreeNode{ |treeNode| accumulator << treeNode.name }
-    visitor.onVisitLeafNode{ |leafNode| accumulator << leafNode.name }
+    visitor.onEnterTreeNode{ |treeNode, parentNode| accumulator << treeNode.name }
+    visitor.onVisitLeafNode{ |leafNode, parentNode| accumulator << leafNode.name }
     @tree.accept( visitor )
     assert_equal( 5, accumulator.length )
     assert_equal( %w{ a 1 2 b 3 }, accumulator )
