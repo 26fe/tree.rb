@@ -6,6 +6,7 @@ require "kwartz/main"
 #
 # kwartz utility
 #
+# TODO: compilare i file controllando le date
 def compile( template_dir, template_include_dir, template_out_dir )
 
   incs = []
