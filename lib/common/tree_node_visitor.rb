@@ -165,10 +165,13 @@ end
 #
 class CallbackTreeNodeVisitor < TreeNodeVisitor
   
-  def initialize
+  def initialize( root = nil )
     super()
-    @root = nil
     @stack = []
+    @root = root
+    @stack.push( root ) if root
+    @action_enterTreeNode = nil
+    @action_visitLeafNode = nil
   end
   
   def onEnterTreeNode( &action )
@@ -187,7 +190,7 @@ class CallbackTreeNodeVisitor < TreeNodeVisitor
                  end
     @root = treeNode if @stack.empty?
     @stack.push( treeNode ) 
-    @action_enterTreeNode.call( treeNode )
+    @action_enterTreeNode.call( treeNode ) if @action_enterTreeNode
   end
 
   def exit_treeNode( treeNode )
@@ -196,7 +199,7 @@ class CallbackTreeNodeVisitor < TreeNodeVisitor
 
   def visit_leafNode( leafNode )
     parentNode = @stack.last
-    @action_visitLeafNode.call( leafNode )
+    @action_visitLeafNode.call( leafNode ) if @action_visitLeafNode
   end
     
 end  
@@ -209,10 +212,11 @@ class CallbackTreeNodeVisitor2 < TreeNodeVisitor
   
   attr_reader :root
   
-  def initialize
+  def initialize( root = nil )
     super()
-    @root = nil
     @stack = []
+    @root = root
+    @stack.push( root ) if root
   end
   
   def onEnterTreeNode( &action )
