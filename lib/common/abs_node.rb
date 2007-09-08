@@ -26,15 +26,27 @@ class AbsNode
   def initialize( name )
     @parent = nil
     @name = name
+    @prefix_path = nil
     @path = nil
     @path_from_root = nil
     @depth = nil
+  end
+  
+  def prefix_path=( prefix )
+    if not @parent.nil?
+      raise "Not root!!"
+    end
+    @prefix_path = prefix
   end
 
   def path
     return @path unless @path.nil?
     if @parent.nil?
-      @path = @name
+      if @prefix_path
+        @path = @prefix_path + @name
+      else
+        @path = @name
+      end
     else
       @path = File.join( @parent.path, @name )
     end
