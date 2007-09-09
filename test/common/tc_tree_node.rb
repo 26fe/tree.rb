@@ -80,7 +80,18 @@ class TCTreeNode < Test::Unit::TestCase
     assert_equal( 1, tb.nr_nodes )
     assert_equal( 1, tb.nr_leaves )
     assert_equal( 0, tb.nr_childs )
+  end
+  
+  def test_prefix_path
+    ta = TreeNode.new( "a" )
+      ln1 = LeafNode.new("1", ta)
+      ln2 = LeafNode.new("2", ta)
+      tb = TreeNode.new( "b", ta )
+        ln3 = LeafNode.new( "3", tb )
+    ta.prefix_path= "<root>/"
     
+    assert_equal( ta.path, "<root>/a" ) 
+    assert_equal( tb.path, "<root>/a/b")
   end
 
 end
