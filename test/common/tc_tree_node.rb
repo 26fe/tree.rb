@@ -88,10 +88,37 @@ class TCTreeNode < Test::Unit::TestCase
       ln2 = LeafNode.new("2", ta)
       tb = TreeNode.new( "b", ta )
         ln3 = LeafNode.new( "3", tb )
+
+    assert_equal( "a",   ta.path  ) 
+    assert_equal( "a/b", tb.path )
+    
     ta.prefix_path= "<root>/"
     
-    assert_equal( ta.path, "<root>/a" ) 
-    assert_equal( tb.path, "<root>/a/b")
+    assert_equal( "<root>/a",   ta.path  ) 
+    assert_equal( "<root>/a/b", tb.path )
   end
 
+  def test_invalidate
+    ta = TreeNode.new( "a" )
+      ln1 = LeafNode.new("1", ta)
+      ln2 = LeafNode.new("2", ta)
+      tb = TreeNode.new( "b", ta )
+        ln3 = LeafNode.new( "3", tb )
+        
+    #@path = nil
+    #@path_from_root = nil
+    #@depth = nil    
+
+    
+    assert_equal( "a/b", tb.path )
+    assert_equal( "/b",  tb.path_from_root )
+    assert_equal( 2, tb.depth )
+    
+    r = TreeNode.new( "r" )
+    r.add_child( ta )
+    assert_equal( "r/a/b", tb.path )
+    assert_equal( "/a/b", tb.path_from_root )
+    assert_equal( 3, tb.depth )
+    
+  end
 end

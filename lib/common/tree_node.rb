@@ -15,16 +15,25 @@ class TreeNode < AbsNode
   attr_reader :childs
 
   def initialize( name, parent = nil )
+    @leaves = []
+    @childs = []
     super( name )
     if parent
       parent.add_child( self )
     end
-    @leaves = []
-    @childs = []
   end
 
   def root?
     @parent.nil?
+  end
+  
+  #
+  # invalidate cached info
+  #
+  def invalidate
+    super
+    @childs.each{ |c| c.invalidate }
+    @leaves.each{ |l| l.invalidate }
   end
   
   def nr_nodes
@@ -51,6 +60,7 @@ class TreeNode < AbsNode
       leaf.prev = @leaves.last
       leaf.next = nil
     end
+    leaf.invalidate
     @leaves << leaf
   end
 
@@ -59,6 +69,7 @@ class TreeNode < AbsNode
     if not treeNode.parent.nil?
       treeNode.remove_from_parent()
     end  
+    treeNode.invalidate
     treeNode.parent = self
     @childs << treeNode
   end
