@@ -27,16 +27,26 @@ class AbsNode
     @parent = nil
     @name = name
     @prefix_path = nil
+    invalidate
+  end
+  
+  #
+  # invalidate cached info
+  #
+  def invalidate
     @path = nil
     @path_from_root = nil
-    @depth = nil
+    @depth = nil    
   end
   
   def prefix_path=( prefix )
     if not @parent.nil?
       raise "Not root!!"
     end
-    @prefix_path = prefix
+    if prefix != @prefix_path
+      @prefix_path = prefix
+      invalidate
+    end
   end
 
   def path

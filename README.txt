@@ -13,6 +13,10 @@ gui: dipende da fxruby e/o wxruby
 
 === Log
 
+* 2007 09 09
+  aggiunto metodo invalidate a AbsNode
+  kwartz compilazione solo se necessario confrontando le date del file generato e quello dei template
+
 * 2007 09 06
   Aggiunto il CallbackTreeNodeVisitor
 
