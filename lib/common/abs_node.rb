@@ -49,6 +49,14 @@ class AbsNode
     end
   end
 
+  def root
+    if root?
+      self
+    else
+      parent.root
+    end
+  end
+  
   def path
     return @path unless @path.nil?
     if @parent.nil?
