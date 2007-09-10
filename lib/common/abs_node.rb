@@ -66,7 +66,11 @@ class AbsNode
   def path_from_root
     return @path_from_root unless @path_from_root.nil?
     if @parent.nil?
-      @path_from_root = ""
+      if @prefix_path
+        @path_from_root = @prefix_path
+      else
+        @path_from_root = ""
+      end
     else
       @path_from_root = File.join( @parent.path_from_root, @name )
     end
