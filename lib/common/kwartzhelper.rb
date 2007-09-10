@@ -7,11 +7,13 @@ require "kwartz/main"
 # kwartz utility
 #
 def compile( template_dir, template_include_dir, template_out_dir )
+  
+  re_templatefile = /^[^\.](.+).html$/ 
 
   maxtime = Time.local( 1980 ) 
   incs = []
   if File.directory?( template_include_dir ) 
-    incs = Dir.new( template_include_dir ).find_all { |f| f =~ /\.html$/ }
+    incs = Dir.new( template_include_dir ).find_all { |f| f =~ re_templatefile }
     incs = incs.map{ |f| File.join(template_include_dir, f) }
     maxtime_incs = incs.inject(maxtime) {|t,f| 
       t1 = File.mtime( f ) 
@@ -21,7 +23,7 @@ def compile( template_dir, template_include_dir, template_out_dir )
   end
   
   Dir.foreach( template_dir ) { |f|
-    next unless f =~ /.html$/
+    next unless f =~ re_templatefile
     inpath = File.join(template_dir, f)
     inpath_time = File.mtime( inpath )
 
