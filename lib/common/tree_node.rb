@@ -73,6 +73,23 @@ class TreeNode < AbsNode
     treeNode.parent = self
     @childs << treeNode
   end
+  
+  def find( name )
+    if self.name == name
+      return self
+    end
+    
+    leaf = @leaves.find { |l| l.name == name }
+    if leaf
+      return leaf
+    end
+    
+    @childs.each {|c| 
+      node = c.find(name)
+      return node if node
+    }
+    nil
+  end
 
   def accept( visitor )
     visitor.enter_treeNode( self )
