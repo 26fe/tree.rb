@@ -6,16 +6,23 @@ require "kwartz/main"
 #
 # kwartz utility
 #
-def compile( template_dir, template_include_dir, template_out_dir )
+def kwartz_compile( template_dir, template_include_dir, template_out_dir )
+  if not File.directory?(template_dir)
+    raise "#{template_dir} is not a directory"
+  end
+
+  if not File.directory?(template_out_dir)
+    raise "#{template_out_dir} is not a directory"
+  end
   
   re_templatefile = /^[^\.](.+).html$/ 
 
-  maxtime = Time.local( 1980 ) 
+  maxtime_incs = Time.local( 1980 ) 
   incs = []
   if File.directory?( template_include_dir ) 
     incs = Dir.new( template_include_dir ).find_all { |f| f =~ re_templatefile }
     incs = incs.map{ |f| File.join(template_include_dir, f) }
-    maxtime_incs = incs.inject(maxtime) {|t,f| 
+    maxtime_incs = incs.inject(maxtime_incs) {|t,f| 
       t1 = File.mtime( f ) 
       if t1 > t then t1 else t end
     }
@@ -36,8 +43,11 @@ def compile( template_dir, template_include_dir, template_out_dir )
       outpath_time = File.mtime( outpath )
     end
     
-    argv = %w[--delspan -a defun -l ruby -i]
-    argv.push( incs )
+    argv = %w[--delspan -a defun -l ruby]
+    if incs.length > 0
+      argv << "-i"
+      argv.push( incs )
+    end
 
     if File.exist?( plogicpath )
       argv.push( "-p", plogicpath )

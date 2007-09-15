@@ -22,6 +22,7 @@ class AbsNode
   # solo TreeNode puo' scrivere vedi funzione add_leaf
   attr_accessor :prev
   attr_accessor :next
+  
 
   def initialize( name )
     @parent = nil
@@ -37,6 +38,13 @@ class AbsNode
     @path = nil
     @path_from_root = nil
     @depth = nil    
+  end
+  
+  def prefix_path
+    if not @parent.nil?
+      raise "Not root!!"
+    end
+    @prefix_path
   end
   
   def prefix_path=( prefix )
