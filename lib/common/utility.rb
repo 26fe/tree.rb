@@ -12,7 +12,9 @@ def recursive_run( dir, &block )
 end
 
 def copy_dir( indir, outdir, re )
-
+  if not File.directory?()
+    raise "#{indir} is not a directory"
+  end
   if not File.directory?( outdir )
     FileUtils.mkpath( outdir )
   end
