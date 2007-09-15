@@ -31,11 +31,15 @@ def kwartz_compile( template_dir, template_include_dir, template_out_dir )
   
   Dir.foreach( template_dir ) { |f|
     next unless f =~ re_templatefile
+
     inpath = File.join(template_dir, f)
     inpath_time = File.mtime( inpath )
 
     plogicpath = template_dir + File::Separator + f.sub( /.html$/, ".plogic" )
-    plogic_time = Time.local( 1980 )
+    plogicpath_time = Time.local( 1980 )
+    if File.exists?( plogicpath )
+      plogicpath_time = File.mtime( plogicpath )
+    end
     
     outpath = File.join( template_out_dir, f.sub( /.html$/, ".rb" ) )
     outpath_time = Time.local( 1980 )
@@ -51,11 +55,12 @@ def kwartz_compile( template_dir, template_include_dir, template_out_dir )
 
     if File.exist?( plogicpath )
       argv.push( "-p", plogicpath )
-      plogicpath_time = File.mtime( plogicpath )
     end
     argv.push( inpath )
 
-    if outpath_time < maxtime_incs or outpath_time < inpath_time or outpath_time < plogicpath_time 
+    if outpath_time < maxtime_incs or 
+       outpath_time < inpath_time or 
+       outpath_time < plogicpath_time 
       puts "kwartz " + argv.join(" ")
       main = Kwartz::Main.new(argv)
       output = main.execute()
