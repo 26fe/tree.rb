@@ -119,6 +119,17 @@ class TCTreeNode < Test::Unit::TestCase
     assert_equal( "r/a/b", tb.path )
     assert_equal( "/a/b", tb.path_from_root )
     assert_equal( 3, tb.depth )
-    
+  end
+  
+  def test_find
+    ta = TreeNode.new( "a" )
+      ln1 = LeafNode.new("1", ta)
+      ln2 = LeafNode.new("2", ta)
+      tb = TreeNode.new( "b", ta )
+        ln3 = LeafNode.new( "3", tb )
+
+    assert_equal(ln3, ta.find( "3"))
+    assert_equal(tb, ta.find( "b"))
+    assert_nil( ta.find("not existent"))
   end
 end
