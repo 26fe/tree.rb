@@ -4,12 +4,12 @@ $COMMON_HOME = File.expand_path( File.join( File.dirname( __FILE__), "..", ".." 
 $:.unshift( File.join($COMMON_HOME, "lib" ) )
 $:.unshift( File.join($COMMON_HOME, "test" ) )
 
-require 'common/dirtreeprocessor'
+require 'common/dir_processor'
 
 class TCDirTreeProcessor < Test::Unit::TestCase
 
   def test_ignore_dir
-    dtp = DirTreeProcessor.new( "." )
+    dtp = DirProcessor.new( "." )
 
     dtp.add_ignore_dir(".xvpics")
     dtp.add_ignore_dir(".thumbnails")

@@ -9,3 +9,4 @@ $:.unshift( File.join($COMMON_HOME, "test" ) )
 require "common/tc_tree_node"
 require "common/tc_tree_node_visitor"
 require "common/tc_dir_tree_walker"
+# require "common/tc_dir_processor"
