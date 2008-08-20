@@ -1,0 +1,68 @@
+<html>
+<head>
+	
+	<script src="scriptaculous-js-1.8.1/lib/prototype.js"></script>
+	
+	<style>
+		.newquerybox {
+			margin: auto;
+		  border: 1px solid black;	
+		}
+	</style>
+	
+</head>
+<body>
+
+<div class="newquerybox">
+<form id="newquery" name="newquery">
+	<select id="select_rubric" name="rubric">
+		<option value="0" selected="selected">---</option>
+		<option value="1">senza sottorubriche</option>
+		<option value="2">uno con sottorubriche</option>
+		<option value="3">due con sottorubriche</option>
+	</select>
+	
+	<select id="select_subrubric" name="subrubric">
+		<option value="1">uno</option>
+	</select>
+</form>
+</div>
+
+<script type="text/javascript">
+
+
+var rubric = {
+	2: [[1, 'uno - sub1'], [2, 'uno - sub2']],
+	3: [[3, 'due - sub1'], [4, 'due - sub2']],
+	}; 
+
+function rubric_change(event)
+{
+	var element = event.element();
+	var code = element.value;
+	
+	if (rubric[code]) {
+	  
+	  var html = "";
+	  rubric[code].each(function(el) {
+	    var value=el[0];
+	    var name=el[1];
+	    html += '<option value="' + value + '">' + name + '</option>';
+	  });
+	  $('select_subrubric').innerHTML = html;
+	  $('select_subrubric').show();
+	} else {
+		$('select_subrubric').hide();
+	}
+		
+}
+
+Event.observe(window, 'load', function() {   
+  // select_rubric=$$('#newquery/select[name="rubric"]').first();
+  $('select_rubric').observe("change", rubric_change);
+}); 
+</script>
+
+
+</body>
+</html>
