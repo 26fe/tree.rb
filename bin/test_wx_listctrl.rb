@@ -26,9 +26,5 @@ StyleMenuLCReport,
 StyleMenuLCIcon,
 StyleMenuLCSmallIcon = 101,102,103,104
 
-
-
-
 a = WXTestListCtrlApp.new
 a.main_loop()
-
