@@ -2,8 +2,7 @@ require 'pathname'
 
 class DirProcessor
 
-  def initialize( dirname, &action )
-    @dirname = dirname
+  def initialize( &action )
     @processors = {}
     @default_processor = action
   end
@@ -11,6 +10,13 @@ class DirProcessor
   def add_processor( re, &action )
     @processors[ re ] = action
   end
+  
+  def process_dir( dirname )
+    @dirname = dirname
+    run
+  end
+
+  private
 
   def run()
     old_dirname = Dir.pwd
@@ -24,8 +30,6 @@ class DirProcessor
     Dir.chdir( old_dirname )
     self
   end
-
-  private
 
   def process_file( pn )
     # puts "file: #{f}"
