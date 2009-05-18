@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby
+#!/usr/bin/env ruby
 
 $COMMON_HOME = File.expand_path( File.join( File.dirname( __FILE__), ".." ) )
 $:.unshift( File.join($COMMON_HOME, "lib" ) )
