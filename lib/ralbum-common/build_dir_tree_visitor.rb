@@ -1,7 +1,7 @@
 # common
-require 'common/tree_node'
-require 'common/dir_tree_walker'
-require 'common/tree_node_visitor'
+require 'ralbum-common/tree_node'
+require 'ralbum-common/dir_tree_walker'
+require 'ralbum-common/tree_node_visitor'
 
 #
 # costruisce una albero TreeNode a partire dalla struttura

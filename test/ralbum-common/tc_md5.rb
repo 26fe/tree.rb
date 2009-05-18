@@ -5,10 +5,10 @@ require 'test/unit'
 $COMMON_HOME = File.expand_path( File.join( File.dirname( __FILE__), "..", ".." ) )
 $:.unshift( File.join($COMMON_HOME, "lib" ) )
 $:.unshift( File.join($COMMON_HOME, "test" ) )
-$TEST_DATA = File.join( $COMMON_HOME, "test", "common", "test_data" )
+$TEST_DATA = File.join( $COMMON_HOME, "test", "ralbum-common", "test_data" )
 
 
-require 'common/md5.rb'
+require 'ralbum-common/md5.rb'
 
 class TCMD5 < Test::Unit::TestCase
 

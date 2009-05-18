@@ -1,5 +1,5 @@
 # common
-require 'common/leaf_node'
+require 'ralbum-common/leaf_node'
 
 #
 # Un treeNode e' come un AbsNode

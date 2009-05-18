@@ -2,11 +2,11 @@
 
 require 'rubygems'
 require 'hoe'
-require './lib/ralbum_commmon.rb'
+require './lib/ralbum-common.rb'
 
-Hoe.new('ralbum_commmon', RalbumCommmon::VERSION) do |p|
+Hoe.new('ralbum-common', RalbumCommon::VERSION) do |p|
   # p.rubyforge_name = 'ralbum_commmonx' # if different than lowercase project name
-  # p.developer('FIX', 'FIX@example.com')
+  p.developer('Giovanni', 'tokiro.oyama@gmail.com')
 end
 
 # vim: syntax=Ruby
