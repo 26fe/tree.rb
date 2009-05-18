@@ -1,41 +1,49 @@
+= ralbum_commmon
 
-=== Dipendenze
-utilizza la libreria abstract di kwartz
-gui: dipende da fxruby e/o wxruby
+* FIX (url)
 
-=== TODO
+== DESCRIPTION:
 
+FIX (describe your package)
 
-* gui rendere consistenti i treeviewer
-  - stessi menu
-  - stesso look
-  - stesse icone
+== FEATURES/PROBLEMS:
 
-=== Log
+* FIX (list of features or problems)
 
-* 2007 09 09
-  aggiunto metodo invalidate a AbsNode
-  kwartz compilazione solo se necessario confrontando le date del file generato e quello dei template
+== SYNOPSIS:
 
-* 2007 09 06
-  Aggiunto il CallbackTreeNodeVisitor
+  FIX (code sample of usage)
 
-* 2007 08 31
-  rinominati molti file per renderli consistenti
-  se un file contiene la casse OneTwoThree il file si deve chiamare one_two_three.rb
+== REQUIREMENTS:
 
-* 2007 08 30
-  aggiunte le gui fxruby e wxruby (preliminari)
+* utilizza la libreria abstract di kwartz
+* gui: dipende da fxruby e/o wxruby
 
-* 2007 08 25
-  cambiato il dirtreewalker in modo che utizzi gli stessi visitor del treenode
+== INSTALL:
 
-* 2007 08 24
-  aggiunto un visitor che rispetta la struttura del treenode
+* FIX (sudo gem install, anything else)
 
-* 2007 08 19
-  spezzato il DirTreeProcessor in DirTreeWalker e DirTreeVisitor
-  aggiunto al TreeNode il Visitor
+== LICENSE:
 
-* 2007 08 17
-  aggiunto dirtreeprocessor
+(The MIT License)
+
+Copyright (c) 2009 FIX
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 #
 # Calcola le permutazioni di un array
 # test di colloquio a venere

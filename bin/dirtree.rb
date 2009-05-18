@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 #
 # Piccolo wrapper per richiamare il programma
 # clidirtree

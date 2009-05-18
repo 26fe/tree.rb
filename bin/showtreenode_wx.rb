@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+#
 # rubygems
 require 'rubygems'
 require 'wx'

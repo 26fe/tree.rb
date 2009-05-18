@@ -1,0 +1,7 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/ralbum_commmon
+lib/ralbum_commmon.rb
+test/test_ralbum_commmon.rb
