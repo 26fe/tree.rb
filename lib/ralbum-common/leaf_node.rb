@@ -1,5 +1,5 @@
 # common
-require "common/abs_node"
+require "ralbum-common/abs_node"
 
 #
 # Deriva da AbsNode
