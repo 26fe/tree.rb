@@ -8,7 +8,7 @@ $:.unshift( File.join($COMMON_HOME, "test" ) )
 $TEST_FILE = File.join( $COMMON_HOME, "lib", "tree_visitor.rb" )
 
 
-require 'ralbum-common/md5.rb'
+require 'tree_visitor/md5.rb'
 
 class TCMD5 < Test::Unit::TestCase
 
