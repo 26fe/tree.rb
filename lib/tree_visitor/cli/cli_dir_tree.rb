@@ -2,8 +2,8 @@
 require 'optparse'
 
 # common
-require 'ralbum-common/dir_tree_walker'
-require 'ralbum-common/build_dir_tree_visitor'
+require 'tree_visitor/dir_tree_walker'
+require 'tree_visitor/build_dir_tree_visitor'
 
 #
 #

@@ -5,10 +5,10 @@ require 'test/unit'
 $COMMON_HOME = File.expand_path( File.join( File.dirname( __FILE__), "..", ".." ) )
 $:.unshift( File.join($COMMON_HOME, "lib" ) )
 $:.unshift( File.join($COMMON_HOME, "test" ) )
-$TEST_DATA = File.join( $COMMON_HOME, "test", "ralbum-common", "test_data" )
+$TEST_DATA = File.join( $COMMON_HOME, "test", "tree_visitor", "test_data" )
 
-require 'ralbum-common/dir_tree_walker.rb'
-require 'ralbum-common/tree_node_visitor.rb'
+require 'tree_visitor/dir_tree_walker.rb'
+require 'tree_visitor/tree_node_visitor.rb'
 
 class TCDirTreeWalker < Test::Unit::TestCase
 
