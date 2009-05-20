@@ -14,6 +14,19 @@ Gem::Specification.new do |s|
     "LICENSE",
      "README.rdoc"
   ]
+  s.files = [
+    "lib/tree_visitor.rb",
+     "lib/tree_visitor/abs_node.rb",
+     "lib/tree_visitor/build_dir_tree_visitor.rb",
+     "lib/tree_visitor/cli/cli_dir_tree.rb",
+     "lib/tree_visitor/dir_processor.rb",
+     "lib/tree_visitor/dir_tree_walker.rb",
+     "lib/tree_visitor/leaf_node.rb",
+     "lib/tree_visitor/md5.rb",
+     "lib/tree_visitor/tree_node.rb",
+     "lib/tree_visitor/tree_node_visitor.rb",
+     "lib/tree_visitor/visitor/print_node_visitor2.rb"
+  ]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/gf/tree_visitor}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -21,9 +34,9 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.1}
   s.summary = %q{TODO}
   s.test_files = [
-    "test/ralbum-common/tc_md5.rb",
-     "test/ts_tree_visitor.rb",
+    "test/ts_tree_visitor.rb",
      "test/tree_visitor/tc_dir_processor.rb",
+     "test/tree_visitor/tc_md5.rb",
      "test/tree_visitor/tc_dir_tree_walker.rb",
      "test/tree_visitor/tc_tree_node.rb",
      "test/tree_visitor/tc_tree_node_visitor.rb"
