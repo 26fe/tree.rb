@@ -3,13 +3,14 @@
     <type>org.netbeans.modules.ruby.rubyproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/ruby-project/1">
-            <name>ralbum-common</name>
+            <name>tree_visitor</name>
             <source-roots>
                 <root id="src.bin.dir"/>
                 <root id="src.lib.dir"/>
-                <root id="src.test.dir"/>
             </source-roots>
-            <test-roots/>
+            <test-roots>
+                <root id="test.test.dir"/>
+            </test-roots>
         </data>
     </configuration>
 </project>
