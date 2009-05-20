@@ -6,7 +6,7 @@ $COMMON_HOME = File.expand_path( File.join( File.dirname( __FILE__), "..", ".." 
 $:.unshift( File.join($COMMON_HOME, "lib" ) )
 $:.unshift( File.join($COMMON_HOME, "test" ) )
 
-require 'ralbum-common/tree_node.rb'
+require 'tree_visitor/tree_node.rb'
 
 class TCTreeNode < Test::Unit::TestCase
 
