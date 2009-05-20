@@ -23,4 +23,15 @@ class TCDirTreeWalker < Test::Unit::TestCase
     assert_equal( %w{ test_data dir.1 dir.1.2 file.1.2.1 file.1.1 dir.2 file.2.1 }, accumulator )
   end
 
+  def test_ignore_dir
+    dtp = DirTreeWalker.new( "." )
+
+    dtp.add_ignore_dir(".xvpics")
+    dtp.add_ignore_dir(".thumbnails")
+    dtp.add_ignore_dir("catalog_data")
+
+    assert( dtp.ignore_dir?( ".thumbnails" ) )
+    assert( ! dtp.ignore_dir?( "pippo" ) )
+  end
+
 end

@@ -1,0 +1,28 @@
+= ralbum_commmon
+
+* FIX (url)
+
+== DESCRIPTION:
+
+FIX (describe your package)
+
+== FEATURES/PROBLEMS:
+
+* FIX (list of features or problems)
+
+== SYNOPSIS:
+
+  FIX (code sample of usage)
+
+== REQUIREMENTS:
+
+* utilizza la libreria abstract di kwartz
+* gui: dipende da fxruby e/o wxruby
+
+== INSTALL:
+
+* FIX (sudo gem install, anything else)
+
+== Copyright
+
+Copyright (c) 2009 gf. See LICENSE for details.
