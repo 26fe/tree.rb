@@ -1,7 +1,5 @@
 = TODO
 
-* gui rendere consistenti i treeviewer
-  - stessi menu
-  - stesso look
-  - stesse icone
+* provare a utilizzare gem install con l'opzione di test
+  per vedere se i test funzionano
 
