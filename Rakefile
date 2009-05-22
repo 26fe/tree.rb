@@ -9,7 +9,7 @@ begin
     gem.email = "tokiro.oyama@gmail.com"
     gem.homepage = "http://github.com/tokiro/tree_visitor"
     gem.authors = ["Tokiro"]
-    gem.files = Dir['lib/**/*.rb']
+    # gem.files = Dir['lib/**/*.rb']
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 

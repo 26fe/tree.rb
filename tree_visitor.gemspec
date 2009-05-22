@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tokiro"]
-  s.date = %q{2009-05-20}
+  s.date = %q{2009-05-22}
   s.default_executable = %q{dirtree.rb}
   s.email = %q{tokiro.oyama@gmail.com}
   s.executables = ["dirtree.rb"]
@@ -15,7 +15,18 @@ Gem::Specification.new do |s|
      "README.rdoc"
   ]
   s.files = [
-    "lib/tree_visitor.rb",
+    ".autotest",
+     ".document",
+     ".gitignore",
+     "History.txt",
+     "LICENSE",
+     "Manifest.txt",
+     "README.rdoc",
+     "Rakefile",
+     "TODO.rdoc",
+     "VERSION",
+     "bin/dirtree.rb",
+     "lib/tree_visitor.rb",
      "lib/tree_visitor/abs_node.rb",
      "lib/tree_visitor/build_dir_tree_visitor.rb",
      "lib/tree_visitor/cli/cli_dir_tree.rb",
@@ -25,7 +36,31 @@ Gem::Specification.new do |s|
      "lib/tree_visitor/md5.rb",
      "lib/tree_visitor/tree_node.rb",
      "lib/tree_visitor/tree_node_visitor.rb",
-     "lib/tree_visitor/visitor/print_node_visitor2.rb"
+     "lib/tree_visitor/visitor/print_node_visitor2.rb",
+     "nbproject/configs/dir_tree.properties",
+     "nbproject/configs/permutazioni.properties",
+     "nbproject/configs/tc_md5.properties",
+     "nbproject/configs/test_wx_listctrl.properties",
+     "nbproject/configs/tmp_queries.properties",
+     "nbproject/configs/ts_common.properties",
+     "nbproject/private/config.properties",
+     "nbproject/private/configs/dir_tree.properties",
+     "nbproject/private/configs/tmp_queries.properties",
+     "nbproject/private/private.properties",
+     "nbproject/private/private.xml",
+     "nbproject/private/rake-d.txt",
+     "nbproject/project.properties",
+     "nbproject/project.xml",
+     "test/tree_visitor/tc_dir_processor.rb",
+     "test/tree_visitor/tc_dir_tree_walker.rb",
+     "test/tree_visitor/tc_md5.rb",
+     "test/tree_visitor/tc_tree_node.rb",
+     "test/tree_visitor/tc_tree_node_visitor.rb",
+     "test/tree_visitor/test_data/dir.1/dir.1.2/file.1.2.1",
+     "test/tree_visitor/test_data/dir.1/file.1.1",
+     "test/tree_visitor/test_data/dir.2/file.2.1",
+     "test/ts_tree_visitor.rb",
+     "tree_visitor.gemspec"
   ]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/tokiro/tree_visitor}
