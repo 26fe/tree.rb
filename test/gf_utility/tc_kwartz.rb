@@ -4,7 +4,7 @@ $TREE_VISITOR_HOME = File.expand_path( File.join( File.dirname( __FILE__), "..",
 $:.unshift( File.join($TREE_VISITOR_HOME, "lib" ) )
 $:.unshift( File.join($TREE_VISITOR_HOME, "test" ) )
 
-require 'utility/kwartzhelper'
+require 'gf_utility/kwartzhelper'
 
 class TCDirProcessor < Test::Unit::TestCase
 

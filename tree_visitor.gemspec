@@ -15,7 +15,11 @@ Gem::Specification.new do |s|
      "README.rdoc"
   ]
   s.files = [
-    "lib/tree_visitor.rb",
+    "lib/gf_utility/file_utilities.rb",
+     "lib/gf_utility/kwartzhelper.rb",
+     "lib/gf_utility/md5.rb",
+     "lib/gf_utility/numeric.rb",
+     "lib/tree_visitor.rb",
      "lib/tree_visitor/abs_node.rb",
      "lib/tree_visitor/build_dir_tree_visitor.rb",
      "lib/tree_visitor/cli/cli_dir_tree.rb",
@@ -24,10 +28,7 @@ Gem::Specification.new do |s|
      "lib/tree_visitor/leaf_node.rb",
      "lib/tree_visitor/tree_node.rb",
      "lib/tree_visitor/tree_node_visitor.rb",
-     "lib/tree_visitor/visitor/print_node_visitor2.rb",
-     "lib/utility/kwartzhelper.rb",
-     "lib/utility/md5.rb",
-     "lib/utility/numeric.rb"
+     "lib/tree_visitor/visitor/print_node_visitor2.rb"
   ]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/gf/tree_visitor}
@@ -37,16 +38,16 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.1}
   s.summary = %q{TODO}
   s.test_files = [
-    "test/utility/tc_md5.rb",
-     "test/utility/tc_kwartz.rb",
-     "test/utility/tc_numeric.rb",
-     "test/utility/kwartz_test_data/out/test1.rb",
+    "test/gf_utility/tc_md5.rb",
+     "test/gf_utility/tc_kwartz.rb",
+     "test/gf_utility/tc_numeric.rb",
+     "test/gf_utility/kwartz_test_data/out/test1.rb",
      "test/ts_tree_visitor.rb",
      "test/tree_visitor/tc_dir_processor.rb",
      "test/tree_visitor/tc_dir_tree_walker.rb",
      "test/tree_visitor/tc_tree_node.rb",
      "test/tree_visitor/tc_tree_node_visitor.rb",
-     "test/utility/kwartz_test_data/source/test1.html"
+     "test/gf_utility/kwartz_test_data/source/test1.html"
   ]
 
   if s.respond_to? :specification_version then

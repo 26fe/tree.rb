@@ -1,18 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/media/Interzone/GioPrj/prj_github_rubyforge/tree_visitor/lib/utility/kwartzhelper.rb</file>
-        <file>file:/media/Interzone/GioPrj/prj_github_rubyforge/tree_visitor/lib/utility/md5.rb</file>
-        <file>file:/media/Interzone/GioPrj/prj_github_rubyforge/tree_visitor/test/tree_visitor/tc_dir_processor.rb</file>
-        <file>file:/media/Interzone/GioPrj/prj_github_rubyforge/tree_visitor/test/tree_visitor/tc_dir_tree_walker.rb</file>
-        <file>file:/media/Interzone/GioPrj/prj_github_rubyforge/tree_visitor/test/tree_visitor/tc_tree_node.rb</file>
-        <file>file:/media/Interzone/GioPrj/prj_github_rubyforge/tree_visitor/test/tree_visitor/tc_tree_node_visitor.rb</file>
-        <file>file:/media/Interzone/GioPrj/prj_github_rubyforge/tree_visitor/test/ts_tree_visitor.rb</file>
-        <file>file:/media/Interzone/GioPrj/prj_github_rubyforge/tree_visitor/test/utility/kwartz_test_data/source/test1.html</file>
-        <file>file:/media/Interzone/GioPrj/prj_github_rubyforge/tree_visitor/test/utility/kwartz_test_data/source/test1.plogic</file>
-        <file>file:/media/Interzone/GioPrj/prj_github_rubyforge/tree_visitor/test/utility/tc_kwartz.rb</file>
-        <file>file:/media/Interzone/GioPrj/prj_github_rubyforge/tree_visitor/test/utility/tc_md5.rb</file>
-        <file>file:/media/Interzone/GioPrj/prj_github_rubyforge/tree_visitor/test/utility/tc_numeric.rb</file>
-    </open-files>
 </project-private>
