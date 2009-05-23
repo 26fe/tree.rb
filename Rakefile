@@ -11,7 +11,10 @@ begin
     gem.authors = ["Tokiro"]
     gem.files = Dir['lib/**/*.rb']
     gem.test_files = Dir['test/**/*.rb']
-    gem.test_files.concat Dir['test/**/*.html']
+    # concat all test files
+    gem.files.concat Dir['test_data/**/*.html']
+    gem.files.concat Dir['test_data/tree_visitor/test_data/**/file.*']
+    
     gem.rubyforge_project = 'ralbum'
   end
 

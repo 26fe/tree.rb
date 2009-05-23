@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{tree_visitor}
-  s.version = "0.0.3"
+  s.version = "0.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tokiro"]
@@ -28,7 +28,11 @@ Gem::Specification.new do |s|
      "lib/tree_visitor/leaf_node.rb",
      "lib/tree_visitor/tree_node.rb",
      "lib/tree_visitor/tree_node_visitor.rb",
-     "lib/tree_visitor/visitor/print_node_visitor2.rb"
+     "lib/tree_visitor/visitor/print_node_visitor2.rb",
+     "test_data/gf_utility/kwartz_test_data/source/test1.html",
+     "test_data/tree_visitor/test_data/dir.1/dir.1.2/file.1.2.1",
+     "test_data/tree_visitor/test_data/dir.1/file.1.1",
+     "test_data/tree_visitor/test_data/dir.2/file.2.1"
   ]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/tokiro/tree_visitor}
@@ -41,13 +45,11 @@ Gem::Specification.new do |s|
     "test/gf_utility/tc_md5.rb",
      "test/gf_utility/tc_kwartz.rb",
      "test/gf_utility/tc_numeric.rb",
-     "test/gf_utility/kwartz_test_data/out/test1.rb",
      "test/ts_tree_visitor.rb",
      "test/tree_visitor/tc_dir_processor.rb",
      "test/tree_visitor/tc_dir_tree_walker.rb",
      "test/tree_visitor/tc_tree_node.rb",
-     "test/tree_visitor/tc_tree_node_visitor.rb",
-     "test/gf_utility/kwartz_test_data/source/test1.html"
+     "test/tree_visitor/tc_tree_node_visitor.rb"
   ]
 
   if s.respond_to? :specification_version then
