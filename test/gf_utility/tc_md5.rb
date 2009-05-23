@@ -6,7 +6,7 @@ $:.unshift( File.join($TREE_VISITOR_HOME, "lib" ) )
 $:.unshift( File.join($TREE_VISITOR_HOME, "test" ) )
 $TEST_FILE = File.join( $TREE_VISITOR_HOME, "lib", "tree_visitor.rb" )
 
-require 'utility/md5.rb'
+require 'gf_utility/md5.rb'
 
 class TCMD5 < Test::Unit::TestCase
 

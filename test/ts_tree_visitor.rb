@@ -8,7 +8,7 @@ $:.unshift( File.join($TREE_VISITOR_HOME, "test" ) )
 
 require "tree_visitor"
 
-require "utility/tc_md5"
+require "gf_utility/tc_md5"
 
 require "tree_visitor/tc_dir_processor"
 require "tree_visitor/tc_dir_tree_walker"
