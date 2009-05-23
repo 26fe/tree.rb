@@ -1,8 +1,8 @@
 require 'test/unit'
 
-$COMMON_HOME = File.expand_path( File.join( File.dirname( __FILE__), "..", ".." ) )
-$:.unshift( File.join($COMMON_HOME, "lib" ) )
-$:.unshift( File.join($COMMON_HOME, "test" ) )
+$TREE_VISITOR_HOME = File.expand_path( File.join( File.dirname( __FILE__), "..", ".." ) )
+$:.unshift( File.join($TREE_VISITOR_HOME, "lib" ) )
+$:.unshift( File.join($TREE_VISITOR_HOME, "test" ) )
 
 require 'tree_visitor/tree_node.rb'
 require 'tree_visitor/tree_node_visitor.rb'

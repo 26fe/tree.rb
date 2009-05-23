@@ -10,6 +10,8 @@ begin
     gem.homepage = "http://github.com/tokiro/tree_visitor"
     gem.authors = ["Tokiro"]
     gem.files = Dir['lib/**/*.rb']
+    gem.test_files = Dir['test/**/*.rb']
+    gem.test_files.concat Dir['test/**/*.html']
     gem.rubyforge_project = 'ralbum'
   end
 
