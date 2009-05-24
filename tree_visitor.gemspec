@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["gf"]
-  s.date = %q{2009-05-23}
+  s.date = %q{2009-05-24}
   s.default_executable = %q{dirtree.rb}
   s.email = %q{giovanni.ferro@gmail.com}
   s.executables = ["dirtree.rb"]
@@ -49,7 +49,8 @@ Gem::Specification.new do |s|
      "test/tree_visitor/tc_dir_processor.rb",
      "test/tree_visitor/tc_dir_tree_walker.rb",
      "test/tree_visitor/tc_tree_node.rb",
-     "test/tree_visitor/tc_tree_node_visitor.rb"
+     "test/tree_visitor/tc_tree_node_visitor.rb",
+     "test/tree_visitor/test_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
