@@ -1,27 +1,21 @@
-= ralbum_commmon
+= dirtree.rb / tree visitor lib
 
-* FIX (url)
+<pre>dirtree.rb</pre> is a 'clone' of tree unix command. 
+It is based on lib tree visitor.
 
-== DESCRIPTION:
-
-FIX (describe your package)
-
-== FEATURES/PROBLEMS:
-
-* FIX (list of features or problems)
-
-== SYNOPSIS:
-
-  FIX (code sample of usage)
+Tree visitor is an implementation of visitor design pattern.
 
 == REQUIREMENTS:
 
 * utilizza la libreria abstract di kwartz
-* gui: dipende da fxruby e/o wxruby
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+sudo gem install tree_visitor
+
+or
+
+sudo gem install gf-tree_visitor -s gems.github.com
 
 == Copyright
 
