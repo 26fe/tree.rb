@@ -73,11 +73,10 @@ def kwartz_compile( template_dir, template_include_dir, template_out_dir )
     if outpath_time < maxtime_incs or 
         outpath_time < inpath_time or
         outpath_time < plogicpath_time
-      puts "kwartz " + argv.join(" ")
+      # puts "kwartz " + argv.join(" ")
       main = Kwartz::Main.new(argv)
       output = main.execute()
       File.open(outpath, 'w') { |f| f.write(output) }      
     end
   }
 end
-

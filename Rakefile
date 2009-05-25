@@ -4,17 +4,28 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
+
     gem.name = "tree_visitor"
-    gem.summary = %Q{TODO}
+    gem.summary = "implementation of visitor design pattern"
+
+    gem.authors = ["gf"]
     gem.email = "giovanni.ferro@gmail.com"
     gem.homepage = "http://github.com/gf/tree_visitor"
-    gem.authors = ["gf"]
+
+    gem.add_dependency('abstract')
+
+    #
+    # files
+    #
     gem.files = Dir['lib/**/*.rb']
     gem.test_files = Dir['test/**/*.rb']
     # concat all test files
     gem.files.concat Dir['test_data/**/*.html']
     gem.files.concat Dir['test_data/tree_visitor/test_data/**/file.*']
-    
+
+    #
+    # rubyforge
+    #
     gem.rubyforge_project = 'ralbum'
   end
 
@@ -33,7 +44,7 @@ begin
   require 'rcov/rcovtask'
   Rcov::RcovTask.new do |test|
     test.libs << 'test'
-    test.pattern = 'test/**/*_test.rb'
+    test.pattern = 'test/**/tc_*.rb'
     test.verbose = true
   end
 rescue LoadError
@@ -59,7 +70,9 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-# These are new tasks
+#
+# rubyforge
+#
 begin
   require 'rake/contrib/sshpublisher'
   namespace :rubyforge do
@@ -75,7 +88,7 @@ begin
         )
 
         host = "#{config['username']}@rubyforge.org"
-        remote_dir = "/var/www/gforge-projects/the-perfect-gem/"
+        remote_dir = "/var/www/gforge-projects/ralbum/"
         local_dir = 'rdoc'
 
         Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload

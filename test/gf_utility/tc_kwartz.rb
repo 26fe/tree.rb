@@ -1,9 +1,6 @@
-require 'test/unit'
+require File.join( File.dirname(__FILE__), "test_helper")
 
-$TREE_VISITOR_HOME = File.expand_path( File.join( File.dirname( __FILE__), "..", ".." ) )
-$:.unshift( File.join($TREE_VISITOR_HOME, "lib" ) )
-$:.unshift( File.join($TREE_VISITOR_HOME, "test" ) )
-
+require 'fileutils'
 require 'gf_utility/kwartzhelper'
 
 class TCDirProcessor < Test::Unit::TestCase
@@ -14,6 +11,10 @@ class TCDirProcessor < Test::Unit::TestCase
     template_dir     = File.join( KWARTZ_TEST_DATA, "source" )
     template_out     = File.join( KWARTZ_TEST_DATA, "out" )
     kwartz_compile( template_dir, nil, template_out )
+    
+    out_filename = File.join( KWARTZ_TEST_DATA, "out", "test1.rb" )
+    assert File.exists?(out_filename)
+    FileUtils.rm out_filename
   end
 
 end
