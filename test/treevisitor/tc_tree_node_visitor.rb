@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), "test_helper")
 
-require 'tree_visitor/tree_node.rb'
-require 'tree_visitor/tree_node_visitor.rb'
+require 'treevisitor/tree_node.rb'
+require 'treevisitor/tree_node_visitor.rb'
 
 class TCTreeNodeVisitor < Test::Unit::TestCase
 

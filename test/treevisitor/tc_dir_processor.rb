@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), "test_helper")
 
-require 'tree_visitor/dir_processor'
+require 'treevisitor/dir_processor'
 
 class TCDirProcessor < Test::Unit::TestCase
   def test_simple
