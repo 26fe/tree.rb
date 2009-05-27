@@ -5,7 +5,7 @@ require 'gf_utility/kwartzhelper'
 
 class TCDirProcessor < Test::Unit::TestCase
 
-  KWARTZ_TEST_DATA = File.join( $TREE_VISITOR_HOME, "test_data", "gf_utility", "kwartz_test_data" )
+  KWARTZ_TEST_DATA = File.join( $TREEVISITOR_HOME, "test_data", "gf_utility", "kwartz_test_data" )
 
   def test_simple
     template_dir     = File.join( KWARTZ_TEST_DATA, "source" )

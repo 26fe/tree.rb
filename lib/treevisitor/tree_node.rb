@@ -1,5 +1,5 @@
 # common
-require 'tree_visitor/leaf_node'
+require 'treevisitor/leaf_node'
 
 #
 # Un treeNode e' come un AbsNode
