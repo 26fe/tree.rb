@@ -4,10 +4,10 @@
 # clidirtree
 #
 
-$TREE_VISITOR_HOME = File.expand_path( File.join( File.dirname( __FILE__), ".." ) )
-$:.unshift( File.join($TREE_VISITOR_HOME, "lib" ) )
+$TREEVISITOR_HOME = File.expand_path( File.join( File.dirname( __FILE__), ".." ) )
+$:.unshift( File.join($TREEVISITOR_HOME, "lib" ) )
 
-require "tree_visitor/cli/cli_dir_tree"
+require "treevisitor/cli/cli_dir_tree"
 
 CliDirTree.run
 exit

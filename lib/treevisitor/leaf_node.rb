@@ -1,5 +1,5 @@
 # common
-require "tree_visitor/abs_node"
+require "treevisitor/abs_node"
 
 #
 # Deriva da AbsNode

@@ -2,15 +2,15 @@
 require "test/unit"
 
 # common
-$TREE_VISITOR_HOME = File.expand_path( File.join( File.dirname( __FILE__), "..") )
-$:.unshift( File.join($TREE_VISITOR_HOME, "lib" ) )
-$:.unshift( File.join($TREE_VISITOR_HOME, "test" ) )
+$TREEVISITOR_HOME = File.expand_path( File.join( File.dirname( __FILE__), "..") )
+$:.unshift( File.join($TREEVISITOR_HOME, "lib" ) )
+$:.unshift( File.join($TREEVISITOR_HOME, "test" ) )
 
 require "tree_visitor"
 
 require "gf_utility/tc_md5"
 
-require "tree_visitor/tc_dir_processor"
-require "tree_visitor/tc_dir_tree_walker"
-require "tree_visitor/tc_tree_node"
-require "tree_visitor/tc_tree_node_visitor"
+require "treevisitor/tc_dir_processor"
+require "treevisitor/tc_dir_tree_walker"
+require "treevisitor/tc_tree_node"
+require "treevisitor/tc_tree_node_visitor"

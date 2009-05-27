@@ -1,7 +1,7 @@
 # common
-require 'tree_visitor/tree_node'
-require 'tree_visitor/dir_tree_walker'
-require 'tree_visitor/tree_node_visitor'
+require 'treevisitor/tree_node'
+require 'treevisitor/dir_tree_walker'
+require 'treevisitor/tree_node_visitor'
 
 #
 # costruisce una albero TreeNode a partire dalla struttura

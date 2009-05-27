@@ -5,12 +5,12 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
 
-    gem.name = "tree_visitor"
+    gem.name = "treevisitor"
     gem.summary = "implementation of visitor design pattern"
 
     gem.authors = ["gf"]
     gem.email = "giovanni.ferro@gmail.com"
-    gem.homepage = "http://github.com/gf/tree_visitor"
+    gem.homepage = "http://github.com/gf/treevisitor"
 
     gem.add_dependency('abstract')
 
@@ -26,7 +26,7 @@ begin
     #
     # rubyforge
     #
-    gem.rubyforge_project = 'ralbum'
+    gem.rubyforge_project = 'treevisitor'
   end
 
 rescue LoadError
