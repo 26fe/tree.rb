@@ -14,6 +14,33 @@ class TCCliTree < Test::Unit::TestCase
     assert out.start_with?("Usage:")
   end
 
+  def test_version
+    out = with_stdout_captured do
+      args = %w{--version}
+      CliTree.new.parse_args(args)
+    end
+    version = File.open( File.join($TREEVISITOR_HOME, "VERSION") ).read
+    assert_match version, out
+  end
+
+  def test_directories_only
+    out = with_stdout_captured do
+      args = %w{-d}
+      args << TEST_DIRECTORY
+      CliTree.new.parse_args(args)
+    end
+    # puts out
+    assert_equal 6, out.split("\n").length
+
+    out = with_stdout_captured do
+      args = %w{-da}
+      args << TEST_DIRECTORY
+      CliTree.new.parse_args(args)
+    end
+    #puts out
+    assert_equal 7, out.split("\n").length
+  end
+
   def test_all_files
     out = with_stdout_captured do
       args = %w{-a}
@@ -21,7 +48,7 @@ class TCCliTree < Test::Unit::TestCase
       CliTree.new.parse_args(args)
     end
     # puts out
-    assert_equal 10, out.split("\n").length
+    assert_equal 11, out.split("\n").length
 
     out = with_stdout_captured do
       args = []
@@ -29,6 +56,6 @@ class TCCliTree < Test::Unit::TestCase
       CliTree.new.parse_args(args)
     end
     # puts out
-    assert_equal 8, out.split("\n").length
+    assert_equal 9, out.split("\n").length
   end
 end
