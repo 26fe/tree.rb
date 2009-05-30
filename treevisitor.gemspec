@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{treevisitor}
-  s.version = "0.0.7"
+  s.version = "0.0.8"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["gf"]
@@ -15,22 +15,34 @@ Gem::Specification.new do |s|
      "README.rdoc"
   ]
   s.files = [
-    "lib/gf_utility/file_utilities.rb",
-     "lib/gf_utility/kwartzhelper.rb",
-     "lib/gf_utility/md5.rb",
-     "lib/gf_utility/numeric.rb",
+    "VERSION",
+     "lib/gf_utilities/file_utilities.rb",
+     "lib/gf_utilities/kwartzhelper.rb",
+     "lib/gf_utilities/md5.rb",
+     "lib/gf_utilities/numeric.rb",
      "lib/treevisitor.rb",
      "lib/treevisitor/abs_node.rb",
-     "lib/treevisitor/build_dir_tree_visitor.rb",
      "lib/treevisitor/cli/cli_tree.rb",
      "lib/treevisitor/dir_processor.rb",
      "lib/treevisitor/dir_tree_walker.rb",
      "lib/treevisitor/leaf_node.rb",
-     "lib/treevisitor/print_dir_tree_visitor.rb",
      "lib/treevisitor/tree_node.rb",
      "lib/treevisitor/tree_node_visitor.rb",
-     "lib/treevisitor/visitor/print_node_visitor2.rb",
+     "lib/treevisitor/visitors/block_tree_node_visitor.rb",
+     "lib/treevisitor/visitors/build_dir_tree_visitor.rb",
+     "lib/treevisitor/visitors/callback_tree_node_visitor.rb",
+     "lib/treevisitor/visitors/callback_tree_node_visitor2.rb",
+     "lib/treevisitor/visitors/clone_tree_node_visitor.rb",
+     "lib/treevisitor/visitors/depth_tree_node_visitor.rb",
+     "lib/treevisitor/visitors/flat_print_tree_node_visitors.rb",
+     "lib/treevisitor/visitors/print_dir_tree_visitor.rb",
+     "lib/treevisitor/visitors/print_node_visitor2.rb",
+     "lib/treevisitor/visitors/print_tree_node_visitor.rb",
+     "test_data/gf_utility/kwartz_test_data/out.certified/dummy.txt",
+     "test_data/gf_utility/kwartz_test_data/out/dummy.txt",
      "test_data/gf_utility/kwartz_test_data/source/test1.html",
+     "test_data/gf_utility/kwartz_test_data/source/test1.plogic",
+     "test_data/tree_visitor/test_data/.dir_with_dot/dummy.txt",
      "test_data/tree_visitor/test_data/dir.1/dir.1.2/file.1.2.1",
      "test_data/tree_visitor/test_data/dir.1/file.1.1",
      "test_data/tree_visitor/test_data/dir.2/file.2.1"
@@ -40,7 +52,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{treevisitor}
-  s.rubygems_version = %q{1.3.1}
+  s.rubygems_version = %q{1.3.2}
   s.summary = %q{implementation of visitor design pattern}
   s.test_files = [
     "test/treevisitor/tc_dir_processor.rb",
@@ -49,16 +61,15 @@ Gem::Specification.new do |s|
      "test/treevisitor/tc_tree_node.rb",
      "test/treevisitor/tc_tree_node_visitor.rb",
      "test/treevisitor/test_helper.rb",
-     "test/gf_utility/tc_md5.rb",
-     "test/gf_utility/tc_kwartz.rb",
-     "test/gf_utility/tc_numeric.rb",
-     "test/gf_utility/test_helper.rb",
-     "test/ts_treevisitor.rb"
+     "test/gf_utilities/tc_md5.rb",
+     "test/gf_utilities/tc_kwartz.rb",
+     "test/gf_utilities/tc_numeric.rb",
+     "test/gf_utilities/test_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-    s.specification_version = 2
+    s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<abstract>, [">= 0"])

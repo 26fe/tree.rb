@@ -6,7 +6,7 @@
 * adapted to ruby 1.9
 * created gem 0.0.8
 * added -d options (directories only)
-* divided in own files visitor
+* divided each visitor class in own file
 
 === 2009-05-25
 

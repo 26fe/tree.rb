@@ -15,7 +15,7 @@ class TCKwartz < Test::Unit::TestCase
       return
     end
 
-    require 'gf_utility/kwartzhelper'
+    require 'gf_utilities/kwartzhelper'
     template_dir     = File.join( KWARTZ_TEST_DATA, "source" )
     template_out     = File.join( KWARTZ_TEST_DATA, "out" )
     kwartz_compile( template_dir, nil, template_out )

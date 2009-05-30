@@ -19,10 +19,12 @@ begin
     # files
     #
     gem.files = Dir['lib/**/*.rb']
+    gem.files << "VERSION"
+
     gem.test_files = Dir['test/**/*.rb']
     # concat all test files
-    gem.files.concat Dir['test_data/**/*.html']
-    gem.files.concat Dir['test_data/tree_visitor/test_data/**/file.*']
+    gem.files.concat Dir['test_data/**/*']
+    gem.files.concat Dir['test_data/**/.dir_with_dot/*']
 
     #
     # rubyforge
