@@ -11,11 +11,16 @@ require 'treevisitor/tree_node_visitor'
 class BuildDirTreeVisitor < TreeNodeVisitor
   
   attr_reader :root
+
+  attr_reader :nr_directories
+  attr_reader :nr_files
   
   def initialize
     super
     @root = nil
     @stack = []
+    @nr_directories = 0
+    @nr_files = 0
   end
   
   def enter_treeNode( pathname )
@@ -25,6 +30,7 @@ class BuildDirTreeVisitor < TreeNodeVisitor
     else
       treeNode = TreeNode.new( File.basename( pathname ), @stack.last )
     end
+    @nr_directories += 1
     @stack.push( treeNode )
   end
 
@@ -33,8 +39,8 @@ class BuildDirTreeVisitor < TreeNodeVisitor
   end
 
   def visit_leafNode( pathname )
+    @nr_files  += 1
     leafNode = LeafNode.new( File.basename(pathname), @stack.last )
   end
 
 end
-
