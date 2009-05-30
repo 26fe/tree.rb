@@ -3,7 +3,7 @@
     <type>org.netbeans.modules.ruby.rubyproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/ruby-project/1">
-            <name>tree_visitor</name>
+            <name>treevisitor</name>
             <source-roots>
                 <root id="src.bin.dir"/>
                 <root id="src.lib.dir"/>

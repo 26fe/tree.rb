@@ -13,6 +13,7 @@ begin
     gem.homepage = "http://github.com/tokiro/treevisitor"
 
     gem.add_dependency('abstract')
+    # gem.add_dependency('kwarts') optional
 
     #
     # files

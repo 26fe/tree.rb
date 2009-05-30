@@ -6,8 +6,6 @@ $TREEVISITOR_HOME = File.expand_path( File.join( File.dirname( __FILE__), "..") 
 $:.unshift( File.join($TREEVISITOR_HOME, "lib" ) )
 $:.unshift( File.join($TREEVISITOR_HOME, "test" ) )
 
-require "tree_visitor"
-
 require "gf_utility/tc_md5"
 
 require "treevisitor/tc_dir_processor"
