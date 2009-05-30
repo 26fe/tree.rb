@@ -1,6 +1,6 @@
 require File.join( File.dirname(__FILE__), "test_helper")
 
-require 'gf_utility/numeric.rb'
+require 'gf_utilities/numeric.rb'
 
 class TCNumeric < Test::Unit::TestCase
 
