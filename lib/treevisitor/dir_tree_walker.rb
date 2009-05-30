@@ -7,9 +7,16 @@ class DirTreeWalker
     end
 
     @visitor = nil
+
     @ignore_dir_patterns = []
-    @inspect_file_patterns = []
     @ignore_file_patterns = []
+
+    @inspect_file_patterns = []
+  end
+
+  def add_ignore_pattern(pattern)
+    @ignore_dir_patterns << pattern
+    @ignore_file_patterns << pattern
   end
 
   def add_ignore_dir( pattern )
@@ -29,33 +36,16 @@ class DirTreeWalker
   end
 
   def ignore_dir?( dirname )
-    basename = File.basename( dirname )
-    @ignore_dir_patterns.find{ |pattern|
-      basename == pattern
-    }
+    include?( @ignore_dir_patterns, File.basename( dirname ) )
   end
 
   def ignore_file?( filename )
-    basename = File.basename( filename )
-    @ignore_file_patterns.find{ |pattern|
-      if pattern.kind_of? Regexp
-        pattern =~ basename
-      else
-        pattern == basename
-      end
-    }
+    include?( @ignore_file_patterns, File.basename( filename ) )
   end
 
   def inspect_file?( filename )
     return true if @inspect_file_patterns.empty?
-    basename = File.basename( filename )
-    @inspect_file_patterns.find{ |pattern|
-      if pattern.kind_of? Regexp
-        pattern =~ basename
-      else
-        pattern == basename
-      end
-    }
+    include?( @inspect_file_patterns, File.basename( filename ) )
   end
 
   def run( treeNodeVisitor )
@@ -65,33 +55,37 @@ class DirTreeWalker
 
   private
 
+  def include?(patterns, basename)
+    # return false if the patters.empty?
+    patterns.find{ |pattern|
+      if pattern.respond_to?(:match) # or if pattern.kind_of? Regexp
+        pattern.match( basename )
+      else
+        basename == pattern
+      end
+    }
+  end
+
   #
   # recurse on other directories
   #
   # def process_directory( parentNode, dirname )
   def process_directory( dirname )
-    return if ignore_dir?( dirname )
-
     @visitor.enter_treeNode( dirname )
+    # return if ignore_dir?( dirname )
 
     Dir.entries( dirname ).each { |basename|
-      next if basename == "." or basename == ".."
+      next if basename == "." or basename == ".."  # ignore always "." and ".."
       pathname = File.join( dirname, basename )
 
       if File.directory?( pathname )
-
         # directory
-        if ! ignore_dir?( basename )
-          process_directory( pathname )
-        end
-
+        process_directory( pathname ) unless ignore_dir?( basename )
       else
-
         # file
         if inspect_file?( basename ) && ! ignore_file?( basename )
           @visitor.visit_leafNode( pathname )
         end
-
       end
     }
     @visitor.exit_treeNode( dirname )
