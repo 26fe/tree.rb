@@ -1,9 +1,12 @@
-=== 2009-05-25
+=== 2009-05-30
 
 * renamed dirtree to tree
 * added test for cli
 * added -a options to cli
 * adapted to ruby 1.9
+* created gem 0.0.8
+* added -d options (directories only)
+* divided in own files visitor
 
 === 2009-05-25
 

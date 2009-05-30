@@ -1,3 +1,5 @@
+require 'treevisitor/visitors/block_tree_node_visitor'
+
 class DirTreeWalker
 
   def initialize( dirname )
@@ -8,12 +10,24 @@ class DirTreeWalker
 
     @visitor = nil
 
+    #
+    # pattern
+    #
     @ignore_dir_patterns = []
     @ignore_file_patterns = []
 
     @inspect_file_patterns = []
+
+    #
+    # options
+    #
+
+    @visit_leaf = true
   end
 
+  ##########################################################################
+  # Pattern
+  #
   def add_ignore_pattern(pattern)
     @ignore_dir_patterns << pattern
     @ignore_file_patterns << pattern
@@ -34,6 +48,14 @@ class DirTreeWalker
   def add_inspect_file( pattern )
     @inspect_file_patterns << pattern
   end
+
+  ##########################################################################
+  # Options
+  
+  attr_accessor :visit_leaf
+
+  ##########################################################################
+
 
   def ignore_dir?( dirname )
     include?( @ignore_dir_patterns, File.basename( dirname ) )
@@ -82,9 +104,10 @@ class DirTreeWalker
         # directory
         process_directory( pathname ) unless ignore_dir?( basename )
       else
-        # file
-        if inspect_file?( basename ) && ! ignore_file?( basename )
-          @visitor.visit_leafNode( pathname )
+        if @visit_leaf
+          if inspect_file?( basename ) && ! ignore_file?( basename )
+            @visitor.visit_leafNode( pathname )
+          end
         end
       end
     }
