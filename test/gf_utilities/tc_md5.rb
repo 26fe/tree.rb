@@ -1,6 +1,6 @@
 require File.join( File.dirname(__FILE__), "test_helper")
 
-require 'gf_utility/md5.rb'
+require 'gf_utilities/md5.rb'
 
 class TCMD5 < Test::Unit::TestCase
 
