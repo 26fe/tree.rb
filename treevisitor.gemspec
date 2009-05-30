@@ -6,10 +6,10 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tokiro"]
-  s.date = %q{2009-05-29}
-  s.default_executable = %q{dirtree.rb}
+  s.date = %q{2009-05-30}
+  s.default_executable = %q{tree.rb}
   s.email = %q{tokiro.oyama@gmail.com}
-  s.executables = ["dirtree.rb"]
+  s.executables = ["tree.rb"]
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
@@ -22,10 +22,11 @@ Gem::Specification.new do |s|
      "lib/treevisitor.rb",
      "lib/treevisitor/abs_node.rb",
      "lib/treevisitor/build_dir_tree_visitor.rb",
-     "lib/treevisitor/cli/cli_dir_tree.rb",
+     "lib/treevisitor/cli/cli_tree.rb",
      "lib/treevisitor/dir_processor.rb",
      "lib/treevisitor/dir_tree_walker.rb",
      "lib/treevisitor/leaf_node.rb",
+     "lib/treevisitor/print_dir_tree_visitor.rb",
      "lib/treevisitor/tree_node.rb",
      "lib/treevisitor/tree_node_visitor.rb",
      "lib/treevisitor/visitor/print_node_visitor2.rb",
@@ -43,6 +44,7 @@ Gem::Specification.new do |s|
   s.summary = %q{implementation of visitor design pattern}
   s.test_files = [
     "test/treevisitor/tc_dir_processor.rb",
+     "test/treevisitor/cli/tc_cli_tree.rb",
      "test/treevisitor/tc_dir_tree_walker.rb",
      "test/treevisitor/tc_tree_node.rb",
      "test/treevisitor/tc_tree_node_visitor.rb",
