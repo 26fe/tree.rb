@@ -1,5 +1,12 @@
 === 2009-05-25
 
+* renamed dirtree to tree
+* added test for cli
+* added -a options to cli
+* adapted to ruby 1.9
+
+=== 2009-05-25
+
 * spostate delle funzioni in file_utilites che si trovavano in ralbum-common
 * creata gem 0.0.5
 
