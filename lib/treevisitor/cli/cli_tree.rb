@@ -3,12 +3,12 @@ require 'optparse'
 
 # common
 require 'treevisitor/dir_tree_walker'
-require 'treevisitor/build_dir_treevisitor'
+require 'treevisitor/build_dir_tree_visitor'
 
 #
 #
 #
-class CliDirTree
+class CliTree
 
   def self.run
     self.new.parse_args( ARGV )
@@ -19,15 +19,19 @@ class CliDirTree
     options = { :verbose => true, :force => false, :algo => 'build' }
 
     opts = OptionParser.new
-    opts.banner = "Usage: example.rb [options]"
+    opts.banner = "Usage: tree.rb [options] [directory]"
     
     opts.separator ""
-    opts.separator "programma per testare la classe DirProcessor"
-    opts.separator "Inserire il nome della directory da cui costuire il tree"
+    opts.separator "list contents of directories in a tree-like format"
+    opts.separator "this is a clone of tree unix command written in ruby"
     
     opts.separator ""
     opts.separator "opzioni: "
     
+    opts.on("-a", "All file are listed") do |v|
+      options[:all_files] = true
+    end
+
     opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
       options[:verbose] = v
     end
@@ -38,7 +42,7 @@ class CliDirTree
     
     opts.on("-h", "--help", "Show this message") do
       puts opts
-      exit
+      return 0
     end
 
 
@@ -46,7 +50,7 @@ class CliDirTree
     algo_aliases = { "b" => "build", "v" => "visit" }
 
     algo_list = (algo_aliases.keys + algos).join(',')
-    opts.on("-a", "--algo ALGO", algos, algo_aliases, "Select algo","  (#{algo_list})") do |algo|
+    opts.on("--algo ALGO", algos, algo_aliases, "Select algo","  (#{algo_list})") do |algo|
       options[:algo] = algo
     end
 
@@ -66,8 +70,9 @@ class CliDirTree
     puts "reading : #{dirname}"
 
     dtw = DirTreeWalker.new( dirname )
-    dtw.add_ignore_dir( ".svn" )
-    dtw.add_ignore_dir( "catalog_data" )
+    unless options[:all_files]
+      dtw.add_ignore_pattern(/^\.[^.]+/) # ignore all file starting with "."
+    end
 
     case options[:algo]
     when 'build'

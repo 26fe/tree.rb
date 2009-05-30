@@ -9,6 +9,14 @@ rescue LoadError
   abort 'kwartz gem required!!'
 end
 
+
+# ruby 1.9
+# cambiare alla linea 73 kwartz/main.rb la linea seguente:
+# return @_option_table.find { |row| row[1] == key }
+# con
+# return @_option_table.find { |row| row[1][0] == key[0] }
+
+
 #
 # kwartz utility
 # template_dir: directory containing kwartz template

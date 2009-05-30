@@ -1,9 +1,11 @@
 = TODO
 
+* kwartz non fuziona con ruby 1.9!!!
+* testare le funzioni dentro file_utilities - copy_dir aveva un errore!!!
+
 * completare test kwartz
   fare il diff dell'output con file certificati
   usare anche il codice ruby generato per vedere se funziona
 
-* provare a utilizzare gem install con l'opzione di test
-  per vedere se i test funzionano
-
+(ok) DirTreeWalker.add_ignore_dir deve prendere anche una regular expression
+(ok) provare a utilizzare gem install con l'opzione di test per vedere se i test funzionano
