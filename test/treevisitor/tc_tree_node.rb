@@ -7,8 +7,11 @@ class TCTreeNode < Test::Unit::TestCase
   def test_simple_build
     ta = TreeNode.new( "a" )
     assert( ta.root? )
+
     ln1 = LeafNode.new("1", ta)
     assert_equal( ta, ln1.parent )
+    assert !ln1.root?
+
     ln2 = LeafNode.new("2", ta)
     tb = TreeNode.new( "b", ta )
     ln3 = LeafNode.new( "3", tb )

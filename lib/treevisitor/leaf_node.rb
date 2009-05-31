@@ -16,6 +16,10 @@ class LeafNode < AbsNode
     end
   end
 
+  def root?
+    false
+  end
+
   def accept( visitor )
     visitor.visit_leafNode( self )
   end
