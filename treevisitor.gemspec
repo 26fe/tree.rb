@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{treevisitor}
-  s.version = "0.0.8"
+  s.version = "0.0.10"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["gf"]
-  s.date = %q{2009-05-30}
+  s.date = %q{2009-06-01}
   s.default_executable = %q{tree.rb}
   s.email = %q{giovanni.ferro@gmail.com}
   s.executables = ["tree.rb"]
@@ -36,8 +36,8 @@ Gem::Specification.new do |s|
      "lib/treevisitor/visitors/depth_tree_node_visitor.rb",
      "lib/treevisitor/visitors/flat_print_tree_node_visitors.rb",
      "lib/treevisitor/visitors/print_dir_tree_visitor.rb",
-     "lib/treevisitor/visitors/print_node_visitor2.rb",
      "lib/treevisitor/visitors/print_tree_node_visitor.rb",
+     "lib/treevisitor/visitors/print_tree_node_visitor2.rb",
      "test_data/gf_utility/kwartz_test_data/out.certified/dummy.txt",
      "test_data/gf_utility/kwartz_test_data/out/dummy.txt",
      "test_data/gf_utility/kwartz_test_data/source/test1.html",
