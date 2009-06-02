@@ -6,8 +6,11 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["gf"]
-  s.date = %q{2009-06-01}
+  s.date = %q{2009-06-02}
   s.default_executable = %q{tree.rb}
+  s.description = %q{      Implementation of visitor design pattern. It contains a 'tree.rb'
+      command line clone of the tree unix tool.
+}
   s.email = %q{giovanni.ferro@gmail.com}
   s.executables = ["tree.rb"]
   s.extra_rdoc_files = [
@@ -53,7 +56,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{treevisitor}
   s.rubygems_version = %q{1.3.2}
-  s.summary = %q{implementation of visitor design pattern}
+  s.summary = %q{Implementation of visitor design pattern}
   s.test_files = [
     "test/treevisitor/tc_dir_processor.rb",
      "test/treevisitor/cli/tc_cli_tree.rb",

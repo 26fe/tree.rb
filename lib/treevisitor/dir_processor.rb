@@ -2,8 +2,7 @@ require 'pathname'
 
 class DirProcessor
 
-  def initialize( dirname, &action )
-    @dirname = dirname
+  def initialize( &action )
     @processors = {}
     @default_processor = action
   end
@@ -12,7 +11,8 @@ class DirProcessor
     @processors[ re ] = action
   end
 
-  def run()
+  def process( dirname )
+    @dirname = dirname
     old_dirname = Dir.pwd
     Dir.chdir( @dirname )
     Dir["**/*"].each { |f|
@@ -26,7 +26,7 @@ class DirProcessor
   end
 
   private
-
+  
   def process_file( pn )
     # puts "file: #{f}"
     pair = @processors.find { |re,action| re =~ pn.to_s }

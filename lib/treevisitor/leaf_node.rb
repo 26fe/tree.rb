@@ -21,7 +21,7 @@ class LeafNode < AbsNode
   end
 
   def accept( visitor )
-    visitor.visit_leafNode( self )
+    visitor.visit_leaf_node( self )
   end
 
   def to_str

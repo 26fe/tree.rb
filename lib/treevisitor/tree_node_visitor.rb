@@ -7,15 +7,15 @@ require 'abstract'
 #
 class TreeNodeVisitor
 
-  def enter_treeNode( treeNode )
+  def enter_tree_node( treeNode )
     not_implemented
   end
 
-  def exit_treeNode( treeNode )
+  def exit_tree_node( treeNode )
     not_implemented
   end
 
-  def visit_leafNode( leafNode )
+  def visit_leaf_node( leafNode )
     not_implemented
   end
 
