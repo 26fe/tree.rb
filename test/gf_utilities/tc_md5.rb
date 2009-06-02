@@ -8,7 +8,7 @@ class TCMD5 < Test::Unit::TestCase
 
   def test_simple_md5
     file_name = File.join( TEST_FILE )
-    assert_equal "0cac752fb36269471d8265435ed99443", MD5.file( file_name ).to_s
+    assert_equal "8777d9d35da17496e21dcc8a4f9f8191", MD5.file( file_name ).to_s
   end
 
 end

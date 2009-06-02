@@ -1,8 +1,7 @@
 require 'treevisitor/tree_node_visitor.rb'
 
 #
-# Utilizzo della classa astratta DirTreeProcessor
-# per chimare un blocco su tutti i TreeNode
+# It call a block when visit a tree_node or leaf_node
 #
 class BlockTreeNodeVisitor < TreeNodeVisitor
 
@@ -10,14 +9,14 @@ class BlockTreeNodeVisitor < TreeNodeVisitor
     @block = action
   end
 
-  def enter_treeNode( treeNode )
+  def enter_tree_node( treeNode )
     @block.call( treeNode )
   end
 
-  def exit_treeNode( treeNode )
+  def exit_tree_node( treeNode )
   end
 
-  def visit_leafNode( leafNode )
+  def visit_leaf_node( leafNode )
     @block.call( leafNode )
   end
 

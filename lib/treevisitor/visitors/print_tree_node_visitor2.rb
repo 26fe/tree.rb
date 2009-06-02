@@ -1,3 +1,6 @@
+#
+# Prints node using "to_s" instead of name
+# TODO: join this with PrintTreeNodeVisitor
 class PrintTreeNodeVisitor2 < TreeNodeVisitor
 
   def initialize( *args )
@@ -5,16 +8,16 @@ class PrintTreeNodeVisitor2 < TreeNodeVisitor
     @depth = 0
   end
 
-  def visit_leafNode( leafNode )
+  def visit_leaf_node( leaf_node )
     str = ""
     (0...@depth-1).step {
       str << " |-"
     }
     str << " |  "
-    puts str + leafNode.to_s
+    puts str + leaf_node.to_s
   end
 
-  def enter_treeNode( treeNode )
+  def enter_tree_node( tree_node )
 
     str = ""
     (0...@depth).step {
@@ -22,14 +25,14 @@ class PrintTreeNodeVisitor2 < TreeNodeVisitor
     }
 
     if @depth == 0
-      puts str + treeNode.to_s
+      puts str + tree_node.to_s
     else
-      puts str + treeNode.to_s
+      puts str + tree_node.to_s
     end
     @depth += 1
   end
 
-  def exit_treeNode( treeNode )
+  def exit_tree_node( tree_node )
     @depth -= 1
   end
 end

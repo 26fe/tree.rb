@@ -1,5 +1,7 @@
 #
-# CallbackTreeNodeVisitor
+# Executes a block when enter in a node
+# The block are defined from on_enter_X methods
+# The blocks take as argument only the node
 #
 class CallbackTreeNodeVisitor < TreeNodeVisitor
 
@@ -20,7 +22,7 @@ class CallbackTreeNodeVisitor < TreeNodeVisitor
     @action_visitLeafNode = action
   end
 
-  def enter_treeNode( treeNode )
+  def enter_tree_node( treeNode )
     parentNode = if @stack.empty?
                    nil
                  else
@@ -31,11 +33,11 @@ class CallbackTreeNodeVisitor < TreeNodeVisitor
     @action_enterTreeNode.call( treeNode ) if @action_enterTreeNode
   end
 
-  def exit_treeNode( treeNode )
+  def exit_tree_node( treeNode )
     @stack.pop
   end
 
-  def visit_leafNode( leafNode )
+  def visit_leaf_node( leafNode )
     parentNode = @stack.last
     @action_visitLeafNode.call( leafNode ) if @action_visitLeafNode
   end

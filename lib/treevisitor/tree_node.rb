@@ -92,14 +92,14 @@ class TreeNode < AbsNode
   end
 
   def accept( visitor )
-    visitor.enter_treeNode( self )
+    visitor.enter_tree_node( self )
     @leaves.each{ |l|
       l.accept( visitor )
     }
     @childs.each { |tn|
       tn.accept( visitor )
     }
-    visitor.exit_treeNode( self )
+    visitor.exit_tree_node( self )
   end
 
   def to_str( depth = 0 )

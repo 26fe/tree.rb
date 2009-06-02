@@ -1,3 +1,8 @@
+=== 2009-06-02
+
+* added method DirProcessor.process(dir)
+* renamed some methods from CamelCase to ruby code style
+
 === 2009-05-30
 
 * renamed dirtree to tree
