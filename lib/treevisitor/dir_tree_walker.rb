@@ -93,7 +93,7 @@ class DirTreeWalker
   #
   # def process_directory( parentNode, dirname )
   def process_directory( dirname )
-    @visitor.enter_treeNode( dirname )
+    @visitor.enter_tree_node( dirname )
     # return if ignore_dir?( dirname )
 
     Dir.entries( dirname ).each { |basename|
@@ -106,11 +106,11 @@ class DirTreeWalker
       else
         if @visit_leaf
           if inspect_file?( basename ) && ! ignore_file?( basename )
-            @visitor.visit_leafNode( pathname )
+            @visitor.visit_leaf_node( pathname )
           end
         end
       end
     }
-    @visitor.exit_treeNode( dirname )
+    @visitor.exit_tree_node( dirname )
   end
 end

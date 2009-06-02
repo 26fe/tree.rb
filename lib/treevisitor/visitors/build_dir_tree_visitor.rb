@@ -1,12 +1,10 @@
-# common
 require 'treevisitor/tree_node'
 require 'treevisitor/dir_tree_walker'
 require 'treevisitor/tree_node_visitor'
 
 #
-# costruisce una albero TreeNode a partire dalla struttura
-# della directory, simile a clona
-# Clona un TreeNode
+# Buils a TreeNode from a filesystem directory
+# It similar to CloneTreeNodeVisitor
 #
 class BuildDirTreeVisitor < TreeNodeVisitor
   
@@ -23,7 +21,7 @@ class BuildDirTreeVisitor < TreeNodeVisitor
     @nr_files = 0
   end
   
-  def enter_treeNode( pathname )
+  def enter_tree_node( pathname )
     if @stack.empty?
       treeNode = TreeNode.new( File.basename( pathname ) )
       @root = treeNode
@@ -34,11 +32,11 @@ class BuildDirTreeVisitor < TreeNodeVisitor
     @stack.push( treeNode )
   end
 
-  def exit_treeNode( pathname )
+  def exit_tree_node( pathname )
     @stack.pop
   end
 
-  def visit_leafNode( pathname )
+  def visit_leaf_node( pathname )
     @nr_files  += 1
     leafNode = LeafNode.new( File.basename(pathname), @stack.last )
   end

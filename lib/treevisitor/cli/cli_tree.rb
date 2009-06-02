@@ -81,6 +81,7 @@ class CliTree
 
     dtw = DirTreeWalker.new( dirname )
     unless options[:all_files]
+      # TODO: la regex e' corretta ed un file che inizia con ".."??
       dtw.add_ignore_pattern(/^\.[^.]+/) # ignore all file starting with "."
     end
 
@@ -97,7 +98,7 @@ class CliTree
       visitor = PrintDirTreeVisitor.new
       dtw.run( visitor )
     end
-
+    return 0
   end
 
 end

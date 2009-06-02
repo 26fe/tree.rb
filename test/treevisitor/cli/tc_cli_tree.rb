@@ -11,7 +11,7 @@ class TCCliTree < Test::Unit::TestCase
       args = %w{-h}
       CliTree.new.parse_args(args)
     end
-    assert out.start_with?("Usage:")
+    assert_match /Usage:/, out
   end
 
   def test_version

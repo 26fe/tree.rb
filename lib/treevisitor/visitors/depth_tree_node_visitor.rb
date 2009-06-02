@@ -1,5 +1,5 @@
 #
-#
+# Simple visitor: show how calculate the depth of a tree
 #
 class DepthTreeNodeVisitor < TreeNodeVisitor
 
@@ -10,15 +10,15 @@ class DepthTreeNodeVisitor < TreeNodeVisitor
     @depth = 0
   end
 
-  def enter_treeNode( treeNode )
+  def enter_tree_node( treeNode )
     @depth += 1
   end
 
-  def exit_treeNode( treeNode )
+  def exit_tree_node( treeNode )
     @depth -= 1
   end
 
-  def visit_leafNode( leafNode )
+  def visit_leaf_node( leafNode )
   end
 
 end

@@ -6,7 +6,12 @@ begin
   Jeweler::Tasks.new do |gem|
 
     gem.name = "treevisitor"
-    gem.summary = "implementation of visitor design pattern"
+    gem.summary = "Implementation of visitor design pattern"
+    gem.description = <<-EOF
+      Implementation of visitor design pattern. It contains a 'tree.rb'
+      command line clone of the tree unix tool.
+    EOF
+
 
     gem.authors = ["Tokiro"]
     gem.email = "tokiro.oyama@gmail.com"

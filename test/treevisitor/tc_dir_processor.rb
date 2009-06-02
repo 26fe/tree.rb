@@ -8,8 +8,8 @@ class TCDirProcessor < Test::Unit::TestCase
 
   def test_simple
     files = []
-    dp = DirProcessor.new(TEST_DATA) { |f| files << f }
-    dp.run
+    dp = DirProcessor.new { |f| files << f }
+    dp.process(TEST_DATA)
     assert_equal 3, files.length
   end
 end

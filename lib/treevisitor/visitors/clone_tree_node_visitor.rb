@@ -1,6 +1,5 @@
 #
-# Esempio
-# Clona un TreeNode
+# Clone a tree_node
 #
 class CloneTreeNodeVisitor < TreeNodeVisitor
 
@@ -12,7 +11,7 @@ class CloneTreeNodeVisitor < TreeNodeVisitor
     @stack = []
   end
 
-  def enter_treeNode( treeNode )
+  def enter_tree_node( treeNode )
     if @stack.empty?
       clonedTreeNode = TreeNode.new( treeNode.name )
       @clonedRoot = clonedTreeNode
@@ -22,11 +21,11 @@ class CloneTreeNodeVisitor < TreeNodeVisitor
     @stack.push( clonedTreeNode )
   end
 
-  def exit_treeNode( treeNode )
+  def exit_tree_node( treeNode )
     @stack.pop
   end
 
-  def visit_leafNode( leafNode )
+  def visit_leaf_node( leafNode )
     clonedLeafNode = LeafNode.new( leafNode.name, @stack.last )
   end
 
