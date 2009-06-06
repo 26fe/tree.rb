@@ -10,15 +10,15 @@ class DepthTreeNodeVisitor < TreeNodeVisitor
     @depth = 0
   end
 
-  def enter_tree_node( treeNode )
+  def enter_tree_node( tree_node )
     @depth += 1
   end
 
-  def exit_tree_node( treeNode )
+  def exit_tree_node( tree_node )
     @depth -= 1
   end
 
-  def visit_leaf_node( leafNode )
+  def visit_leaf_node( leaf_node )
   end
 
 end

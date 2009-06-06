@@ -36,14 +36,14 @@ class TCTreeNodeVisitor < Test::Unit::TestCase
     
     visitor = CloneTreeNodeVisitor.new
     @tree.accept( visitor )
-    assert_equal(@tree.nr_nodes, visitor.clonedRoot.nr_nodes )
+    assert_equal(@tree.nr_nodes, visitor.cloned_root.nr_nodes )
   end
   
   def test_callback_tree_node_visitor
     accumulator = []
     visitor = CallbackTreeNodeVisitor.new
-    visitor.onEnterTreeNode{ |treeNode| accumulator << treeNode.name }
-    visitor.onVisitLeafNode{ |leafNode| accumulator << leafNode.name }
+    visitor.on_enter_tree_node{ |treeNode| accumulator << treeNode.name }
+    visitor.on_visit_leaf_node{ |leafNode| accumulator << leafNode.name }
     @tree.accept( visitor )
     assert_equal( 5, accumulator.length )
     assert_equal( %w{ a 1 2 b 3 }, accumulator )
@@ -51,10 +51,10 @@ class TCTreeNodeVisitor < Test::Unit::TestCase
   
   def test_callback_tree_node_visitor2
     visitor = CallbackTreeNodeVisitor2.new
-    visitor.onEnterTreeNode{ |treeNode, newParentNode| 
+    visitor.on_enter_tree_node{ |treeNode, newParentNode|
       TreeNode.new("n" + treeNode.name, newParentNode) 
     }
-    visitor.onVisitLeafNode{ |leafNode, newParentNode| 
+    visitor.on_visit_leaf_node{ |leafNode, newParentNode|
       LeafNode.new( "n" + leafNode.name, newParentNode )
     }
     @tree.accept( visitor )

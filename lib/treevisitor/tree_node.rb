@@ -1,10 +1,8 @@
-# common
 require 'treevisitor/leaf_node'
 
 #
-# Un treeNode e' come un AbsNode
-# in piu' ha la possibilita' di contenere
-# altri treeNode e LeafNode
+# TreeNode can contains other TreeNode (children)
+# and can contains LeafNode (leves)
 #
 # TreeNode @childs -1---n-> TreeNode
 #          @leaves -1---n-> LeafNode
@@ -12,11 +10,11 @@ require 'treevisitor/leaf_node'
 class TreeNode < AbsNode
   
   attr_reader :leaves
-  attr_reader :childs
+  attr_reader :children
 
   def initialize( name, parent = nil )
     @leaves = []
-    @childs = []
+    @children = []
     super( name )
     if parent
       parent.add_child( self )
@@ -29,30 +27,31 @@ class TreeNode < AbsNode
   
   #
   # invalidate cached info
+  # invalidate propagates form parent to children and leaves
   #
   def invalidate
     super
-    @childs.each{ |c| c.invalidate }
+    @children.each{ |c| c.invalidate }
     @leaves.each{ |l| l.invalidate }
   end
   
   def nr_nodes
-    nr = @leaves.length + @childs.length
-    @childs.inject( nr ) { |nr,c| nr + c.nr_nodes }
+    nr = @leaves.length + @children.length
+    @children.inject( nr ) { |nr,c| nr + c.nr_nodes }
   end
   
   def nr_leaves
-    @leaves.length + @childs.inject(0) { |sum, child| sum + child.nr_leaves }
+    @leaves.length + @children.inject(0) { |sum, child| sum + child.nr_leaves }
   end
 
-  def nr_childs
-    @childs.length + @childs.inject(0) { |sum, child| sum + child.nr_childs }
+  def nr_children
+    @children.length + @children.inject(0) { |sum, child| sum + child.nr_children }
   end
         
   def add_leaf( leaf )
     return if leaf.parent == self
     if not leaf.parent.nil?
-      leaf.remove_from_parent()
+      leaf.remove_from_parent
     end  
     leaf.parent = self
     if @leaves.length > 0
@@ -71,35 +70,37 @@ class TreeNode < AbsNode
     end  
     treeNode.invalidate
     treeNode.parent = self
-    @childs << treeNode
+    @children << treeNode
   end
   
   def find( name )
-    if self.name == name
-      return self
-    end
+    return self if self.name == name
     
     leaf = @leaves.find { |l| l.name == name }
     if leaf
       return leaf
     end
     
-    @childs.each {|c| 
+    @children.each {|c|
       node = c.find(name)
       return node if node
     }
     nil
   end
 
+  #
+  # return the visitor
+  #
   def accept( visitor )
     visitor.enter_tree_node( self )
-    @leaves.each{ |l|
-      l.accept( visitor )
+    @leaves.each{ |leaf|
+      leaf.accept( visitor )
     }
-    @childs.each { |tn|
-      tn.accept( visitor )
+    @children.each { |child|
+      child.accept( visitor )
     }
     visitor.exit_tree_node( self )
+    visitor
   end
 
   def to_str( depth = 0 )
@@ -116,7 +117,7 @@ class TreeNode < AbsNode
         (0...depth-1).step {
           str << " |-"
         }
-        if @childs.empty?
+        if @children.empty?
           str << " |    "
         else
           str << " |  | "
@@ -126,7 +127,7 @@ class TreeNode < AbsNode
       }
     end
 
-    @childs.each { |tn|
+    @children.each { |tn|
       str << tn.to_str( depth + 1 )
     }
     str

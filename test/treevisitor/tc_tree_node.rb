@@ -72,11 +72,11 @@ class TCTreeNode < Test::Unit::TestCase
     
     assert_equal( 4, ta.nr_nodes )
     assert_equal( 3, ta.nr_leaves )
-    assert_equal( 1, ta.nr_childs )
+    assert_equal( 1, ta.nr_children )
     
     assert_equal( 1, tb.nr_nodes )
     assert_equal( 1, tb.nr_leaves )
-    assert_equal( 0, tb.nr_childs )
+    assert_equal( 0, tb.nr_children )
   end
   
   def test_prefix_path

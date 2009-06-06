@@ -8,7 +8,7 @@ class PrintDirTreeVisitor < TreeNodeVisitor
     puts pathname
   end
 
-  def exit_tree_node( treeNode )
+  def exit_tree_node( pathname )
   end
 
   def visit_leaf_node( pathname )

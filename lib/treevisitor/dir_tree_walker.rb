@@ -1,5 +1,3 @@
-require 'treevisitor/visitors/block_tree_node_visitor'
-
 class DirTreeWalker
 
   def initialize( dirname )
@@ -21,7 +19,6 @@ class DirTreeWalker
     #
     # options
     #
-
     @visit_leaf = true
   end
 
@@ -70,9 +67,13 @@ class DirTreeWalker
     include?( @inspect_file_patterns, File.basename( filename ) )
   end
 
-  def run( treeNodeVisitor )
-    @visitor = treeNodeVisitor
+  #
+  # return the visitor
+  #
+  def run( tree_node_visitor )
+    @visitor = tree_node_visitor
     process_directory( File.expand_path( @dirname ) )
+    tree_node_visitor
   end
 
   private
@@ -91,7 +92,6 @@ class DirTreeWalker
   #
   # recurse on other directories
   #
-  # def process_directory( parentNode, dirname )
   def process_directory( dirname )
     @visitor.enter_tree_node( dirname )
     # return if ignore_dir?( dirname )

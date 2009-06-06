@@ -5,41 +5,36 @@
 #
 class CallbackTreeNodeVisitor < TreeNodeVisitor
 
-  def initialize( root = nil )
+  def initialize
     super()
     @stack = []
-    @root = root
-    @stack.push( root ) if root
-    @action_enterTreeNode = nil
-    @action_visitLeafNode = nil
+    @root = nil
+    @action_enter_tree_node = nil
+    @action_visit_leaf_node = nil
   end
 
-  def onEnterTreeNode( &action )
-    @action_enterTreeNode = action
+  def on_enter_tree_node( &action )
+    @action_enter_tree_node = action
   end
 
-  def onVisitLeafNode( &action )
-    @action_visitLeafNode = action
+  def on_visit_leaf_node( &action )
+    @action_visit_leaf_node = action
   end
 
-  def enter_tree_node( treeNode )
-    parentNode = if @stack.empty?
-                   nil
-                 else
-                   @stack.last
-                 end
-    @root = treeNode if @stack.empty?
-    @stack.push( treeNode )
-    @action_enterTreeNode.call( treeNode ) if @action_enterTreeNode
+  def enter_tree_node( tree_node )
+    # parent_node = @stack.empty? ? nil : @stack.last
+    @root = tree_node if @stack.empty?
+    @stack.push( tree_node )
+    @action_enter_tree_node.call( tree_node ) if @action_enter_tree_node
   end
 
-  def exit_tree_node( treeNode )
+  def exit_tree_node( tree_node )
     @stack.pop
   end
 
-  def visit_leaf_node( leafNode )
-    parentNode = @stack.last
-    @action_visitLeafNode.call( leafNode ) if @action_visitLeafNode
+  def visit_leaf_node( leaf_node )
+    # parent_node = @stack.last
+    @action_visit_leaf_node.call( leaf_node ) if @action_visit_leaf_node
   end
 
 end
