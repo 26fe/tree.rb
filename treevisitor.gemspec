@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{treevisitor}
-  s.version = "0.0.10"
+  s.version = "0.0.11"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tokiro"]
-  s.date = %q{2009-06-02}
+  s.date = %q{2009-06-06}
   s.default_executable = %q{tree.rb}
   s.description = %q{      Implementation of visitor design pattern. It contains a 'tree.rb'
       command line clone of the tree unix tool.
