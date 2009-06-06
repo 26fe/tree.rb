@@ -3,21 +3,11 @@
 #
 class PrintTreeNodeVisitor < TreeNodeVisitor
 
-  def initialize( *args )
-    super( *args )
+  def initialize
     @depth = 0
   end
 
-  def visit_leaf_node( leafNode )
-    str = ""
-    (0...@depth-1).step {
-      str << " |-"
-    }
-    str << " |  "
-    puts str + leafNode.name.to_s
-  end
-
-  def enter_tree_node( treeNode )
+  def enter_tree_node( tree_node )
 
     str = ""
     (0...@depth).step {
@@ -25,14 +15,24 @@ class PrintTreeNodeVisitor < TreeNodeVisitor
     }
 
     if @depth == 0
-      puts str + treeNode.name.to_s
+      puts str + tree_node.name.to_s
     else
-      puts str + treeNode.name.to_s
+      puts str + tree_node.name.to_s
     end
     @depth += 1
   end
 
-  def exit_tree_node( treeNode )
+  def exit_tree_node( tree_node )
     @depth -= 1
   end
+
+  def visit_leaf_node( leaf_node )
+    str = ""
+    (0...@depth-1).step {
+      str << " |-"
+    }
+    str << " |  "
+    puts str + leaf_node.name.to_s
+  end
+
 end

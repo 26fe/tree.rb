@@ -1,7 +1,16 @@
 === 2009-06-02
 
+* rivisto il codice, eliminato del codice inutile
+* aggiunta variabile per il path_separator
+* accept(visitor) ritornano il visitor
+* childs rinominato in children :-)
+* gem 0.0.11
+
+=== 2009-06-02
+
 * added method DirProcessor.process(dir)
 * renamed some methods from CamelCase to ruby code style
+* gem 0.0.10
 
 === 2009-05-30
 

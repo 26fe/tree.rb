@@ -3,30 +3,30 @@
 #
 class CloneTreeNodeVisitor < TreeNodeVisitor
 
-  attr_reader :clonedRoot
+  attr_reader :cloned_root
 
   def initialize
     super
-    @clonedRoot = nil
+    @cloned_root = nil
     @stack = []
   end
 
   def enter_tree_node( treeNode )
     if @stack.empty?
-      clonedTreeNode = TreeNode.new( treeNode.name )
-      @clonedRoot = clonedTreeNode
+      cloned_tree_node = TreeNode.new( treeNode.name )
+      @cloned_root = cloned_tree_node
     else
-      clonedTreeNode = TreeNode.new( treeNode.name, @stack.last )
+      cloned_tree_node = TreeNode.new( treeNode.name, @stack.last )
     end
-    @stack.push( clonedTreeNode )
+    @stack.push( cloned_tree_node )
   end
 
   def exit_tree_node( treeNode )
     @stack.pop
   end
 
-  def visit_leaf_node( leafNode )
-    clonedLeafNode = LeafNode.new( leafNode.name, @stack.last )
+  def visit_leaf_node( leaf_node )
+    LeafNode.new( leaf_node.name, @stack.last )
   end
 
 end
