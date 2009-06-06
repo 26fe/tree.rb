@@ -5,6 +5,8 @@
 * accept(visitor) ritornano il visitor
 * childs rinominato in children :-)
 * gem 0.0.11
+* rinominato path_from_root -> path_with_prefix
+* gem 0.0.12
 
 === 2009-06-02
 
