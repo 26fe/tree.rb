@@ -49,7 +49,7 @@ class AbsNode
   #
   def invalidate
     @path = nil
-    @path_from_root = nil
+    @path_with_prefix = nil
     @depth = nil    
   end
   
@@ -81,21 +81,21 @@ class AbsNode
   def path
     return @path unless @path.nil?
     if @parent.nil?
-      @path = @prefix_path.nil? ? @name : @prefix_path + @name
+      @path = @name
     else
       @path = @parent.path + AbsNode::path_separator + @name
     end
     @path
   end
   
-  def path_from_root
-    return @path_from_root unless @path_from_root.nil?
+  def path_with_prefix
+    return @path_with_prefix unless @path_with_prefix.nil?
     if @parent.nil?
-      @path_from_root = @prefix_path.nil? ? "" : @prefix_path
+      @path_with_prefix = @prefix_path.nil? ? @name : @prefix_path + @name
     else
-      @path_from_root = @parent.path_from_root + AbsNode::path_separator + @name
+      @path_with_prefix = @parent.path_with_prefix + AbsNode::path_separator + @name
     end
-    @path_from_root
+    @path_with_prefix
   end
 
   def depth

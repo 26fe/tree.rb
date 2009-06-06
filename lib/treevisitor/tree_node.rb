@@ -63,14 +63,16 @@ class TreeNode < AbsNode
     @leaves << leaf
   end
 
-  def add_child( treeNode )
-    return if treeNode.parent == self
-    if not treeNode.parent.nil?
-      treeNode.remove_from_parent()
+  def add_child( tree_node )
+    return if tree_node.parent == self
+    if not tree_node.parent.nil?
+      tree_node.remove_from_parent()
+    else
+      tree_node.prefix_path = nil
     end  
-    treeNode.invalidate
-    treeNode.parent = self
-    @children << treeNode
+    tree_node.invalidate
+    tree_node.parent = self
+    @children << tree_node
   end
   
   def find( name )
