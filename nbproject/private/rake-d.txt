@@ -1,12 +1,13 @@
 build=Build gem
 clobber=
+clobber_rcov=Remove rcov products for rcov
 clobber_rdoc=Remove rdoc products
 default=
 gemspec=Generate and validates gemspec
 gemspec\:generate=Generates the gemspec, using version from VERSION
 gemspec\:validate=Validates the gemspec
 install=Install gem using sudo
-rcov=
+rcov=Analyze code coverage with tests
 rdoc=Build the HTML documentation
 rdoc/index.html=
 release=Release the current version. Includes updating the gemspec, pushing, and tagging the release

@@ -23,13 +23,13 @@ class BuildDirTreeVisitor < TreeNodeVisitor
   
   def enter_tree_node( pathname )
     if @stack.empty?
-      treeNode = TreeNode.new( File.basename( pathname ) )
-      @root = treeNode
+      tree_node = TreeNode.new( File.basename( pathname ) )
+      @root = tree_node
     else
-      treeNode = TreeNode.new( File.basename( pathname ), @stack.last )
+      tree_node = TreeNode.new( File.basename( pathname ), @stack.last )
     end
     @nr_directories += 1
-    @stack.push( treeNode )
+    @stack.push( tree_node )
   end
 
   def exit_tree_node( pathname )
@@ -38,7 +38,8 @@ class BuildDirTreeVisitor < TreeNodeVisitor
 
   def visit_leaf_node( pathname )
     @nr_files  += 1
-    leafNode = LeafNode.new( File.basename(pathname), @stack.last )
+    # connect the leaf_node created to the last tree_node on the stack
+    LeafNode.new( File.basename(pathname), @stack.last )
   end
 
 end

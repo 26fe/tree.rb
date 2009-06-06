@@ -1,22 +1,16 @@
-# rubygems
-require 'rubygems'
-require 'abstract'
-
 #
-# Classe astratta per visitare un TreeNode
+# Callback methods used to visit a tree
+# Are empty so it is possible defined only a subset
 #
 class TreeNodeVisitor
 
-  def enter_tree_node( treeNode )
-    not_implemented
+  def enter_tree_node( tree_node )
   end
 
-  def exit_tree_node( treeNode )
-    not_implemented
+  def exit_tree_node( tree_node )
   end
-
-  def visit_leaf_node( leafNode )
-    not_implemented
+  
+  def visit_leaf_node( leaf_node )
   end
 
 end

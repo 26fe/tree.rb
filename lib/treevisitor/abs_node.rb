@@ -3,27 +3,40 @@ require "rubygems"
 require "abstract"
 
 #
-# Nodo Astratto
-#   Gerarchia delle classi
+# Abstract Node
+#   Class hierarchy
 #
-#   AbsNode ha un nome, un parent
-#    |      definisce un path
+#   AbsNode has a name, a parent
+#    ^      and define a path i.e. concatenation ancestor names
 #    |
-#    |- LeafNode
+#    |-- LeafNode
 #    |
-#    |- TreeNode
-# 
+#    `-- TreeNode
 #
+#  Object diagram
+#
+#           TreeNode (parent: nil)
+#             |
+#             |--->[ LeafNode, LeafNode, LeafNode ]
+#             |
+#             |--->[ TreeNode, TreeNode ]
+#                         |
+#                         |--> [LeafNode]
+#                         |
+#                         `--> [TreeNode, TreeNode]
 class AbsNode
+
+  class << self
+    attr_accessor :path_separator
+  end
+  self.path_separator = File::SEPARATOR
 
   attr_reader :parent
   attr_reader :name
   
-  # solo TreeNode puo' scrivere vedi funzione add_leaf
   attr_accessor :prev
   attr_accessor :next
   
-
   def initialize( name )
     @parent = nil
     @name = name
@@ -68,13 +81,9 @@ class AbsNode
   def path
     return @path unless @path.nil?
     if @parent.nil?
-      if @prefix_path
-        @path = @prefix_path + @name
-      else
-        @path = @name
-      end
+      @path = @prefix_path.nil? ? @name : @prefix_path + @name
     else
-      @path = File.join( @parent.path, @name )
+      @path = @parent.path + AbsNode::path_separator + @name
     end
     @path
   end
@@ -82,24 +91,16 @@ class AbsNode
   def path_from_root
     return @path_from_root unless @path_from_root.nil?
     if @parent.nil?
-      if @prefix_path
-        @path_from_root = @prefix_path
-      else
-        @path_from_root = ""
-      end
+      @path_from_root = @prefix_path.nil? ? "" : @prefix_path
     else
-      @path_from_root = File.join( @parent.path_from_root, @name )
+      @path_from_root = @parent.path_from_root + AbsNode::path_separator + @name
     end
     @path_from_root
   end
 
   def depth
     return @depth unless @depth.nil?
-    if @parent.nil?
-      @depth = 1
-    else
-      @depth = @parent.depth + 1
-    end
+    @depth = @parent.nil? ? 1 : @parent.depth + 1
     @depth
   end
   

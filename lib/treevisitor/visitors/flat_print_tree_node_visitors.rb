@@ -3,15 +3,15 @@
 #
 class FlatPrintTreeNodeVisitor < TreeNodeVisitor
 
-  def enter_tree_node( treeNode )
-    puts treeNode.name
+  def enter_tree_node( tree_node )
+    puts tree_node.name
   end
 
-  def exit_tree_node( treeNode )
+  def exit_tree_node( tree_node )
   end
 
-  def visit_leaf_node( leafNode )
-    puts leafNode.name
+  def visit_leaf_node( leaf_node )
+    puts leaf_node.name
   end
 
 end
