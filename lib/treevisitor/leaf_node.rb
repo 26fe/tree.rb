@@ -23,8 +23,4 @@ class LeafNode < AbsNode
     visitor
   end
 
-  def to_str
-    name.to_str
-  end
-
 end

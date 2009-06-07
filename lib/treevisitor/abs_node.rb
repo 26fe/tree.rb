@@ -108,6 +108,10 @@ class AbsNode
     not_implemented
   end
 
+  def to_s
+    @name.to_s
+  end
+
   protected
 
   def parent=( parent )

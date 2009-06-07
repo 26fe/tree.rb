@@ -57,8 +57,10 @@ class TreeNode < AbsNode
     if @leaves.length > 0
       @leaves.last.next = leaf
       leaf.prev = @leaves.last
-      leaf.next = nil
+    else
+      leaf.prev = nil
     end
+    leaf.next = nil
     leaf.invalidate
     @leaves << leaf
   end
@@ -66,12 +68,19 @@ class TreeNode < AbsNode
   def add_child( tree_node )
     return if tree_node.parent == self
     if not tree_node.parent.nil?
-      tree_node.remove_from_parent()
+      tree_node.remove_from_parent
     else
       tree_node.prefix_path = nil
     end  
     tree_node.invalidate
     tree_node.parent = self
+    if @children.length > 0
+      @children.last.next = tree_node
+      tree_node.prev = @children.last
+    else
+      tree_node.prev = nil
+    end
+    tree_node.next = nil
     @children << tree_node
   end
   
@@ -105,33 +114,36 @@ class TreeNode < AbsNode
     visitor
   end
 
-  def to_str( depth = 0 )
+  def to_str( prefix= "" )
     str = ""
-    (0...depth).step {
-      str << " |-"
-    }
 
-    str << @name
-    str << "\n"
-
-    if ! @leaves.empty?
-      @leaves.each{ |l|
-        (0...depth-1).step {
-          str << " |-"
-        }
-        if @children.empty?
-          str << " |    "
-        else
-          str << " |  | "
-        end
-        str << l.to_str
-        str << "\n"
-      }
+    if root?
+      str << to_s << "\n"
+    else
+      str << prefix 
+      if self.next 
+        str << "|-- "
+      else
+        str << "\`-- "
+      end
+      str << to_s << "\n"
+      prefix += self.next ? "|   " : "    "
+    end
+    
+    @leaves.each do |leaf|
+      str << prefix
+      if !leaf.next.nil? or !@children.empty?
+        str << "|-- "
+      else
+        str << "\`-- "
+      end
+      str <<  leaf.to_s << "\n"
     end
 
-    @children.each { |tn|
-      str << tn.to_str( depth + 1 )
-    }
+    @children.each do |child|
+      str << child.to_str( prefix )
+    end
     str
   end
+
 end

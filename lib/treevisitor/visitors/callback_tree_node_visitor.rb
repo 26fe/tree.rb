@@ -7,8 +7,8 @@ class CallbackTreeNodeVisitor < TreeNodeVisitor
 
   def initialize
     super()
-    @stack = []
     @root = nil
+    @stack = []
     @action_enter_tree_node = nil
     @action_visit_leaf_node = nil
   end
