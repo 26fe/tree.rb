@@ -8,7 +8,6 @@ class PrintTreeNodeVisitor < TreeNodeVisitor
   end
 
   def enter_tree_node( tree_node )
-
     str = ""
     (0...@depth).step {
       str << " |-"

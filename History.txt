@@ -1,4 +1,10 @@
-=== 2009-06-02
+=== 2009-06-07
+
+* migliorato decisamente l'output del tree
+* i next e prev sui i tre_node ora funzionano
+* gem 0.0.12
+
+=== 2009-06-06
 
 * rivisto il codice, eliminato del codice inutile
 * aggiunta variabile per il path_separator

@@ -4,7 +4,7 @@ require 'treevisitor/tree_node.rb'
 
 class TCTreeNode < Test::Unit::TestCase
 
-  def test_simple_build
+  def test_new
     ta = TreeNode.new( "a" )
     assert( ta.root? )
 
@@ -28,7 +28,7 @@ class TCTreeNode < Test::Unit::TestCase
     # puts ta.to_str
   end
 
-  def test_add_methods
+  def test_add_child_and_add_leaf
     ta = TreeNode.new( "a" )
     assert( ta.root? )
     
@@ -48,22 +48,32 @@ class TCTreeNode < Test::Unit::TestCase
     # puts ta.to_str
   end
   
-  def test_next_prev
+  def test_next_and_prev
     ta = TreeNode.new( "a" )
+    assert_nil ta.prev
+    assert_nil ta.next
     
     ln1 = LeafNode.new("1", ta)
-    assert_nil( ln1.next )
-    assert_nil( ln1.prev )
+    assert_nil ln1.prev
+    assert_nil ln1.next
     
     ln2 = LeafNode.new("2", ta)
-    assert_equal( ln1, ln2.prev )
-    assert_nil( ln2.next )
+    assert_equal ln1, ln2.prev 
+    assert_nil ln2.next 
     
     ln3 = LeafNode.new("3", ta)
-    assert_equal( ln3, ln2.next )
+    assert_equal ln3, ln2.next
+
+    tb = TreeNode.new("b", ta)
+    assert_nil tb.next
+    assert_nil tb.prev
+
+    tc = TreeNode.new("c", ta)
+    assert_equal tb, tc.prev
+    assert_nil tc.next
   end
   
-  def test_nr_methods
+  def test_nr_nodes_and_nr_leaves_adn_nr_children
     ta = TreeNode.new( "a" )
       ln1 = LeafNode.new("1", ta)
       ln2 = LeafNode.new("2", ta)
@@ -134,4 +144,22 @@ class TCTreeNode < Test::Unit::TestCase
     assert_equal(tb, ta.find( "b"))
     assert_nil( ta.find("not existent"))
   end
+
+  def test_to_str
+    ta = TreeNode.new( "a" )
+      ln1 = LeafNode.new("1", ta)
+      ln2 = LeafNode.new("2", ta)
+      tb = TreeNode.new( "b", ta )
+        ln3 = LeafNode.new( "3", tb )
+
+    out = <<EOS
+a
+|-- 1
+|-- 2
+`-- b
+    `-- 3
+EOS
+    assert_equal out, ta.to_str
+  end
+
 end

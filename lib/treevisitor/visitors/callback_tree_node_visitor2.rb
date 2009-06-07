@@ -8,10 +8,11 @@ class CallbackTreeNodeVisitor2 < TreeNodeVisitor
 
   attr_reader :root
 
-  def initialize
+  def initialize( delegate = nil)
     super()
     @stack = []
     @root = nil
+    @delegate = delegate
   end
 
   def on_enter_tree_node( &action )
@@ -22,21 +23,37 @@ class CallbackTreeNodeVisitor2 < TreeNodeVisitor
     @action_visit_leaf_node = action
   end
 
-  def enter_tree_node( tree_node )
-    parent_node = @stack.empty? ? nil : @stack.last
-    new_tree_node = @action_enter_tree_node.call( tree_node, parent_node )
-    @root = new_tree_node if @stack.empty?
-    @stack.push( new_tree_node )
+  def _on_enter_tree_node( src_tree_node, dst_parent_node )
+    if @action_enter_tree_node
+      dst_tree_node = @action_enter_tree_node.call( src_tree_node, dst_parent_node )
+    elsif @delegate
+      dst_tree_node = @delegate.on_enter_tree_node( src_tree_node, dst_parent_node )
+    end
+    dst_tree_node
   end
 
-  def exit_tree_node( tree_node )
+  def _on_visit_leaf_node( src_leaf_node, parent_node )
+    if @action_visit_leaf_node
+      @action_visit_leaf_node.call( src_leaf_node, parent_node )
+    elsif @delegate
+      @delegate.on_visit_leaf_node( src_leaf_node, parent_node )
+    end
+  end
+
+  def enter_tree_node( src_tree_node )
+    dst_parent_node = @stack.empty? ? nil : @stack.last
+    dst_tree_node = _on_enter_tree_node( src_tree_node, dst_parent_node )
+    @root = dst_tree_node if @stack.empty?
+    @stack.push( dst_tree_node )
+  end
+
+  def exit_tree_node( src_tree_node )
     @stack.pop
   end
 
-  def visit_leaf_node( leaf_node )
+  def visit_leaf_node( src_leaf_node )
     parent_node = @stack.last
-    @action_visit_leaf_node.call( leaf_node, parent_node )
+    _on_visit_leaf_node( src_leaf_node, parent_node )
   end
-
 end
 

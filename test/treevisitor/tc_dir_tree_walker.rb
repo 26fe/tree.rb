@@ -17,7 +17,7 @@ class TCDirTreeWalker < Test::Unit::TestCase
     visitor = BlockTreeNodeVisitor.new { |pathname| accumulator << File.basename( pathname ) }
     dir_tree_walker.run( visitor )
     assert_equal( 9, accumulator.length )
-    assert_equal( %w{ test_data dir.1 dir.1.2 file.1.2.1 file.1.1 dir.2 file.2.1 .dir_with_dot dummy.txt}, accumulator )
+    assert_equal( %w{ test_data dir.1 dir.1.2 file.1.2.1 file.1.1 dir.2 file.2.1 .dir_with_dot dummy.txt}.sort, accumulator.sort )
   end
 
   def test_ignore_function
