@@ -96,7 +96,7 @@ class DirTreeWalker
     @visitor.enter_tree_node( dirname )
     # return if ignore_dir?( dirname )
 
-    Dir.entries( dirname ).each { |basename|
+    Dir.entries( dirname ).sort.each { |basename|
       next if basename == "." or basename == ".."  # ignore always "." and ".."
       pathname = File.join( dirname, basename )
 
