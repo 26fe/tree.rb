@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{treevisitor}
-  s.version = "0.0.14"
+  s.version = "0.0.15"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["gf"]
@@ -28,7 +28,6 @@ Gem::Specification.new do |s|
      "lib/treevisitor/cli/cli_tree.rb",
      "lib/treevisitor/dir_processor.rb",
      "lib/treevisitor/dir_tree_walker.rb",
-     "lib/treevisitor/dsl.rb",
      "lib/treevisitor/leaf_node.rb",
      "lib/treevisitor/tree_node.rb",
      "lib/treevisitor/tree_node_visitor.rb",
