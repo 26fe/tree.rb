@@ -9,6 +9,41 @@ require 'treevisitor/leaf_node'
 #
 class TreeNode < AbsNode
   
+  class << self
+    
+    def create(class1 = TreeNode, class2 = LeafNode, &block)
+      if class1.ancestors.include?(TreeNode) and class2.ancestors.include?(LeafNode)
+        @tree_node_class = class1
+        @leaf_node_class = class2
+      elsif class1.ancestors.include?(LeafNode) and class2 == LeafNode
+        @tree_node_class = self
+        @leaf_node_class = class1
+      end
+
+      if @tree_node_class.nil? || @leaf_node_class.nil?
+        raise "Must be specified class derived from TreeNode and LeafNode"
+      end
+
+      @scope_stack = []
+      class_eval(&block)
+    end
+
+    private
+
+    def node(name, &block)
+      parent_node = @scope_stack.length > 0 ? @scope_stack[-1] : nil
+      tree_node = @tree_node_class.new(name, parent_node)
+      @scope_stack.push tree_node
+      class_eval(&block)
+      @scope_stack.pop
+    end
+
+    def leaf(name)
+      tree_node = @scope_stack[-1]
+      @leaf_node_class.new(name, tree_node)
+    end
+  end
+
   attr_reader :leaves
   attr_reader :children
 

@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{treevisitor}
-  s.version = "0.0.13"
+  s.version = "0.0.14"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["gf"]
-  s.date = %q{2009-06-07}
+  s.date = %q{2009-06-09}
   s.default_executable = %q{tree.rb}
   s.description = %q{      Implementation of visitor design pattern. It contains a 'tree.rb'
       command line clone of the tree unix tool.
@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
      "lib/treevisitor/cli/cli_tree.rb",
      "lib/treevisitor/dir_processor.rb",
      "lib/treevisitor/dir_tree_walker.rb",
+     "lib/treevisitor/dsl.rb",
      "lib/treevisitor/leaf_node.rb",
      "lib/treevisitor/tree_node.rb",
      "lib/treevisitor/tree_node_visitor.rb",
@@ -62,6 +63,7 @@ Gem::Specification.new do |s|
      "test/treevisitor/tc_dir_tree_walker.rb",
      "test/treevisitor/tc_tree_node.rb",
      "test/treevisitor/tc_tree_node_visitor.rb",
+     "test/treevisitor/tc_tree_node_dsl.rb",
      "test/treevisitor/test_helper.rb",
      "test/gf_utilities/tc_md5.rb",
      "test/gf_utilities/tc_kwartz.rb",

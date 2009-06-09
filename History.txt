@@ -1,3 +1,8 @@
+=== 2009-06-09
+
+* added dsl language
+* gem 0.0.14
+
 === 2009-06-07
 
 * migliorato decisamente l'output del tree
