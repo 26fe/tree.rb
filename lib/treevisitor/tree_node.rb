@@ -30,17 +30,19 @@ class TreeNode < AbsNode
 
     private
 
-    def node(name, &block)
+    def node(*args, &block)
       parent_node = @scope_stack.length > 0 ? @scope_stack[-1] : nil
-      tree_node = @tree_node_class.new(name, parent_node)
+      args << parent_node
+      tree_node = @tree_node_class.new(*args)
       @scope_stack.push tree_node
       class_eval(&block)
       @scope_stack.pop
     end
 
-    def leaf(name)
+    def leaf(*args)
       tree_node = @scope_stack[-1]
-      @leaf_node_class.new(name, tree_node)
+      args << tree_node
+      @leaf_node_class.new(*args)
     end
   end
 
