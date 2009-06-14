@@ -50,7 +50,8 @@ class AbsNode
   def invalidate
     @path = nil
     @path_with_prefix = nil
-    @depth = nil    
+    @depth = nil
+    @root = nil
   end
   
   def prefix_path
@@ -71,11 +72,8 @@ class AbsNode
   end
 
   def root
-    if root?
-      self
-    else
-      parent.root
-    end
+    return @root if @root
+    @root = parent.nil? ? self : parent.root
   end
   
   def path
