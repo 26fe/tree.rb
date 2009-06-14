@@ -5,6 +5,7 @@
 * gem 0.0.17
 * block passed to "node" dsl could be empty
 * gem 0.0.18
+* blocks attached to "node" and "leaf" method could take an argument
 
 === 2009-06-09
 
