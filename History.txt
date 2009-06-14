@@ -3,6 +3,8 @@
 * gem 0.0.16
 * added variable number of arguments to tree dsl
 * gem 0.0.17
+* block passed to "node" dsl could be empty
+* gem 0.0.18
 
 === 2009-06-09
 
