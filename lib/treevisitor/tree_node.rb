@@ -35,14 +35,34 @@ class TreeNode < AbsNode
       args << parent_node
       tree_node = @tree_node_class.new(*args)
       @scope_stack.push tree_node
-      class_eval(&block) if block 
+      if block
+        if block.arity == 0 || block.arity == -1
+          class_eval(&block)
+        elsif block.arity == 1
+          new_block = Proc.new{ block.call(tree_node) }
+          class_eval(&new_block)
+        else
+          raise "block take too much arguments #{block.arity}"
+        end
+      end
       @scope_stack.pop
     end
 
-    def leaf(*args)
+    def leaf(*args, &block)
       tree_node = @scope_stack[-1]
       args << tree_node
-      @leaf_node_class.new(*args)
+      leaf_node = @leaf_node_class.new(*args)
+      if block
+        if block.arity == 0 || block.arity == -1
+          class_eval(&block)
+        elsif block.arity == 1
+          new_block = Proc.new{ block.call(leaf_node) }
+          class_eval(&new_block)
+        else
+          raise "block take too much arguments #{block.arity}"
+        end
+      end
+      leaf_node
     end
   end
 
@@ -89,7 +109,7 @@ class TreeNode < AbsNode
     return if leaf.parent == self
     if not leaf.parent.nil?
       leaf.remove_from_parent
-    end  
+    end
     leaf.parent = self
     if @leaves.length > 0
       @leaves.last.next = leaf
@@ -108,7 +128,7 @@ class TreeNode < AbsNode
       tree_node.remove_from_parent
     else
       tree_node.prefix_path = nil
-    end  
+    end
     tree_node.invalidate
     tree_node.parent = self
     if @children.length > 0
@@ -157,8 +177,8 @@ class TreeNode < AbsNode
     if root?
       str << to_s << "\n"
     else
-      str << prefix 
-      if self.next 
+      str << prefix
+      if self.next
         str << "|-- "
       else
         str << "\`-- "

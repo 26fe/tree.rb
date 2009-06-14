@@ -71,6 +71,34 @@ EOS
     assert_equal out, tree.to_str
   end
 
+  def test_dsl_block_with_arg
+
+    tree = TreeNode.create do
+      node "root" do |node|
+        node.prefix_path=("pre/")        
+        leaf "l1"
+        leaf "l2"
+        node "sub" do
+          leaf "l3" do |leaf|            
+          end
+        end
+        node "woleaves"
+      end
+    end
+
+    # puts tree.to_str
+    out =<<EOS
+root
+|-- l1
+|-- l2
+|-- sub
+|   `-- l3
+`-- woleaves
+EOS
+    assert_equal out, tree.to_str   
+    assert_equal "pre/root/sub/l3", tree.find("l3").path_with_prefix
+  end
+
   def test_derivated
     tree = TreeNode.create(DTreeNode, DLeafNode) do
       node "root" do
