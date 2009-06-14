@@ -55,6 +55,7 @@ class TCTreeNodeDsl < Test::Unit::TestCase
         node "sub" do
           leaf "l3"
         end
+        node "woleaves"
       end
     end
 
@@ -63,11 +64,11 @@ class TCTreeNodeDsl < Test::Unit::TestCase
 root
 |-- l1
 |-- l2
-`-- sub
-    `-- l3
+|-- sub
+|   `-- l3
+`-- woleaves
 EOS
     assert_equal out, tree.to_str
-
   end
 
   def test_derivated

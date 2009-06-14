@@ -35,7 +35,7 @@ class TreeNode < AbsNode
       args << parent_node
       tree_node = @tree_node_class.new(*args)
       @scope_stack.push tree_node
-      class_eval(&block)
+      class_eval(&block) if block 
       @scope_stack.pop
     end
 
