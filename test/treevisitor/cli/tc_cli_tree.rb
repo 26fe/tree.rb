@@ -4,7 +4,7 @@ require 'treevisitor/cli/cli_tree'
 
 class TCCliTree < Test::Unit::TestCase
 
-  TEST_DIRECTORY = File.join( $TREEVISITOR_HOME, "test_data", "tree_visitor", "test_data" )
+  TEST_DIRECTORY = File.join( TREEVISITOR_HOME, "test_data", "tree_visitor", "test_data" )
 
   def test_help_message
     out = with_stdout_captured do
@@ -19,7 +19,7 @@ class TCCliTree < Test::Unit::TestCase
       args = %w{--version}
       CliTree.new.parse_args(args)
     end
-    version = File.open( File.join($TREEVISITOR_HOME, "VERSION") ).read
+    version = File.open( File.join(TREEVISITOR_HOME, "VERSION") ).read
     assert_match version, out
   end
 

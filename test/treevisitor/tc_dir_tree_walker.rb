@@ -7,7 +7,7 @@ require 'treevisitor/visitors/block_tree_node_visitor.rb'
 
 class TCDirTreeWalker < Test::Unit::TestCase
 
-  TEST_DIRECTORY = File.join( $TREEVISITOR_HOME, "test_data", "tree_visitor", "test_data" )
+  TEST_DIRECTORY = File.join( TREEVISITOR_HOME, "test_data", "tree_visitor", "test_data" )
 
   def test_simple  
     dir_tree_walker = DirTreeWalker.new( TEST_DIRECTORY )
