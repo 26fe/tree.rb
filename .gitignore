@@ -5,4 +5,4 @@ pkg
 .DS_Store
 coverage
 rdoc
-nbproject
+nbproject*
