@@ -1,23 +1,23 @@
-require 'treevisitor/tree_node_visitor.rb'
+module TreeVisitor
+  #
+  # It call a block when visit a tree_node or leaf_node
+  #
+  class BlockTreeNodeVisitor < TreeNodeVisitor
 
-#
-# It call a block when visit a tree_node or leaf_node
-#
-class BlockTreeNodeVisitor < TreeNodeVisitor
+    def initialize( &action )
+      @block = action
+    end
 
-  def initialize( &action )
-    @block = action
+    def enter_tree_node( tree_node )
+      @block.call( tree_node )
+    end
+
+    def exit_tree_node( tree_node )
+    end
+
+    def visit_leaf_node( leaf_node )
+      @block.call( leaf_node )
+    end
+
   end
-
-  def enter_tree_node( tree_node )
-    @block.call( tree_node )
-  end
-
-  def exit_tree_node( tree_node )
-  end
-
-  def visit_leaf_node( leaf_node )
-    @block.call( leaf_node )
-  end
-
 end
