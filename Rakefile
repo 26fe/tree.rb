@@ -12,19 +12,17 @@ begin
       command line clone of the tree unix tool.
     EOF
 
-
     gem.authors = ["Tokiro"]
     gem.email = "tokiro.oyama@gmail.com"
     gem.homepage = "http://github.com/tokiro/treevisitor"
 
     gem.add_dependency('abstract')
-    # gem.add_dependency('kwarts') optional
 
     #
     # files
     #
     gem.files = Dir['lib/**/*.rb']
-    gem.files << "VERSION"
+    gem.files << "VERSION.yml"
 
     gem.test_files = Dir['test/**/*.rb']
     # concat all test files
@@ -34,7 +32,9 @@ begin
     #
     # rubyforge
     #
-    gem.rubyforge_project = 'treevisitor'
+    # gem.rubyforge_project = 'treevisitor'
+
+    Jeweler::GemcutterTasks.new
   end
 
 rescue LoadError
@@ -92,7 +92,7 @@ begin
       desc "Publish RDoc to RubyForge."
       task :docs => [:rdoc] do
         config = YAML.load(
-            File.read(File.expand_path('~/.rubyforge/user-config.yml'))
+          File.read(File.expand_path('~/.rubyforge/user-config.yml'))
         )
 
         host = "#{config['username']}@rubyforge.org"

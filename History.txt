@@ -1,6 +1,8 @@
 === 2010-04-06
 
 * erased gf_utilites code (are not related with treevisitor)
+* introduced TreeVisitor module
+* bump version to 0.1.0!
 
 === 2009-06-14
 
