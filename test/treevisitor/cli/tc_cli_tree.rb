@@ -19,7 +19,7 @@ class TCCliTree < Test::Unit::TestCase
       args = %w{--version}
       CliTree.new.parse_args(args)
     end
-    version = File.open( File.join(TREEVISITOR_HOME, "VERSION") ).read
+    version = "0.0.20"
     assert_match version, out
   end
 
