@@ -38,8 +38,4 @@ To install +sudo gem install treevisitor+ or +sudo gem install gf-treevisitor -s
 
 == Copyright
 
-<<<<<<< HEAD:README.rdoc
 Copyright (c) 2009-2010 giovanni.ferro@gmail.com. See LICENSE for details.
-=======
-Copyright (c) 2009 gf. See LICENSE for details.
->>>>>>> origin/master:README.rdoc
