@@ -2,8 +2,14 @@
 #
 # Wrapper for the class CliTree
 
-TREEVISITOR_HOME = File.expand_path( File.join( File.dirname( __FILE__), ".." ) )
-$:.unshift( File.join(TREEVISITOR_HOME, "lib" ) )
+require 'rubygems'
+begin
+  require 'treevisitor'
+rescue LoadError
+  cwd = File.expand_path( File.join( File.dirname(__FILE__), "..", "lib" ) )
+  $:.unshift(cwd) unless $:.include?(cwd)
+  require 'treevisitor'
+end
 
-require "treevisitor/cli/cli_tree"
+include TreeVisitor
 exit CliTree.run
