@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{treevisitor}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["gf"]
-  s.date = %q{2010-04-06}
+  s.authors = ["Giovanni Ferro"]
+  s.date = %q{2010-04-12}
   s.default_executable = %q{tree.rb}
   s.description = %q{      Implementation of visitor design pattern. It contains a 'tree.rb'
       command line clone of the tree unix tool.
@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     "VERSION.yml",
+     "lib/tree_visitor.rb",
      "lib/treevisitor.rb",
      "lib/treevisitor/abs_node.rb",
      "lib/treevisitor/cli/cli_tree.rb",
@@ -38,38 +39,25 @@ Gem::Specification.new do |s|
      "lib/treevisitor/visitors/depth_tree_node_visitor.rb",
      "lib/treevisitor/visitors/flat_print_tree_node_visitors.rb",
      "lib/treevisitor/visitors/print_dir_tree_visitor.rb",
-     "lib/treevisitor/visitors/print_tree_node_visitor.rb",
-     "test_data/tree_visitor/test_data/.dir_with_dot/dummy.txt",
-     "test_data/tree_visitor/test_data/dir.1/dir.1.2/file.1.2.1",
-     "test_data/tree_visitor/test_data/dir.1/file.1.1",
-     "test_data/tree_visitor/test_data/dir.2/file.2.1"
+     "lib/treevisitor/visitors/print_tree_node_visitor.rb"
   ]
   s.homepage = %q{http://github.com/gf/treevisitor}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{Implementation of visitor design pattern}
-  s.test_files = [
-    "test/treevisitor/cli/tc_cli_tree.rb",
-     "test/treevisitor/tc_dir_processor.rb",
-     "test/treevisitor/tc_dir_tree_walker.rb",
-     "test/treevisitor/tc_tree_node.rb",
-     "test/treevisitor/tc_tree_node_dsl.rb",
-     "test/treevisitor/tc_tree_node_visitor.rb",
-     "test/treevisitor/test_helper.rb"
-  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<abstract>, [">= 0"])
+      s.add_development_dependency(%q<rspec>, [">= 0"])
     else
-      s.add_dependency(%q<abstract>, [">= 0"])
+      s.add_dependency(%q<rspec>, [">= 0"])
     end
   else
-    s.add_dependency(%q<abstract>, [">= 0"])
+    s.add_dependency(%q<rspec>, [">= 0"])
   end
 end
 
