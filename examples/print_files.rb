@@ -1,11 +1,6 @@
-require 'rubygems'
-begin
-  require 'treevisitor'
-rescue LoadError
-  cwd = File.expand_path( File.join( File.dirname(__FILE__), "..", "lib" ) )
-  $:.unshift(cwd) unless $:.include?(cwd)
-  require 'treevisitor'
-end
+cwd = File.expand_path( File.join( File.dirname(__FILE__), "..", "lib" ) )
+$:.unshift(cwd) unless $:.include?(cwd)
+require 'treevisitor'
 
 include TreeVisitor
 
