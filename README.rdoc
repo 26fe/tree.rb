@@ -1,32 +1,31 @@
 = tree.rb / tree visitor library
 
-+dirtree.rb+ is a 'clone' of tree unix command. It is based on lib tree visitor.
-
++tree.rb+ is a 'clone' of tree unix command. It is based on tree visitor library.
 Tree visitor is an implementation of visitor design pattern.
 
- # $ tree.rb lib
- # lib
- #  |  | treevisitor.rb
- #  |-treevisitor
- #  |  | abs_node.rb
- #  |  | dir_processor.rb
- #  |  | dir_tree_walker.rb
- #  |  | leaf_node.rb
- #  |  | tree_node.rb
- #  |  | tree_node_visitor.rb
- #  |- |-cli
- #  |- |    cli_tree.rb
- #  |- |-visitors
- #  |- |    print_node_visitor2.rb
- #  |- |    build_dir_tree_visitor.rb
- #  |- |    print_dir_tree_visitor.rb
- #  |- |    block_tree_node_visitor.rb
- #  |- |    flat_print_tree_node_visitors.rb
- #  |- |    print_tree_node_visitor.rb
- #  |- |    depth_tree_node_visitor.rb
- #  |- |    clone_tree_node_visitor.rb
- #  |- |    callback_tree_node_visitor.rb
- #  |- |    callback_tree_node_visitor2.rb
+ $ tree.rb lib
+ lib
+  |  | treevisitor.rb
+  |-treevisitor
+  |  | abs_node.rb
+  |  | dir_processor.rb
+  |  | dir_tree_walker.rb
+  |  | leaf_node.rb
+  |  | tree_node.rb
+  |  | tree_node_visitor.rb
+  |- |-cli
+  |- |    cli_tree.rb
+  |- |-visitors
+  |- |    print_node_visitor2.rb
+  |- |    build_dir_tree_visitor.rb
+  |- |    print_dir_tree_visitor.rb
+  |- |    block_tree_node_visitor.rb
+  |- |    flat_print_tree_node_visitors.rb
+  |- |    print_tree_node_visitor.rb
+  |- |    depth_tree_node_visitor.rb
+  |- |    clone_tree_node_visitor.rb
+  |- |    callback_tree_node_visitor.rb
+  |- |    callback_tree_node_visitor2.rb
 
 == REQUIREMENTS:
 
@@ -34,7 +33,7 @@ Tree visitor is an implementation of visitor design pattern.
 
 == INSTALL:
 
-To install +sudo gem install treevisitor+ or +sudo gem install gf-treevisitor -s http://gems.github.com+
+  sudo gem install treevisitor
 
 == Copyright
 

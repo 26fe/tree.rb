@@ -10,5 +10,4 @@
 * testare le funzioni dentro file_utilities - copy_dir aveva un errore!!!
 
 
-(ok) DirTreeWalker.add_ignore_dir deve prendere anche una regular expression
 (ok) provare a utilizzare gem install con l'opzione di test per vedere se i test funzionano

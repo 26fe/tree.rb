@@ -1,6 +1,33 @@
 require 'rubygems'
 require 'rake'
 
+task :default => :test
+
+require 'rake/testtask'
+Rake::TestTask.new(:test) do |test|
+  test.libs << 'lib' << 'test'
+  test.pattern = 'test/**/tc_*.rb'
+  test.verbose = true
+end
+
+require 'hanna/rdoctask'
+Rake::RDocTask.new do |rdoc|
+  if File.exist?('VERSION.yml')
+    config = YAML.load(File.read('VERSION.yml'))
+    version = "#{config[:major]}.#{config[:minor]}.#{config[:patch]}"
+  else
+    version = ""
+  end
+  rdoc.rdoc_dir = 'rdoc' # rdoc output folder
+  rdoc.title = "tree_visitor #{version}"
+  rdoc.main = "README.rdoc" # page to start on
+  rdoc.options << '--webcvs=http://github.com/tokiro/tree_visitor/tree/master/'
+
+  rdoc.rdoc_files.include('README.rdoc')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+  # rdoc.rdoc_files.exclude("")
+end
+
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
@@ -41,12 +68,6 @@ rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end
 
-require 'rake/testtask'
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/tc_*.rb'
-  test.verbose = true
-end
 
 begin
   require 'rcov/rcovtask'
@@ -59,23 +80,6 @@ rescue LoadError
   task :rcov do
     abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
   end
-end
-
-task :default => :test
-
-require 'hanna/rdoctask'
-Rake::RDocTask.new do |rdoc|
-  if File.exist?('VERSION.yml')
-    config = YAML.load(File.read('VERSION.yml'))
-    version = "#{config[:major]}.#{config[:minor]}.#{config[:patch]}"
-  else
-    version = ""
-  end
-
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "tree_visitor #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
 #

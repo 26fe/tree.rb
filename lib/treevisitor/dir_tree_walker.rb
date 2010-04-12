@@ -15,7 +15,7 @@ module TreeVisitor
       @ignore_dir_patterns = []
       @ignore_file_patterns = []
 
-      @inspect_file_patterns = []
+      @match_file_patterns = []
 
       #
       # options
@@ -26,25 +26,25 @@ module TreeVisitor
     ##########################################################################
     # Pattern
     #
-    def add_ignore_pattern(pattern)
+    def ignore(pattern)
       @ignore_dir_patterns << pattern
       @ignore_file_patterns << pattern
     end
 
-    def add_ignore_dir( pattern )
+    def ignore_dir( pattern )
       @ignore_dir_patterns << pattern
     end
 
-    def add_ignore_file( pattern )
+    def ignore_file( pattern )
       @ignore_file_patterns << pattern
     end
 
     #
     # quali file bisogna prendere in considerazione
-    # inspect opposto di ignore :-)
+    # match opposto di ignore :-)
     #
-    def add_inspect_file( pattern )
-      @inspect_file_patterns << pattern
+    def match( pattern )
+      @match_file_patterns << pattern
     end
 
     ##########################################################################
@@ -56,16 +56,16 @@ module TreeVisitor
 
 
     def ignore_dir?( dirname )
-      include?( @ignore_dir_patterns, File.basename( dirname ) )
+      _include?( @ignore_dir_patterns, File.basename( dirname ) )
     end
 
     def ignore_file?( filename )
-      include?( @ignore_file_patterns, File.basename( filename ) )
+      _include?( @ignore_file_patterns, File.basename( filename ) )
     end
 
-    def inspect_file?( filename )
-      return true if @inspect_file_patterns.empty?
-      include?( @inspect_file_patterns, File.basename( filename ) )
+    def match?( filename )
+      return true if @match_file_patterns.empty?
+      _include?( @match_file_patterns, File.basename( filename ) )
     end
 
     #
@@ -79,7 +79,7 @@ module TreeVisitor
 
     private
 
-    def include?(patterns, basename)
+    def _include?(patterns, basename)
       # return false if the patters.empty?
       patterns.find{ |pattern|
         if pattern.respond_to?(:match) # or if pattern.kind_of? Regexp
@@ -106,7 +106,7 @@ module TreeVisitor
           process_directory( pathname ) unless ignore_dir?( basename )
         else
           if @visit_leaf
-            if inspect_file?( basename ) && ! ignore_file?( basename )
+            if match?( basename ) && ! ignore_file?( basename )
               @visitor.visit_leaf_node( pathname )
             end
           end

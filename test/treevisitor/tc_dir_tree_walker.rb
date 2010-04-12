@@ -7,7 +7,7 @@ class TCDirTreeWalker < Test::Unit::TestCase
 
   def test_simple  
     dir_tree_walker = DirTreeWalker.new( TEST_DIRECTORY )
-    dir_tree_walker.add_ignore_dir( ".svn" )
+    dir_tree_walker.ignore_dir( ".svn" )
 
     accumulator = []
     visitor = BlockTreeNodeVisitor.new { |pathname| accumulator << File.basename( pathname ) }
@@ -19,18 +19,18 @@ class TCDirTreeWalker < Test::Unit::TestCase
   def test_ignore_function
     dtp = DirTreeWalker.new( "." )
 
-    dtp.add_ignore_pattern(/^\./)
+    dtp.ignore(/^\./)
     assert dtp.ignore_file?( ".thumbnails" )
     assert dtp.ignore_dir?( ".thumbnails" )
 
-    dtp.add_ignore_dir("thumbnails")
+    dtp.ignore_dir("thumbnails")
 
     assert dtp.ignore_dir?( ".thumbnails" ) 
     assert dtp.ignore_dir?( "thumbnails" )
     assert ! dtp.ignore_dir?( "pippo" )
 
 
-    dtp.add_ignore_file("xvpics")
+    dtp.ignore_file("xvpics")
 
     assert( dtp.ignore_file?( "xvpics" ) )
   end
