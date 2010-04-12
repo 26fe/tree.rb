@@ -1,16 +1,14 @@
-require File.join(File.dirname(__FILE__), "test_helper")
+require File.join(File.dirname(__FILE__), "..", "spec_helper")
 
-require 'treevisitor/tree_node.rb'
-require 'treevisitor/tree_node_visitor.rb'
 require 'treevisitor/visitors/block_tree_node_visitor'
 require 'treevisitor/visitors/callback_tree_node_visitor'
 require 'treevisitor/visitors/callback_tree_node_visitor2'
 require 'treevisitor/visitors/clone_tree_node_visitor'
 require 'treevisitor/visitors/depth_tree_node_visitor'
 
-class TCTreeNodeVisitor < Test::Unit::TestCase
+describe "TreeNodeVisitors" do
 
-  def setup
+  before do
     ta = TreeNode.new( "a", nil )
     LeafNode.new("1", ta )
     LeafNode.new("2", ta )
@@ -21,35 +19,35 @@ class TCTreeNodeVisitor < Test::Unit::TestCase
     @tree = ta
   end
 
-  def test_blocktreenodevisitor
+  it "test_blocktreenodevisitor" do
     accumulator = []
     visitor = BlockTreeNodeVisitor.new { |node| accumulator << node.name}
     @tree.accept( visitor )
-    assert_equal( 5, accumulator.length )
-    assert_equal( %w{ a 1 2 b 3 }, accumulator )
+    accumulator.length.should == 5
+    accumulator.should == %w{ a 1 2 b 3 }
   end
   
-  def test_depthtreenodevisitor
+  it "test_depthtreenodevisitor" do
     visitor = DepthTreeNodeVisitor.new
     @tree.accept( visitor )
-    assert_equal( 0, visitor.depth )
-    
+    visitor.depth.should == 0
+
     visitor = CloneTreeNodeVisitor.new
     @tree.accept( visitor )
-    assert_equal(@tree.nr_nodes, visitor.cloned_root.nr_nodes )
+    visitor.cloned_root.nr_nodes.should ==  @tree.nr_nodes
   end
   
-  def test_callback_tree_node_visitor
+  it "test_callback_tree_node_visitor" do
     accumulator = []
     visitor = CallbackTreeNodeVisitor.new
     visitor.on_enter_tree_node{ |treeNode| accumulator << treeNode.name }
     visitor.on_visit_leaf_node{ |leafNode| accumulator << leafNode.name }
     @tree.accept( visitor )
-    assert_equal( 5, accumulator.length )
-    assert_equal( %w{ a 1 2 b 3 }, accumulator )
+    accumulator.length.should == 5
+    accumulator.should == %w{ a 1 2 b 3 }
   end
   
-  def test_callback_tree_node_visitor2
+  it "test_callback_tree_node_visitor2" do
     visitor = CallbackTreeNodeVisitor2.new
     visitor.on_enter_tree_node{ |treeNode, newParentNode|
       TreeNode.new("n" + treeNode.name, newParentNode) 
@@ -59,13 +57,13 @@ class TCTreeNodeVisitor < Test::Unit::TestCase
     }
     @tree.accept( visitor )
     newRoot = visitor.root
-    assert_equal( "n" + @tree.name, newRoot.name)
+    newRoot.name.should ==  "n" + @tree.name
     
     accumulator = []
     visitor = BlockTreeNodeVisitor.new { |node| accumulator << node.name}
     newRoot.accept( visitor )
-    assert_equal( 5, accumulator.length )
-    assert_equal( %w{ na n1 n2 nb n3 }, accumulator )
+    accumulator.length.should == 5
+    accumulator.should == %w{ na n1 n2 nb n3 }
   end
 
 end

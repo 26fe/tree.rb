@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'rake'
+require 'yaml'
 
 task :default => :test
 
@@ -31,7 +32,7 @@ end
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-
+    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
     gem.name = "treevisitor"
     gem.summary = "Implementation of visitor design pattern"
     gem.description = <<-EOF
@@ -39,11 +40,11 @@ begin
       command line clone of the tree unix tool.
     EOF
 
-    gem.authors = ["gf"]
+    gem.authors = ["Giovanni Ferro"]
     gem.email = "giovanni.ferro@gmail.com"
     gem.homepage = "http://github.com/gf/treevisitor"
-
-    gem.add_dependency('abstract')
+    # gem.add_dependency('abstract')
+    gem.add_development_dependency "rspec"
 
     #
     # files
@@ -110,3 +111,24 @@ begin
 rescue LoadError
   puts "Rake SshDirPublisher is unavailable or your rubyforge environment is not configured."
 end
+
+#
+# spec
+#
+
+require 'spec/rake/spectask'
+
+desc "Run all examples"
+Spec::Rake::SpecTask.new('spec') do |t|
+  t.spec_files = FileList['spec/**/*_spec.rb']
+end
+
+desc "Generate HTML report for failing examples"
+Spec::Rake::SpecTask.new('failing_examples_with_html') do |t|
+  t.spec_files = FileList['failing_examples/**/*.rb']
+  t.spec_opts = ["--format", "html:doc/reports/tools/failing_examples.html", "--diff"]
+  t.fail_on_error = false
+end
+
+task :test => :check_dependencies
+task :default => :spec

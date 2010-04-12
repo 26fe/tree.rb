@@ -1,53 +1,50 @@
-require File.join(File.dirname(__FILE__), "test_helper")
+require File.join(File.dirname(__FILE__), "..", "spec_helper")
 
-require 'treevisitor/tree_node.rb'
+describe "TreeNodeDsl" do
 
-
-class DTreeNode < TreeNode
-  def to_s
-    "dt: #{name}"
-  end
-end
-
-class DLeafNode < LeafNode
-  def to_s
-    "dl: #{name}"
-  end
-end
-
-class ArgsTreeNode < TreeNode
-
-  attr_reader :description
-
-  def initialize(name, description, parent)
-    super(name, parent)
-    @description =  description
+  class DTreeNode < TreeNode
+    def to_s
+      "dt: #{name}"
+    end
   end
 
-  def to_s
-    "a: #{description}"
-  end
-end
-
-class ArgsLeafNode < LeafNode
-
-  attr_reader :description
-
-  def initialize(name, description, parent)
-    super(name, parent)
-    @description =  description
+  class DLeafNode < LeafNode
+    def to_s
+      "dl: #{name}"
+    end
   end
 
-  def to_s
-    "a: #{description}"
+  class ArgsTreeNode < TreeNode
+
+    attr_reader :description
+
+    def initialize(name, description, parent)
+      super(name, parent)
+      @description =  description
+    end
+
+    def to_s
+      "a: #{description}"
+    end
   end
-end
+
+  class ArgsLeafNode < LeafNode
+
+    attr_reader :description
+
+    def initialize(name, description, parent)
+      super(name, parent)
+      @description =  description
+    end
+
+    def to_s
+      "a: #{description}"
+    end
+  end
 
 
-class TCTreeNodeDsl < Test::Unit::TestCase
 
-  def test_dsl
-
+  it "test_dsl" do
     tree = TreeNode.create do
       node "root" do
         leaf "l1"
@@ -68,11 +65,10 @@ root
 |   `-- l3
 `-- woleaves
 EOS
-    assert_equal out, tree.to_str
+    tree.to_str.should == out
   end
 
-  def test_dsl_block_with_arg
-
+  it "test_dsl_block_with_arg" do
     tree = TreeNode.create do
       node "root" do |node|
         node.prefix_path=("pre/")        
@@ -95,11 +91,11 @@ root
 |   `-- l3
 `-- woleaves
 EOS
-    assert_equal out, tree.to_str   
-    assert_equal "pre/root/sub/l3", tree.find("l3").path_with_prefix
+    tree.to_str.should ==  out
+    tree.find("l3").path_with_prefix.should == "pre/root/sub/l3"
   end
 
-  def test_derivated
+  it "test_derivated" do
     tree = TreeNode.create(DTreeNode, DLeafNode) do
       node "root" do
         leaf "l1"
@@ -118,7 +114,7 @@ dt: root
 `-- dt: sub
     `-- dl: l3
 EOS
-    assert_equal out, tree.to_str
+    tree.to_str.should == out
 
     tree = DTreeNode.create(DLeafNode) do
       node "root" do
@@ -129,10 +125,10 @@ EOS
         end
       end
     end
-    assert_equal out, tree.to_str
+    tree.to_str.should == out
   end
 
-  def test_derivated_args
+  it "test_derivated_args" do
     tree = TreeNode.create(ArgsTreeNode, ArgsLeafNode) do
       node "root", "droot" do
         leaf "l1", "dl1"
@@ -151,6 +147,6 @@ a: droot
 `-- a: dsub
     `-- a: dl3
 EOS
-    assert_equal out, tree.to_str
+    tree.to_str.should == out
   end
 end
