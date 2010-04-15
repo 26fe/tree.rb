@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'treevisitor'
 include TreeVisitor
 
-TEST_DATA = File.expand_path( File.join( File.dirname(__FILE__), "fixtures", "test_data" ) )
+TEST_DIR = File.expand_path( File.join( File.dirname(__FILE__), "fixtures", "test_dir" ) )
 
 
 # Spec::Runner.configure do |config|

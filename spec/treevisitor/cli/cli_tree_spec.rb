@@ -17,40 +17,40 @@ describe CliTree do
       args = %w{--version}
       CliTree.new.parse_args(args)
     end
-    version = "0.1.0"
+    version = "0.1.3"
     out.should match version
   end
 
-  it "test_directories_only" do
+  it "should accepts switch -d (directories only)" do
     out = with_stdout_captured do
       args = %w{-d}
-      args << TEST_DATA
+      args << TEST_DIR
       CliTree.new.parse_args(args)
     end
-    # puts out
+    # pp out
     out.split("\n").length.should == 6
 
     out = with_stdout_captured do
       args = %w{-da}
-      args << TEST_DATA
+      args << TEST_DIR
       CliTree.new.parse_args(args)
     end
     #puts out
     out.split("\n").length.should == 7
   end
 
-  it "test_all_files" do
+  it "should accepts switch -a (all files)" do
     out = with_stdout_captured do
       args = %w{-a}
-      args << TEST_DATA
+      args << TEST_DIR
       CliTree.new.parse_args(args)
     end
-    # puts out
+    # pp out
     out.split("\n").length.should == 11
 
     out = with_stdout_captured do
       args = []
-      args << TEST_DATA
+      args << TEST_DIR
       CliTree.new.parse_args(args)
     end
     # puts out

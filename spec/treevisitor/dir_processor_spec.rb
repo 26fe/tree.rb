@@ -5,7 +5,7 @@ describe DirProcessor do
   it do
     files = []
     dp = DirProcessor.new { |f| files << f }
-    dp.process(TEST_DATA)
+    dp.process(TEST_DIR)
     files.length.should == 3
   end
 
