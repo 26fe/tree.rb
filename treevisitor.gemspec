@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{treevisitor}
-  s.version = "0.1.2"
+  s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Giovanni Ferro"]
-  s.date = %q{2010-04-12}
+  s.date = %q{2010-04-15}
   s.default_executable = %q{tree.rb}
   s.description = %q{      Implementation of visitor design pattern. It contains a 'tree.rb'
       command line clone of the tree unix tool.
@@ -21,7 +21,12 @@ Gem::Specification.new do |s|
      "README.rdoc"
   ]
   s.files = [
-    "VERSION.yml",
+    "LICENSE",
+     "README.rdoc",
+     "Rakefile",
+     "VERSION.yml",
+     "examples/find_files.rb",
+     "examples/print_files.rb",
      "lib/tree_visitor.rb",
      "lib/treevisitor.rb",
      "lib/treevisitor/abs_node.rb",
@@ -46,6 +51,23 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{Implementation of visitor design pattern}
+  s.test_files = [
+    "spec/spec_helper.rb",
+     "spec/treevisitor/dir_processor_spec.rb",
+     "spec/treevisitor/dir_tree_walker_spec.rb",
+     "spec/treevisitor/tree_node_spec.rb",
+     "spec/treevisitor/tree_node_visitor_spec.rb",
+     "spec/treevisitor/cli/cli_tree_spec.rb",
+     "spec/treevisitor/tree_node_dsl_spec.rb",
+     "spec/fixtures/test_dir",
+     "spec/fixtures/test_dir/dir.1",
+     "spec/fixtures/test_dir/dir.1/dir.1.2",
+     "spec/fixtures/test_dir/dir.1/dir.1.2/file.1.2.1",
+     "spec/fixtures/test_dir/dir.1/file.1.1",
+     "spec/fixtures/test_dir/dir.2",
+     "spec/fixtures/test_dir/dir.2/file.2.1",
+     "spec/fixtures/test_dir/.dir_with_dot/dummy.txt"
+  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION

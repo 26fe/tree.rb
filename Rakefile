@@ -6,7 +6,9 @@ task :test => :check_dependencies
 task :default => :spec
 
 # require 'hanna/rdoctask'
+require 'rake/rdoctask'
 require 'sdoc'
+
 Rake::RDocTask.new do |rdoc|
   config = YAML.load(File.read('VERSION.yml'))
   version = "#{config[:major]}.#{config[:minor]}.#{config[:patch]}"
@@ -61,6 +63,7 @@ begin
     #
     gem.test_files = Dir['spec/**/*.rb']
     gem.test_files.concat Dir['spec/fixtures/**/*']
+    gem.test_files.concat Dir['spec/fixtures/**/.dir_with_dot/*']
 
     #
     # rubyforge
