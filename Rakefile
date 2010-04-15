@@ -2,31 +2,25 @@ require 'rubygems'
 require 'rake'
 require 'yaml'
 
-task :default => :test
+task :test => :check_dependencies
+task :default => :spec
 
-require 'rake/testtask'
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/tc_*.rb'
-  test.verbose = true
-end
-
-require 'hanna/rdoctask'
+# require 'hanna/rdoctask'
+require 'sdoc'
 Rake::RDocTask.new do |rdoc|
-  if File.exist?('VERSION.yml')
-    config = YAML.load(File.read('VERSION.yml'))
-    version = "#{config[:major]}.#{config[:minor]}.#{config[:patch]}"
-  else
-    version = ""
-  end
-  rdoc.rdoc_dir = 'rdoc' # rdoc output folder
-  rdoc.title = "tree_visitor #{version}"
-  rdoc.main = "README.rdoc" # page to start on
-  rdoc.options << '--webcvs=http://github.com/tokiro/tree_visitor/tree/master/'
+  config = YAML.load(File.read('VERSION.yml'))
+  version = "#{config[:major]}.#{config[:minor]}.#{config[:patch]}"
 
-  rdoc.rdoc_files.include('README.rdoc')
+  rdoc.rdoc_dir = 'doc' # rdoc output folder
+  rdoc.title = "Tree Visitor #{version}"
+  rdoc.main = "README.rdoc" # page to start on
+
+  rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
-  # rdoc.rdoc_files.exclude("")
+
+  # sdoc
+  rdoc.options << '--fmt' << 'shtml' # explictly set shtml generator
+  rdoc.template = 'direct' # lighter template used on railsapi.com
 end
 
 begin
@@ -43,31 +37,40 @@ begin
     gem.authors = ["Tokiro"]
     gem.email = "tokiro.oyama@gmail.com"
     gem.homepage = "http://github.com/tokiro/treevisitor"
-    # gem.add_dependency('abstract')
+
+    #
+    # dependecies
+    #
     gem.add_development_dependency "rspec"
+
+    #
+    # bin
+    #
+    gem.executables = %w{ tree.rb }
 
     #
     # files
     #
-    gem.files = Dir['lib/**/*.rb']
-    gem.files << "VERSION.yml"
+    gem.files  = %w{LICENSE README.rdoc Rakefile VERSION.yml dircat.gemspec}
+    gem.files.concat Dir['lib/**/*.rb']
+    gem.files.concat Dir['examples/*.rb']
 
-    gem.test_files = Dir['test/**/*.rb']
-    # concat all test files
-    gem.files.concat Dir['test_data/**/*']
-    gem.files.concat Dir['test_data/**/.dir_with_dot/*']
+
+    #
+    # test files
+    #
+    gem.test_files = Dir['spec/**/*.rb']
+    gem.test_files.concat Dir['spec/fixtures/**/*']
 
     #
     # rubyforge
     #
     # gem.rubyforge_project = 'treevisitor'
-
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end
-
 
 begin
   require 'rcov/rcovtask'
@@ -85,31 +88,31 @@ end
 #
 # rubyforge
 #
-begin
-  require 'rake/contrib/sshpublisher'
-  namespace :rubyforge do
-
-    desc "Release gem and RDoc documentation to RubyForge"
-    task :release => ["rubyforge:release:gem", "rubyforge:release:docs"]
-
-    namespace :release do
-      desc "Publish RDoc to RubyForge."
-      task :docs => [:rdoc] do
-        config = YAML.load(
-          File.read(File.expand_path('~/.rubyforge/user-config.yml'))
-        )
-
-        host = "#{config['username']}@rubyforge.org"
-        remote_dir = "/var/www/gforge-projects/treevisitor/"
-        local_dir = 'rdoc'
-
-        Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
-      end
-    end
-  end
-rescue LoadError
-  puts "Rake SshDirPublisher is unavailable or your rubyforge environment is not configured."
-end
+#begin
+#  require 'rake/contrib/sshpublisher'
+#  namespace :rubyforge do
+#
+#    desc "Release gem and RDoc documentation to RubyForge"
+#    task :release => ["rubyforge:release:gem", "rubyforge:release:docs"]
+#
+#    namespace :release do
+#      desc "Publish RDoc to RubyForge."
+#      task :docs => [:rdoc] do
+#        config = YAML.load(
+#          File.read(File.expand_path('~/.rubyforge/user-config.yml'))
+#        )
+#
+#        host = "#{config['username']}@rubyforge.org"
+#        remote_dir = "/var/www/gforge-projects/treevisitor/"
+#        local_dir = 'rdoc'
+#
+#        Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
+#      end
+#    end
+#  end
+#rescue LoadError
+#  puts "Rake SshDirPublisher is unavailable or your rubyforge environment is not configured."
+#end
 
 #
 # spec
@@ -129,5 +132,3 @@ Spec::Rake::SpecTask.new('failing_examples_with_html') do |t|
   t.fail_on_error = false
 end
 
-task :test => :check_dependencies
-task :default => :spec

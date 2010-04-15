@@ -27,9 +27,10 @@ Tree visitor is an implementation of visitor design pattern.
   |- |    callback_tree_node_visitor.rb
   |- |    callback_tree_node_visitor2.rb
 
-== REQUIREMENTS:
+== Rdoc
 
-* require abstract gem
+http://yardoc.org/docs/gf-treevisitor
+http://rdoc.info/projects/gf/treevisitor
 
 == INSTALL:
 
