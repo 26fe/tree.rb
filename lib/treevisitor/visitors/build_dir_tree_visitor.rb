@@ -1,6 +1,6 @@
 module TreeVisitor
   #
-  # Buils a TreeNode from a filesystem directory
+  # Builds a TreeNode from a filesystem directory
   # It similar to CloneTreeNodeVisitor
   #
   class BuildDirTreeVisitor < TreeNodeVisitor

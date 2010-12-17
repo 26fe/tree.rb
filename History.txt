@@ -1,3 +1,7 @@
+=== 2010-12-17
+
+* Gemfile added
+
 === 2010-04-06
 
 * erased gf_utilites code (are not related with treevisitor)
