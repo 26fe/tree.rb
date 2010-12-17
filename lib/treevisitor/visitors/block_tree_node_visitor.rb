@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module TreeVisitor
   #
   # It call a block when visit a tree_node or leaf_node

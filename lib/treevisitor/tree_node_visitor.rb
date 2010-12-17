@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module TreeVisitor
   #
   # Callback methods used to visit a tree

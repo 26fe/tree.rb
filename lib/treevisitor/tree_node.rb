@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module TreeVisitor
   #
   # TreeNode can contains other TreeNode (children)

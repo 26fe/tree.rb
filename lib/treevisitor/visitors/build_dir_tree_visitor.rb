@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module TreeVisitor
   #
   # Builds a TreeNode from a filesystem directory

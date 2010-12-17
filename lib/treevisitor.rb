@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # rubygems
 require "rubygems"
 require "abstract"

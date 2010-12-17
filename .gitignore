@@ -7,4 +7,5 @@ coverage
 rdoc
 nbproject
 .idea
-
+.yardoc
+doc

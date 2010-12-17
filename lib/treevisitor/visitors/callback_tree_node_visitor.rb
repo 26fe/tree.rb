@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module TreeVisitor
   #
   # Executes a block when enter in a node
