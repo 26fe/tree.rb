@@ -44,7 +44,11 @@ Gem::Specification.new do |s|
     "lib/treevisitor/visitors/flat_print_tree_node_visitors.rb",
     "lib/treevisitor/visitors/print_dir_tree_visitor.rb",
     "lib/treevisitor/visitors/print_tree_node_visitor.rb",
-    "lib/treevisitor_cli.rb"
+    "lib/treevisitor_cli.rb",
+    "tasks/jeweler.rake",
+    "tasks/rspec.rake",
+    "tasks/rubyforge.rake",
+    "tasks/yard.rake"
   ]
   s.homepage = %q{http://github.com/tokiro/treevisitor}
   s.require_paths = ["lib"]
