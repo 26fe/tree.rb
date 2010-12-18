@@ -1,0 +1,4 @@
+lib/**/*.rb
+--title "Tree Visitor"
+--readme README.rdoc
+- LICENSE.txt

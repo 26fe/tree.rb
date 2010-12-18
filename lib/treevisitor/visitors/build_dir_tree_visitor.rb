@@ -8,7 +8,16 @@ module TreeVisitor
   
     attr_reader :root
 
+    #
+    # Number of visited directory (aka nr_nodes - nr_leaf)
+    #
     attr_reader :nr_directories
+
+
+    #
+    # Number of visited directory (nr_leaves)
+    # @see AbsNode#nr_leaves
+    #
     attr_reader :nr_files
   
     def initialize

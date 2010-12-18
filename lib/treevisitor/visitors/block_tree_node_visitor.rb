@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 module TreeVisitor
   #
-  # It call a block when visit a tree_node or leaf_node
+  # It calls a block when visit a tree_node or leaf_node
   #
   class BlockTreeNodeVisitor < TreeNodeVisitor
 
@@ -11,9 +11,6 @@ module TreeVisitor
 
     def enter_tree_node( tree_node )
       @block.call( tree_node )
-    end
-
-    def exit_tree_node( tree_node )
     end
 
     def visit_leaf_node( leaf_node )

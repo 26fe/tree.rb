@@ -31,9 +31,3 @@ require 'treevisitor/visitors/build_dir_tree_visitor'
 require 'treevisitor/visitors/print_dir_tree_visitor'
 
 
-#
-# cli
-#
-
-require 'optparse'
-require "treevisitor/cli/cli_tree"

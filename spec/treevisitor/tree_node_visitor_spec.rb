@@ -22,7 +22,7 @@ describe "TreeNodeVisitors" do
 
   it "test_blocktreenodevisitor" do
     accumulator = []
-    visitor = BlockTreeNodeVisitor.new { |node| accumulator << node.name}
+    visitor = BlockTreeNodeVisitor.new { |node| accumulator << node.content}
     @tree.accept( visitor )
     accumulator.length.should == 5
     accumulator.should == %w{ a 1 2 b 3 }
@@ -41,8 +41,8 @@ describe "TreeNodeVisitors" do
   it "test_callback_tree_node_visitor" do
     accumulator = []
     visitor = CallbackTreeNodeVisitor.new
-    visitor.on_enter_tree_node{ |treeNode| accumulator << treeNode.name }
-    visitor.on_visit_leaf_node{ |leafNode| accumulator << leafNode.name }
+    visitor.on_enter_tree_node{ |tree_node| accumulator << tree_node.content }
+    visitor.on_visit_leaf_node{ |leaf_node| accumulator << leaf_node.content }
     @tree.accept( visitor )
     accumulator.length.should == 5
     accumulator.should == %w{ a 1 2 b 3 }
@@ -50,19 +50,19 @@ describe "TreeNodeVisitors" do
   
   it "test_callback_tree_node_visitor2" do
     visitor = CallbackTreeNodeVisitor2.new
-    visitor.on_enter_tree_node{ |treeNode, newParentNode|
-      TreeNode.new("n" + treeNode.name, newParentNode) 
+    visitor.on_enter_tree_node{ |tree_node, new_parent_node|
+      TreeNode.new("n" + tree_node.content, new_parent_node)
     }
-    visitor.on_visit_leaf_node{ |leafNode, newParentNode|
-      LeafNode.new( "n" + leafNode.name, newParentNode )
+    visitor.on_visit_leaf_node{ |leaf_node, new_parent_node|
+      LeafNode.new( "n" + leaf_node.content, new_parent_node )
     }
     @tree.accept( visitor )
-    newRoot = visitor.root
-    newRoot.name.should ==  "n" + @tree.name
+    new_root = visitor.root
+    new_root.content.should ==  "n" + @tree.content
     
     accumulator = []
-    visitor = BlockTreeNodeVisitor.new { |node| accumulator << node.name}
-    newRoot.accept( visitor )
+    visitor = BlockTreeNodeVisitor.new { |node| accumulator << node.content}
+    new_root.accept( visitor )
     accumulator.length.should == 5
     accumulator.should == %w{ na n1 n2 nb n3 }
   end

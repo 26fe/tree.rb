@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
 module TreeVisitor
+
+  #
+  # Visit a file system directory
+  #
   class DirTreeWalker
 
+    #
+    # @param [String] dirname the root of the tree (top level directory)
+    #
     def initialize( dirname )
       @dirname = dirname
       unless File.directory?( dirname )
@@ -26,23 +33,38 @@ module TreeVisitor
 
     ##########################################################################
     # Pattern
+
+
+    #
+    # Ignore a node (leaf/Tree) matching pattern
+    # @param [RegEx] pattern
     #
     def ignore(pattern)
       @ignore_dir_patterns << pattern
       @ignore_file_patterns << pattern
     end
 
+    #
+    # Ignore a directory (Tree) matching pattern
+    # @param [RegEx] pattern
+    #
     def ignore_dir( pattern )
       @ignore_dir_patterns << pattern
     end
 
+    #
+    # Ignore a file (Leaf) matching pattern
+    # @param [RegEx] pattern
+    #
     def ignore_file( pattern )
       @ignore_file_patterns << pattern
     end
 
     #
-    # quali file bisogna prendere in considerazione
-    # match opposto di ignore :-)
+    # Just the opposite of ignore
+    # directory/file matching pattern will be visited
+    #
+    # @param [RegEx] pattern
     #
     def match( pattern )
       @match_file_patterns << pattern
@@ -50,25 +72,48 @@ module TreeVisitor
 
     ##########################################################################
     # Options
-  
+
+    #
+    # boh
+    #
     attr_accessor :visit_leaf
 
     ##########################################################################
 
 
+    #
+    # Test directory ignore pattern
+    #
+    # @param [String] directory name
+    # @return [boolean] if dirname match almost one pattern
+    #
     def ignore_dir?( dirname )
       _include?( @ignore_dir_patterns, File.basename( dirname ) )
     end
 
+    #
+    # Test file ignore pattern
+    #
+    # @param [String] file name
+    # @return [boolean] if filename match almost one pattern
+    #
     def ignore_file?( filename )
       _include?( @ignore_file_patterns, File.basename( filename ) )
     end
 
+    #
+    # Test common ignore pattern
+    #
+    # @param [String] file name
+    # @return [boolean] if filename match almost one pattern
+    #
     def match?( filename )
       return true if @match_file_patterns.empty?
       _include?( @match_file_patterns, File.basename( filename ) )
     end
 
+    #
+    # Run the visitor through the directory tree
     #
     # return the visitor
     #

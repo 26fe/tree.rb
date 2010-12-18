@@ -29,8 +29,7 @@ Tree visitor is an implementation of visitor design pattern.
 
 == Rdoc
 
-http://yardoc.org/docs/gf-treevisitor
-http://rdoc.info/projects/gf/treevisitor
+http://rubydoc.info/gems/treevisitor
 
 == INSTALL:
 

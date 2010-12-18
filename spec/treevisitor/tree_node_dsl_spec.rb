@@ -5,13 +5,13 @@ describe "TreeNodeDsl" do
 
   class DTreeNode < TreeNode
     def to_s
-      "dt: #{name}"
+      "dt: #{content}"
     end
   end
 
   class DLeafNode < LeafNode
     def to_s
-      "dl: #{name}"
+      "dl: #{content}"
     end
   end
 

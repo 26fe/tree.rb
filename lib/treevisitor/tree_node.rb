@@ -2,10 +2,10 @@
 module TreeVisitor
   #
   # TreeNode can contains other TreeNode (children)
-  # and can contains LeafNode (leves)
+  # and can contains LeafNode (leaves)
   #
-  # TreeNode @childs -1---n-> TreeNode
-  #          @leaves -1---n-> LeafNode
+  # TreeNode @children -1---n-> TreeNode
+  #          @leaves   -1---n-> LeafNode
   #
   class TreeNode < AbsNode
   
@@ -69,15 +69,19 @@ module TreeVisitor
     attr_reader :leaves
     attr_reader :children
 
-    def initialize( name, parent = nil )
+    #
+    # @param [Object] content of this node
+    #
+    def initialize( content, parent = nil )
       @leaves = []
       @children = []
-      super( name )
-      if parent
-        parent.add_child( self )
-      end
+      super( content )
+      parent.add_child(self) if parent
     end
 
+    #
+    # Test if is a root
+    #
     def root?
       @parent.nil?
     end
@@ -91,20 +95,35 @@ module TreeVisitor
       @children.each{ |c| c.invalidate }
       @leaves.each{ |l| l.invalidate }
     end
-  
+
+    #
+    # @return [FixNum] total number of nodes
+    #
     def nr_nodes
       nr = @leaves.length + @children.length
       @children.inject( nr ) { |nr,c| nr + c.nr_nodes }
     end
   
+    #
+    # @return [FixNum] total number of leaves
+    #
     def nr_leaves
       @leaves.length + @children.inject(0) { |sum, child| sum + child.nr_leaves }
     end
 
+    #
+    # @return [FixNum] total number of children
+    #
     def nr_children
       @children.length + @children.inject(0) { |sum, child| sum + child.nr_children }
     end
-        
+
+    #
+    # Add a Leaf
+    # @param [LeafNode]
+    #
+    # @return self
+    #
     def add_leaf( leaf )
       return if leaf.parent == self
       if not leaf.parent.nil?
@@ -120,8 +139,15 @@ module TreeVisitor
       leaf.next = nil
       leaf.invalidate
       @leaves << leaf
+      self
     end
 
+    #
+    # Add a Tree
+    # @param [LeafNode]
+    #
+    # @return self
+    #
     def add_child( tree_node )
       return if tree_node.parent == self
       if not tree_node.parent.nil?
@@ -139,18 +165,24 @@ module TreeVisitor
       end
       tree_node.next = nil
       @children << tree_node
+      self
     end
-  
-    def find( name )
-      return self if self.name == name
+
+    #
+    # Find a node down the hierarchy with content
+    # @param [Object] content of searched node
+    # @return [Object, nil] nil if no
+    #
+    def find( content )
+      return self if self.content == content
     
-      leaf = @leaves.find { |l| l.name == name }
+      leaf = @leaves.find { |l| l.content == content }
       if leaf
         return leaf
       end
     
       @children.each {|c|
-        node = c.find(name)
+        node = c.find(content)
         return node if node
       }
       nil
@@ -171,6 +203,9 @@ module TreeVisitor
       visitor
     end
 
+    #
+    # Format the content of tree
+    #
     def to_str( prefix= "" )
       str = ""
 
@@ -179,9 +214,9 @@ module TreeVisitor
       else
         str << prefix
         if self.next
-          str << "|-- "
+          str << '|-- '
         else
-          str << "\`-- "
+          str << '`-- '
         end
         str << to_s << "\n"
         prefix += self.next ? "|   " : "    "
@@ -190,9 +225,9 @@ module TreeVisitor
       @leaves.each do |leaf|
         str << prefix
         if !leaf.next.nil? or !@children.empty?
-          str << "|-- "
+          str << '|-- '
         else
-          str << "\`-- "
+          str << '`-- '
         end
         str <<  leaf.to_s << "\n"
       end

@@ -3,14 +3,10 @@ begin
   require 'yard'
 
   YARD::Rake::YardocTask.new do |t|
-    t.files   = ['lib/**/*.rb']
-    t.options = [
-        '--readme', 'README.rdoc',
-        # '--output-dir', 'doc/yardoc'
-        '--any',
-        '--extra',
-        '--opts'
-    ]
+#    t.files   = ['lib/**/*.rb']
+#    t.options = [
+#        '--readme', 'README.rdoc',
+#    ]
   end
 
 rescue LoadError

@@ -1,22 +1,28 @@
 # -*- coding: utf-8 -*-
 module TreeVisitor
+
+  #
+  # Represent a LeafNode
+  #
   class LeafNode < AbsNode
 
-    def initialize( name, parent = nil )
-      super( name )
-      if parent
-        parent.add_leaf( self )
-      end
+    #
+    # @param [Object] content of node
+    #
+    def initialize( content, parent = nil )
+      super( content )
+      parent.add_leaf(self) if parent
     end
 
     #
-    # a leaf_node cannot be a root
+    # @return false because a leaf_node cannot be a root
+    #
     def root?
       false
     end
 
     #
-    # return the visitor
+    # @return [TreeNodeVisitor] the visitor
     #
     def accept( visitor )
       visitor.visit_leaf_node( self )

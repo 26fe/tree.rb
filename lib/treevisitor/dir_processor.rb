@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 module TreeVisitor
+
+  #
+  # Visit a directory tree
+  # not TreeNode related
+  #
   class DirProcessor
 
     def initialize( &action )
