@@ -8,9 +8,9 @@ module TreeVisitor
   #          @leaves   -1---n-> LeafNode
   #
   class TreeNode < AbsNode
-  
+
     class << self
-    
+
       def create(class1 = TreeNode, class2 = LeafNode, &block)
         if class1.ancestors.include?(TreeNode) and class2.ancestors.include?(LeafNode)
           @tree_node_class = class1
@@ -39,7 +39,7 @@ module TreeVisitor
           if block.arity == 0 || block.arity == -1
             class_eval(&block)
           elsif block.arity == 1
-            new_block = Proc.new{ block.call(tree_node) }
+            new_block = Proc.new { block.call(tree_node) }
             class_eval(&new_block)
           else
             raise "block take too much arguments #{block.arity}"
@@ -56,7 +56,7 @@ module TreeVisitor
           if block.arity == 0 || block.arity == -1
             class_eval(&block)
           elsif block.arity == 1
-            new_block = Proc.new{ block.call(leaf_node) }
+            new_block = Proc.new { block.call(leaf_node) }
             class_eval(&new_block)
           else
             raise "block take too much arguments #{block.arity}"
@@ -72,10 +72,10 @@ module TreeVisitor
     #
     # @param [Object] content of this node
     #
-    def initialize( content, parent = nil )
-      @leaves = []
+    def initialize(content, parent = nil)
+      @leaves   = []
       @children = []
-      super( content )
+      super(content)
       parent.add_child(self) if parent
     end
 
@@ -85,15 +85,15 @@ module TreeVisitor
     def root?
       @parent.nil?
     end
-  
+
     #
     # invalidate cached info
     # invalidate propagates form parent to children and leaves
     #
     def invalidate
       super
-      @children.each{ |c| c.invalidate }
-      @leaves.each{ |l| l.invalidate }
+      @children.each { |c| c.invalidate }
+      @leaves.each { |l| l.invalidate }
     end
 
     #
@@ -101,9 +101,9 @@ module TreeVisitor
     #
     def nr_nodes
       nr = @leaves.length + @children.length
-      @children.inject( nr ) { |nr,c| nr + c.nr_nodes }
+      @children.inject(nr) { |sum, c| sum + c.nr_nodes }
     end
-  
+
     #
     # @return [FixNum] total number of leaves
     #
@@ -124,7 +124,7 @@ module TreeVisitor
     #
     # @return self
     #
-    def add_leaf( leaf )
+    def add_leaf(leaf)
       return if leaf.parent == self
       if not leaf.parent.nil?
         leaf.remove_from_parent
@@ -132,7 +132,7 @@ module TreeVisitor
       leaf.parent = self
       if @leaves.length > 0
         @leaves.last.next = leaf
-        leaf.prev = @leaves.last
+        leaf.prev         = @leaves.last
       else
         leaf.prev = nil
       end
@@ -148,7 +148,7 @@ module TreeVisitor
     #
     # @return self
     #
-    def add_child( tree_node )
+    def add_child(tree_node)
       return if tree_node.parent == self
       if not tree_node.parent.nil?
         tree_node.remove_from_parent
@@ -159,7 +159,7 @@ module TreeVisitor
       tree_node.parent = self
       if @children.length > 0
         @children.last.next = tree_node
-        tree_node.prev = @children.last
+        tree_node.prev      = @children.last
       else
         tree_node.prev = nil
       end
@@ -173,40 +173,45 @@ module TreeVisitor
     # @param [Object] content of searched node
     # @return [Object, nil] nil if no
     #
-    def find( content )
-      return self if self.content == content
-    
-      leaf = @leaves.find { |l| l.content == content }
-      if leaf
-        return leaf
+    def find(content = nil, &block)
+      if content and block_given?
+        raise "TreeNode::find - passed content AND block"
       end
-    
-      @children.each {|c|
-        node = c.find(content)
+
+      if content
+        block = proc { |c| c == content }
+      end
+      return self if block.call(self.content)
+
+      leaf = @leaves.find { |l| block.call(l.content) }
+      return leaf if leaf
+
+      @children.each do |child|
+        node = child.find &block
         return node if node
-      }
+      end
       nil
     end
 
     #
     # return the visitor
     #
-    def accept( visitor )
-      visitor.enter_tree_node( self )
-      @leaves.each{ |leaf|
-        leaf.accept( visitor )
+    def accept(visitor)
+      visitor.enter_tree_node(self)
+      @leaves.each { |leaf|
+        leaf.accept(visitor)
       }
       @children.each { |child|
-        child.accept( visitor )
+        child.accept(visitor)
       }
-      visitor.exit_tree_node( self )
+      visitor.exit_tree_node(self)
       visitor
     end
 
     #
     # Format the content of tree
     #
-    def to_str( prefix= "" )
+    def to_str(prefix= "")
       str = ""
 
       if root?
@@ -221,7 +226,7 @@ module TreeVisitor
         str << to_s << "\n"
         prefix += self.next ? "|   " : "    "
       end
-    
+
       @leaves.each do |leaf|
         str << prefix
         if !leaf.next.nil? or !@children.empty?
@@ -229,11 +234,11 @@ module TreeVisitor
         else
           str << '`-- '
         end
-        str <<  leaf.to_s << "\n"
+        str << leaf.to_s << "\n"
       end
 
       @children.each do |child|
-        str << child.to_str( prefix )
+        str << child.to_str(prefix)
       end
       str
     end

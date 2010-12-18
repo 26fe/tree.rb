@@ -20,7 +20,7 @@ describe "TreeNodeVisitors" do
     @tree = ta
   end
 
-  it "test_blocktreenodevisitor" do
+  it BlockTreeNodeVisitor do
     accumulator = []
     visitor = BlockTreeNodeVisitor.new { |node| accumulator << node.content}
     @tree.accept( visitor )
@@ -28,7 +28,7 @@ describe "TreeNodeVisitors" do
     accumulator.should == %w{ a 1 2 b 3 }
   end
   
-  it "test_depthtreenodevisitor" do
+  it DepthTreeNodeVisitor do
     visitor = DepthTreeNodeVisitor.new
     @tree.accept( visitor )
     visitor.depth.should == 0
@@ -38,7 +38,7 @@ describe "TreeNodeVisitors" do
     visitor.cloned_root.nr_nodes.should ==  @tree.nr_nodes
   end
   
-  it "test_callback_tree_node_visitor" do
+  it CallbackTreeNodeVisitor do
     accumulator = []
     visitor = CallbackTreeNodeVisitor.new
     visitor.on_enter_tree_node{ |tree_node| accumulator << tree_node.content }
@@ -48,7 +48,7 @@ describe "TreeNodeVisitors" do
     accumulator.should == %w{ a 1 2 b 3 }
   end
   
-  it "test_callback_tree_node_visitor2" do
+  it CallbackTreeNodeVisitor2 do
     visitor = CallbackTreeNodeVisitor2.new
     visitor.on_enter_tree_node{ |tree_node, new_parent_node|
       TreeNode.new("n" + tree_node.content, new_parent_node)

@@ -4,30 +4,32 @@
 Tree visitor is an implementation of visitor design pattern.
 
  $ tree.rb lib
- lib
-  |  | treevisitor.rb
-  |-treevisitor
-  |  | abs_node.rb
-  |  | dir_processor.rb
-  |  | dir_tree_walker.rb
-  |  | leaf_node.rb
-  |  | tree_node.rb
-  |  | tree_node_visitor.rb
-  |- |-cli
-  |- |    cli_tree.rb
-  |- |-visitors
-  |- |    print_node_visitor2.rb
-  |- |    build_dir_tree_visitor.rb
-  |- |    print_dir_tree_visitor.rb
-  |- |    block_tree_node_visitor.rb
-  |- |    flat_print_tree_node_visitors.rb
-  |- |    print_tree_node_visitor.rb
-  |- |    depth_tree_node_visitor.rb
-  |- |    clone_tree_node_visitor.rb
-  |- |    callback_tree_node_visitor.rb
-  |- |    callback_tree_node_visitor2.rb
 
-== Rdoc
+  lib
+ |-- tree_visitor.rb
+ |-- treevisitor.rb
+ |-- treevisitor_cli.rb
+ `-- treevisitor
+     |-- abs_node.rb
+     |-- dir_processor.rb
+     |-- dir_tree_walker.rb
+     |-- leaf_node.rb
+     |-- tree_node.rb
+     |-- tree_node_visitor.rb
+     |-- cli
+     |   `-- cli_tree.rb
+     `-- visitors
+         |-- block_tree_node_visitor.rb
+         |-- build_dir_tree_visitor.rb
+         |-- callback_tree_node_visitor.rb
+         |-- callback_tree_node_visitor2.rb
+         |-- clone_tree_node_visitor.rb
+         |-- depth_tree_node_visitor.rb
+         |-- flat_print_tree_node_visitors.rb
+         |-- print_dir_tree_visitor.rb
+         `-- print_tree_node_visitor.rb
+
+== Documentation
 
 http://rubydoc.info/gems/treevisitor
 

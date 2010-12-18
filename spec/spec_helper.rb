@@ -2,6 +2,8 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'treevisitor'
+require 'treevisitor_cli'
+
 include TreeVisitor
 
 TEST_DIR = File.expand_path( File.join( File.dirname(__FILE__), "fixtures", "test_dir" ) )

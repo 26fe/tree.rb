@@ -33,6 +33,7 @@ begin
     #
     gem.files  = %w{LICENSE README.rdoc Rakefile VERSION.yml dircat.gemspec}
     gem.files.concat Dir['lib/**/*.rb']
+    gem.files.concat Dir['tasks/**/*.rake']
     gem.files.concat Dir['examples/*.rb']
 
 

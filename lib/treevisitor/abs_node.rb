@@ -41,7 +41,7 @@ module TreeVisitor
     #
     # Create a new AbsNode
     #
-    # @par content of node
+    # @param content of node
     #
     def initialize( content )
       @parent = nil

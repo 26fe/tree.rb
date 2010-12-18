@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 require File.join(File.dirname(__FILE__), "..", "..", "spec_helper")
 
-# require 'treevisitor/cli/cli_tree'
-
 describe CliTree do
 
-  it "test_help_message" do
+  it "help message" do
     out = with_stdout_captured do
       args = %w{-h}
       CliTree.new.parse_args(args)
@@ -13,7 +11,7 @@ describe CliTree do
     out.should match /Usage:/
   end
 
-  it "test_version" do
+  it "version" do
     out = with_stdout_captured do
       args = %w{--version}
       CliTree.new.parse_args(args)
