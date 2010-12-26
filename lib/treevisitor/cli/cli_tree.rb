@@ -78,7 +78,7 @@ module TreeVisitor
         dtw.ignore(/^\.[^.]+/) # ignore all file starting with "."
       end
 
-      dtw.visit_leaf = !options[:only_directories]
+      dtw.visit_file = !options[:only_directories]
 
       case options[:algo]
       when 'build'
@@ -91,7 +91,7 @@ module TreeVisitor
         visitor = PrintDirTreeVisitor.new
         dtw.run( visitor )
       end
-      return 0
+      0
     end
 
   end
