@@ -42,6 +42,7 @@ module TreeVisitor
     def ignore(pattern)
       @ignore_dir_patterns << pattern
       @ignore_file_patterns << pattern
+      self
     end
 
     #
@@ -50,6 +51,7 @@ module TreeVisitor
     #
     def ignore_dir(pattern)
       @ignore_dir_patterns << pattern
+      self
     end
 
     #
@@ -58,6 +60,7 @@ module TreeVisitor
     #
     def ignore_file(pattern)
       @ignore_file_patterns << pattern
+      self
     end
 
     #
@@ -68,6 +71,7 @@ module TreeVisitor
     #
     def match(pattern)
       @match_file_patterns << pattern
+      self
     end
 
     ##########################################################################
@@ -79,7 +83,6 @@ module TreeVisitor
     attr_accessor :visit_file
 
     ##########################################################################
-
 
     #
     # Test directory ignore pattern
@@ -129,7 +132,7 @@ module TreeVisitor
     def _include?(patterns, basename)
       # return false if the patters.empty?
       patterns.find { |pattern|
-        if pattern.respond_to?(:match) # or if pattern.kind_of? Regexp
+        if pattern.kind_of? Regexp
           pattern.match(basename)
         else
           basename == pattern

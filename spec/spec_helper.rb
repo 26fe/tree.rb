@@ -6,12 +6,10 @@ require 'treevisitor_cli'
 
 include TreeVisitor
 
-TEST_DIR = File.expand_path( File.join( File.dirname(__FILE__), "fixtures", "test_dir" ) )
-
+FIXTURES = File.expand_path( File.join( File.dirname(__FILE__), "fixtures" ) )
 
 # Spec::Runner.configure do |config|
 # end
-
 
 require 'test/unit'
 require "stringio"

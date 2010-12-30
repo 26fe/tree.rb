@@ -16,7 +16,6 @@ module TreeVisitor
   end
 end
 
-
 require "treevisitor/abs_node"
 require 'treevisitor/leaf_node'
 require 'treevisitor/tree_node_visitor.rb'

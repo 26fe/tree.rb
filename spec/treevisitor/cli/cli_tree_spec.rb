@@ -23,25 +23,25 @@ describe CliTree do
   it "should accepts switch -d (directories only)" do
     out = with_stdout_captured do
       args = %w{-d}
-      args << TEST_DIR
+      args << File.join(FIXTURES, "test_dir")
       CliTree.new.parse_args(args)
     end
-    # pp out
+    # puts out
     out.split("\n").length.should == 6
 
     out = with_stdout_captured do
       args = %w{-da}
-      args << TEST_DIR
+      args << File.join(FIXTURES, "test_dir")
       CliTree.new.parse_args(args)
     end
-    #puts out
+    # puts out
     out.split("\n").length.should == 7
   end
 
   it "should accepts switch -a (all files)" do
     out = with_stdout_captured do
       args = %w{-a}
-      args << TEST_DIR
+      args << File.join(FIXTURES, "test_dir")
       CliTree.new.parse_args(args)
     end
     # pp out
@@ -49,7 +49,7 @@ describe CliTree do
 
     out = with_stdout_captured do
       args = []
-      args << TEST_DIR
+      args << File.join(FIXTURES, "test_dir")
       CliTree.new.parse_args(args)
     end
     # puts out
