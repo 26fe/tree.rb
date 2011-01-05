@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{treevisitor}
-  s.version = "0.1.4"
+  s.version = "0.1.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tokiro"]
-  s.date = %q{2010-12-18}
+  s.date = %q{2011-01-05}
   s.default_executable = %q{tree.rb}
   s.description = %q{      Implementation of visitor design pattern. It contains a 'tree.rb'
       command line clone of the tree unix tool.
@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION.yml",
+    "examples/directory_without_subdirectory.rb",
     "examples/find_files.rb",
     "examples/print_files.rb",
     "lib/tree_visitor.rb",
