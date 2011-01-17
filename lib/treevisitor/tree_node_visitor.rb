@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
 module TreeVisitor
   #
-  # Callback methods used to visit a tree
-  # Are empty so it is possible to define only a subset
+  # More complex TreeNodeVisitor
   #
   class TreeNodeVisitor
+
+    def initialize(&block)
+      if block
+        instance_eval(&block)
+      end
+    end
 
     #
     # called on tree node at start of the visit i.e. we start to visit the subtree
@@ -22,6 +27,13 @@ module TreeVisitor
     # called when visit leaf node
     #
     def visit_leaf_node( leaf_node )
+    end
+
+
+    private
+
+    def on_enter_tree_node
+      puts "on_enter_tree_node"
     end
 
   end
