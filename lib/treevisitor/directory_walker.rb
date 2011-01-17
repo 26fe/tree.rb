@@ -121,8 +121,24 @@ module TreeVisitor
     # @param [TreeNodeVisitor]
     # @return [TreeNodeVisitor] the visitor
     #
-    def run(tree_node_visitor)
-      @visitor = tree_node_visitor
+    def run(tree_node_visitor = nil, &block)
+
+      if tree_node_visitor && block
+        raise "cannot use block and parameter together"
+      end
+
+      if tree_node_visitor
+        @visitor = tree_node_visitor
+      end
+
+      if block
+        @visitor = BasicTreeNodeVisitor.new(&block)
+      end
+
+      unless @visitor
+        raise "you must pass a parameter to run"
+      end
+
       process_directory(File.expand_path(@dirname))
       tree_node_visitor
     end

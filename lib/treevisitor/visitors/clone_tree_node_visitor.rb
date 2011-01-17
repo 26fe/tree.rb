@@ -4,7 +4,7 @@ module TreeVisitor
   # Clone a tree_node, nodes are duplicated.
   # Node content are not duplicated!
   #
-  class CloneTreeNodeVisitor < TreeNodeVisitor
+  class CloneTreeNodeVisitor < BasicTreeNodeVisitor
 
     #
     # Contains the cloned tree node after the visit

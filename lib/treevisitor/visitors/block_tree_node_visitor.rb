@@ -3,7 +3,7 @@ module TreeVisitor
   #
   # It calls a block when visit a tree_node or leaf_node
   #
-  class BlockTreeNodeVisitor < TreeNodeVisitor
+  class BlockTreeNodeVisitor < BasicTreeNodeVisitor
 
     def initialize( &action )
       @block = action

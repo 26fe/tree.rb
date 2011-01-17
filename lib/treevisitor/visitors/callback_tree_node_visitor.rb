@@ -5,10 +5,9 @@ module TreeVisitor
   # The block are defined from on_enter_X methods
   # The blocks take as argument only the node
   #
-  class CallbackTreeNodeVisitor < TreeNodeVisitor
+  class CallbackTreeNodeVisitor < BasicTreeNodeVisitor
 
     def initialize
-      super()
       @root = nil
       @stack = []
       @action_enter_tree_node = nil

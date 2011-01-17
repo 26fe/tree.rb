@@ -3,7 +3,7 @@ module TreeVisitor
   #
   # Simple visitor: show how calculate the depth of a tree
   #
-  class DepthTreeNodeVisitor < TreeNodeVisitor
+  class DepthTreeNodeVisitor < BasicTreeNodeVisitor
 
     attr_reader :depth
 

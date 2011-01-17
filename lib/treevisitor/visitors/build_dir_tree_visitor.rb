@@ -4,7 +4,7 @@ module TreeVisitor
   # Builds a TreeNode from a filesystem directory
   # It similar to CloneTreeNodeVisitor
   #
-  class BuildDirTreeVisitor < TreeNodeVisitor
+  class BuildDirTreeVisitor < BasicTreeNodeVisitor
   
     attr_reader :root
 

@@ -5,7 +5,7 @@ module TreeVisitor
   # The block are defined from on_enter_X methods
   # The blocks take as argument the node and the parent_node
   #
-  class CallbackTreeNodeVisitor2 < TreeNodeVisitor
+  class CallbackTreeNodeVisitor2 < BasicTreeNodeVisitor
 
     attr_reader :root
 

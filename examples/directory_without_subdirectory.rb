@@ -1,12 +1,13 @@
+# -*- coding: utf-8 -*-
 cwd = File.expand_path( File.join( File.dirname(__FILE__), "..", "lib" ) )
 $:.unshift(cwd) unless $:.include?(cwd)
 require 'treevisitor'
 
 require 'ostruct'
 #
-# Find directory without subdirectories
+# Find directories without subdirectories
 #
-class DirWithoutSubDir < TreeVisitor::TreeNodeVisitor
+class DirWithoutSubDir < TreeVisitor::BasicTreeNodeVisitor
 
   def initialize
     super

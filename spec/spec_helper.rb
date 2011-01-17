@@ -1,18 +1,14 @@
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
+#
+# std lib
+#
+require "stringio"
 
+$:.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'treevisitor'
 require 'treevisitor_cli'
-
 include TreeVisitor
 
 FIXTURES = File.expand_path( File.join( File.dirname(__FILE__), "fixtures" ) )
-
-# Spec::Runner.configure do |config|
-# end
-
-require 'test/unit'
-require "stringio"
 
 def with_stdout_captured
   old_stdout = $stdout

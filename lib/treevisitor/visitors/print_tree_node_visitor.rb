@@ -3,7 +3,7 @@ module TreeVisitor
   #
   # Prints TreeNode names indenting according to depth
   #
-  class PrintTreeNodeVisitor < TreeNodeVisitor
+  class PrintTreeNodeVisitor < BasicTreeNodeVisitor
 
     def initialize
       @depth = 0

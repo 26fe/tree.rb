@@ -3,7 +3,7 @@ module TreeVisitor
   #
   # Print for every node the name
   #
-  class FlatPrintTreeNodeVisitor < TreeNodeVisitor
+  class FlatPrintTreeNodeVisitor < BasicTreeNodeVisitor
 
     def enter_tree_node( tree_node )
       puts tree_node.name
