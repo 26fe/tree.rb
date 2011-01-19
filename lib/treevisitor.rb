@@ -15,6 +15,7 @@ require "abstract"
 #
 # treevisitor
 #
+
 module TreeVisitor
   def self.version
     cwd = Pathname(__FILE__).dirname.expand_path.to_s
@@ -41,4 +42,4 @@ require 'treevisitor/visitors/block_tree_node_visitor'
 require 'treevisitor/visitors/build_dir_tree_visitor'
 require 'treevisitor/visitors/print_dir_tree_visitor'
 
-require 'treevisitor/dir_processor'
+require 'treevisitor/util/dir_processor'
