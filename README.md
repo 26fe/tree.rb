@@ -1,8 +1,10 @@
-= tree.rb / tree visitor library
+tree.rb / tree visitor library
+================================================
 
-+tree.rb+ is a 'clone' of tree unix command. It is based on tree visitor library.
+**tree.rb** is a 'clone' of tree unix command. It is based on tree visitor library.
 Tree visitor is an implementation of visitor design pattern.
 
+<pre>
  $ tree.rb lib
 
   lib
@@ -28,8 +30,9 @@ Tree visitor is an implementation of visitor design pattern.
          |-- flat_print_tree_node_visitors.rb
          |-- print_dir_tree_visitor.rb
          `-- print_tree_node_visitor.rb
+</pre>
 
-== Documentation
+### Documentation
 
 http://rubydoc.info/gems/treevisitor
 
@@ -49,7 +52,7 @@ reporting bugs, writing some documentation and, of course, you're also welcome t
 
 This gem have been tested on [MRI][8] 1.9.2.
 
-== Copyright
+### Copyright
 
 Copyright (c) 2009-2011 tokiro.oyama@gmail.com. See LICENSE for details.
 
