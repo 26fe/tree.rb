@@ -33,10 +33,24 @@ Tree visitor is an implementation of visitor design pattern.
 
 http://rubydoc.info/gems/treevisitor
 
+Try tree.rb -h to get help on command line.
+See examples directory to use treevisitor in your code
+
 == INSTALL:
 
   sudo gem install treevisitor
 
+### Contributions
+
+Everybody is welcome to contribute to this project by commenting the source code, suggesting modifications or new ideas,
+reporting bugs, writing some documentation and, of course, you're also welcome to contribute with patches as well!
+
+### Rubies
+
+This gem have been tested on [MRI][8] 1.9.2.
+
 == Copyright
 
-Copyright (c) 2009-2010 tokiro.oyama@gmail.com. See LICENSE for details.
+Copyright (c) 2009-2011 tokiro.oyama@gmail.com. See LICENSE for details.
+
+[8]: http://www.ruby-lang.org/en/

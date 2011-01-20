@@ -37,7 +37,7 @@ module TreeVisitor
       @match_file_patterns  = []
 
       if options and options[:ignore]
-        unless options[:ignore].respond_to?(:[])
+        unless options[:ignore].respond_to?(:at)
           options[:ignore] = [ options[:ignore] ]
         end
         options[:ignore].each { |p| ignore(p) }

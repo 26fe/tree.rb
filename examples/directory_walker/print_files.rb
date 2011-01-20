@@ -4,12 +4,9 @@ $:.unshift(cwd) unless $:.include?(cwd)
 require 'treevisitor'
 include TreeVisitor
 
-class MyVisitor < BasicTreeNodeVisitor
-  def visit_leaf_node( pathname )
+dtw = DirTreeWalker.new( :ignore => ".git" )
+dtw.run ".." do
+  on_visit_leaf_node do |pathname|
     puts pathname
   end
 end
-
-dtw = DirTreeWalker.new( ".." )
-dtw.ignore ".git"
-dtw.run( MyVisitor.new )
