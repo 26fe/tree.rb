@@ -23,6 +23,13 @@ describe DirTreeWalker do
     dtp.ignore_dir?("[Dsube]").should be_false
   end
 
+  it "should accept option :ignore on new" do
+    dtp = DirTreeWalker.new :ignore => /^\./
+
+    dtp.ignore_file?(".thumbnails").should be_true
+    dtp.ignore_dir?(".thumbnails").should be_true
+  end
+
   it "should accumulate file names" do
     dir_tree_walker = DirTreeWalker.new(File.join(FIXTURES, "test_dir"))
 
@@ -30,7 +37,7 @@ describe DirTreeWalker do
     visitor         = BlockTreeNodeVisitor.new { |pathname| accumulator << File.basename(pathname) }
     dir_tree_walker.run(visitor)
     accumulator.length.should == 9
-    accumulator.sort.should == %w{ test_dir dir.1 dir.1.2 file.1.2.1 file.1.1 dir.2 file.2.1 .dir_with_dot dummy.txt}.sort
+    accumulator.sort.should == %w{ test_dir dir.1 dir.1.2 file.1.2.1 file.1.1 dir.2 file.2.1 .dir_with_dot dummy.txt }.sort
   end
 
   it "should accumulate file names 2" do
@@ -40,8 +47,8 @@ describe DirTreeWalker do
     accumulator = []
     visitor     = BlockTreeNodeVisitor.new { |pathname| accumulator << File.basename(pathname) }
     dir_tree_walker.run(visitor)
-    # accumulator.length.should == 4
-    accumulator.sort.should == %w{ [Dsube] test_dir_2}.sort
+    accumulator.length.should == 2
+    accumulator.sort.should == %w{ [Dsube] test_dir_2 }.sort
   end
 
 end

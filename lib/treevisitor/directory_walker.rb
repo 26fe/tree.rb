@@ -8,11 +8,23 @@ module TreeVisitor
 
     #
     # @param [String] dirname the root of the tree (top level directory)
-    #
-    def initialize(dirname)
-      @dirname = dirname
-      unless File.directory?(dirname)
-        raise "#{dirname} is not a directory!"
+    #                 if dirname is missing, must be supplied when invoking run
+    # @param [Hash] options
+    # @option opts [Array] :ignore list of ignore pattern
+    def initialize(dirname = nil, options = nil)
+      #
+      # arg detection
+      #
+      if dirname and dirname.respond_to?(:key?)
+        options = dirname
+        dirname = nil
+      end
+
+      if dirname
+        @dirname = dirname
+        unless File.directory?(dirname)
+          raise "#{dirname} is not a directory!"
+        end
       end
 
       @visitor              = nil
@@ -22,8 +34,14 @@ module TreeVisitor
       #
       @ignore_dir_patterns  = []
       @ignore_file_patterns = []
-
       @match_file_patterns  = []
+
+      if options and options[:ignore]
+        unless options[:ignore].respond_to?(:[])
+          options[:ignore] = [ options[:ignore] ]
+        end
+        options[:ignore].each { |p| ignore(p) }
+      end
 
       #
       # options
@@ -33,7 +51,6 @@ module TreeVisitor
 
     ##########################################################################
     # Pattern
-
 
     #
     # Ignore a node (leaf/Tree) matching pattern
@@ -119,11 +136,31 @@ module TreeVisitor
     # Run the visitor through the directory tree
     #
     # @param [TreeNodeVisitor]
+    # @param [String] dirname
     # @return [TreeNodeVisitor] the visitor
     #
-    def run(tree_node_visitor = nil, &block)
+    def run(dirname = nil, tree_node_visitor = nil, &block)
 
-      if tree_node_visitor && block
+      #
+      # args detection
+      #
+      if dirname and dirname.respond_to?(:enter_tree_node)
+        tree_node_visitor = dirname
+        dirname = nil
+      end
+
+      #
+      # check dirname
+      #
+      if @dirname.nil? and dirname.nil?
+        raise "missing starting directory"
+      end
+      @dirname = dirname if dirname
+
+      #
+      # check visitor
+      #
+      if tree_node_visitor and block
         raise "cannot use block and parameter together"
       end
 
@@ -132,15 +169,18 @@ module TreeVisitor
       end
 
       if block
-        @visitor = BasicTreeNodeVisitor.new(&block)
+        @visitor = TreeNodeVisitor.new(&block)
       end
 
       unless @visitor
-        raise "you must pass a parameter to run"
+        raise "missing visitor"
       end
 
+      #
+      # finally starts to process
+      #
       process_directory(File.expand_path(@dirname))
-      tree_node_visitor
+      @visitor
     end
 
     private

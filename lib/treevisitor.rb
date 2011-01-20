@@ -9,8 +9,8 @@ require 'yaml'
 #
 # rubygems
 #
-require "rubygems"
-require "abstract"
+require 'rubygems'
+require 'json'
 
 #
 # treevisitor
@@ -41,5 +41,6 @@ require 'treevisitor/directory_walker'
 require 'treevisitor/visitors/block_tree_node_visitor'
 require 'treevisitor/visitors/build_dir_tree_visitor'
 require 'treevisitor/visitors/print_dir_tree_visitor'
+require 'treevisitor/visitors/directory_to_hash_visitor'
 
 require 'treevisitor/util/dir_processor'

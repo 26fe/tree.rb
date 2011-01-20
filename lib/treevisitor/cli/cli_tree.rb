@@ -6,23 +6,23 @@ module TreeVisitor
   class CliTree
 
     def self.run
-      self.new.parse_args( ARGV )
+      self.new.parse_args(ARGV)
     end
 
-    def parse_args( argv )
+    def parse_args(argv)
 
-      options = { :verbose => true, :force => false, :algo => 'build' }
+      options     = {:verbose => true, :force => false, :algo => 'build-dir'}
 
-      opts = OptionParser.new
+      opts        = OptionParser.new
       opts.banner = "Usage: tree.rb [options] [directory]"
-    
+
       opts.separator ""
       opts.separator "list contents of directories in a tree-like format"
-      opts.separator "this is a clone of tree unix command written in ruby"
-    
+      opts.separator "this is a almost :-) a clone of tree unix command written in ruby"
+
       opts.separator ""
       opts.separator "options: "
-    
+
       opts.on("-h", "--help", "Show this message") do
         puts opts
         return 0
@@ -48,49 +48,52 @@ module TreeVisitor
       opts.on("-q", "--quiet", "quiet mode as --no-verbose") do |v|
         options[:verbose] = false
       end
-    
-      algos = %w[build visit]
-      algo_aliases = { "b" => "build", "v" => "visit" }
 
-      algo_list = (algo_aliases.keys + algos).join(',')
-      opts.on("--algo ALGO", algos, algo_aliases, "Select algo","  (#{algo_list})") do |algo|
+      algos        = %w[build-dir print-dir json yaml]
+      algo_aliases = {"b" => "build-dir", "v" => "print-dir", "j" => "json", "y" => "yaml"}
+
+      algo_list    = (algo_aliases.keys + algos).join(',')
+      opts.on("--visitor ALGO", algos, algo_aliases, "select an algo", "  (#{algo_list})") do |algo|
         options[:algo] = algo
       end
 
       rest = opts.parse(argv)
 
-      # p options
-      # p ARGV
-
       if rest.length < 1
-        puts opts
-        return 1
+        dirname = Dir.pwd
+      else
+        dirname = rest[0]
       end
 
-      dirname = rest[0]
-      dirname = File.expand_path( dirname )
+      dirname = File.expand_path(dirname)
 
-      # puts "reading : #{dirname}"
-
-      dtw = DirTreeWalker.new( dirname )
+      dtw     = DirTreeWalker.new(dirname)
       unless options[:all_files]
-        # TODO: la regex e' corretta ed un file che inizia con ".."??
         dtw.ignore(/^\.[^.]+/) # ignore all file starting with "."
       end
 
       dtw.visit_file = !options[:only_directories]
 
       case options[:algo]
-      when 'build'
-        visitor = BuildDirTreeVisitor.new
-        dtw.run( visitor )
-        puts visitor.root.to_str
-        puts
-        puts "#{visitor.nr_directories} directories, #{visitor.nr_files} files"
-      when 'visit'
-        visitor = PrintDirTreeVisitor.new
-        dtw.run( visitor )
+        when 'build-dir'
+          visitor = BuildDirTreeVisitor.new
+          dtw.run(visitor)
+          puts visitor.root.to_str
+          puts
+          puts "#{visitor.nr_directories} directories, #{visitor.nr_files} files"
+        when 'print-dir'
+          visitor = PrintDirTreeVisitor.new
+          dtw.run(visitor)
+        when 'json'
+          root = dtw.run(DirectoryToHashVisitor.new(dirname)).root
+          puts JSON.pretty_generate(root)
+        when 'yaml'
+          root = dtw.run(DirectoryToHashVisitor.new(dirname)).root
+          puts root.to_yaml
+        else
+          puts "unknown algo #{options[:algo]} specified"
       end
+
       0
     end
 
