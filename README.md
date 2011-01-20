@@ -32,6 +32,10 @@ Tree visitor is an implementation of visitor design pattern.
          `-- print_tree_node_visitor.rb
 </pre>
 
+
+
+![Alt text](/path/to/img.jpg)
+
 ### Documentation
 
 http://rubydoc.info/gems/treevisitor
@@ -39,7 +43,7 @@ http://rubydoc.info/gems/treevisitor
 Try tree.rb -h to get help on command line.
 See examples directory to use treevisitor in your code
 
-== INSTALL:
+### INSTALL:
 
   sudo gem install treevisitor
 

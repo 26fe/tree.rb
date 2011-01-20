@@ -5,7 +5,7 @@ $:.unshift(cwd) unless $:.include?(cwd)
 require 'treevisitor'
 include TreeVisitor
 
-dir = File.expand_path( File.join("..", "..") )
+dir = File.expand_path( File.join("..", "..", "lib") )
 
 dtw = TreeVisitor::DirTreeWalker.new( :ignore => [/^\./, "doc", "pkg"] )
 root = dtw.run(dir, DirectoryToHashVisitor.new(dir)).root
