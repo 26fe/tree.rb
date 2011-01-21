@@ -74,7 +74,7 @@ $ ruby bin/tree.rb --format json lib
 
 The json structure can be transformed into image:
 
-!(https://github.com/tokiro/treevisitor/raw/master/examples/protovis/treevisitor.png)
+<img src='https://github.com/tokiro/treevisitor/raw/master/examples/protovis/treevisitor.png'/>
 
 ### Documentation
 
