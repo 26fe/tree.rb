@@ -15,10 +15,9 @@ module TreeVisitor
 
       opts        = OptionParser.new
       opts.banner = "Usage: tree.rb [options] [directory]"
-
-      opts.separator ""
       opts.separator "list contents of directories in a tree-like format"
       opts.separator "this is a almost :-) a clone of tree unix command written in ruby"
+      opts.separator "Code https://github.com/tokiro/treevisitor. Feedback to tokiro.oyama@gmail.com"
 
       opts.separator ""
       opts.separator "options: "
@@ -53,11 +52,17 @@ module TreeVisitor
       algo_aliases = {"b" => "build-dir", "v" => "print-dir", "j" => "json", "y" => "yaml"}
 
       algo_list    = (algo_aliases.keys + algos).join(',')
-      opts.on("--visitor ALGO", algos, algo_aliases, "select an algo", "  (#{algo_list})") do |algo|
+      opts.on("-f", "--format ALGO", algos, algo_aliases, "select an algo", "  (#{algo_list})") do |algo|
         options[:algo] = algo
       end
 
-      rest = opts.parse(argv)
+      begin
+        rest = opts.parse(argv)
+      rescue OptionParser::InvalidOption => e
+        $stderr.puts e.to_s
+        $stderr.puts "try -h for help"
+        return false
+      end
 
       if rest.length < 1
         dirname = Dir.pwd
