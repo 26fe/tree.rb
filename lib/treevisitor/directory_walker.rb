@@ -6,11 +6,27 @@ module TreeVisitor
   #
   class DirTreeWalker
 
+    # Build a tree walker.
+    # Visit a director starting from dirname
+    # if dirname is missing, must be supplied when invoking run
     #
-    # @param [String] dirname the root of the tree (top level directory)
-    #                 if dirname is missing, must be supplied when invoking run
-    # @param [Hash] options
-    # @option opts [Array] :ignore list of ignore pattern
+    # @yield [a, b, c] TreeNodeVisitor
+    # @yieldparam [optional, types, ...] argname description
+    # @yieldreturn [optional, types, ...] description
+    #
+    # @overload initialize(dirname)
+    #   @param [String] dirname the root of the tree (top level directory)
+    # 
+    # @overload initialize(dirname,options)
+    #   @param [Hash] options
+    #   @option options [String,Regex, Array<String,Regexp>] :ignore list of ignore pattern
+    #
+    #
+    # @example Print the contents of tmp directory
+    #   DirTreeWalker.new("/tmp") do
+    #     on_visit_leaf_node { |pathname| puts pathname }
+    #   end.run
+    #
     def initialize(dirname = nil, options = nil)
       #
       # arg detection
@@ -38,7 +54,7 @@ module TreeVisitor
 
       if options and options[:ignore]
         unless options[:ignore].respond_to?(:at)
-          options[:ignore] = [ options[:ignore] ]
+          options[:ignore] = [options[:ignore]]
         end
         options[:ignore].each { |p| ignore(p) }
       end
@@ -46,7 +62,7 @@ module TreeVisitor
       #
       # options
       #
-      @visit_file           = true
+      @visit_file = true
     end
 
     ##########################################################################
@@ -135,9 +151,28 @@ module TreeVisitor
     #
     # Run the visitor through the directory tree
     #
-    # @param [TreeNodeVisitor]
-    # @param [String] dirname
+    # @overload run
+    #
+    # @overload run(dirname)
+    #   @param [String] dirname
+    #   @yield define TreeNodeVisitor
+    #
+    # @overload run(tree_node_visitor)
+    #   @param [TreeNodeVisitor]
+    #   @yield define TreeNodeVisitor
+    #
+    # @overload run(dirname, tree_node_visitor)
+    #   @param [String] dirname
+    #   @param [TreeNodeVisitor]
+    #   @yield define TreeNodeVisitor
+    #
     # @return [TreeNodeVisitor] the visitor
+    #
+    # @example Print the contents of tmp directory
+    #   w = DirTreeWalker.new
+    #   w.run("/tmp") do
+    #     on_visit_leaf_node { |pathname| puts pathname }
+    #   end.run
     #
     def run(dirname = nil, tree_node_visitor = nil, &block)
 
@@ -146,7 +181,7 @@ module TreeVisitor
       #
       if dirname and dirname.respond_to?(:enter_tree_node)
         tree_node_visitor = dirname
-        dirname = nil
+        dirname           = nil
       end
 
       #
@@ -203,18 +238,22 @@ module TreeVisitor
       @visitor.enter_tree_node(dirname)
       # return if ignore_dir?( dirname )
 
-      Dir.entries(dirname).sort.each { |basename|
-        next if basename == "." or basename == ".." # ignore always "." and ".."
-        pathname = File.join(dirname, basename)
+      begin
+        Dir.entries(dirname).sort.each { |basename|
+          next if basename == "." or basename == ".." # ignore always "." and ".."
+          pathname = File.join(dirname, basename)
 
-        if File.directory?(pathname)
-          process_directory(pathname) unless ignore_dir?(basename)
-        else
-          if !!@visit_file && match?(basename) && !ignore_file?(basename)
-            @visitor.visit_leaf_node(pathname)
+          if File.directory?(pathname)
+            process_directory(pathname) unless ignore_dir?(basename)
+          else
+            if !!@visit_file && match?(basename) && !ignore_file?(basename)
+              @visitor.visit_leaf_node(pathname)
+            end
           end
-        end
-      }
+        }
+      rescue Errno::EACCES => e
+        $stderr.puts e
+      end
       @visitor.exit_tree_node(dirname)
     end
   end

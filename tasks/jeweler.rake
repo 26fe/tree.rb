@@ -37,6 +37,7 @@ begin
     #
     gem.test_files = Dir['spec/**/*.rb']
     gem.test_files.concat Dir['spec/fixtures/**/*']
+    gem.test_files.concat Dir['spec/fixtures/**/.gitkeep']
     gem.test_files.concat Dir['spec/fixtures/**/.dir_with_dot/*']
 
     #

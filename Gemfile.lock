@@ -7,6 +7,8 @@ GEM
       bundler (~> 1.0.0)
       git (>= 1.2.5)
       rake
+    json (1.4.6)
+    json (1.4.6-java)
     rake (0.8.7)
     rspec (2.4.0)
       rspec-core (~> 2.4.0)
@@ -25,6 +27,7 @@ PLATFORMS
 DEPENDENCIES
   bundler
   jeweler
+  json
   rake
   rspec
   yard

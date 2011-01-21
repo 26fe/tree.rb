@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{treevisitor}
-  s.version = "0.1.5"
+  s.version = "0.1.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tokiro"]
-  s.date = %q{2011-01-05}
+  s.date = %q{2011-01-21}
   s.default_executable = %q{tree.rb}
   s.description = %q{      Implementation of visitor design pattern. It contains a 'tree.rb'
       command line clone of the tree unix tool.
@@ -18,55 +18,69 @@ Gem::Specification.new do |s|
   s.executables = ["tree.rb"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
-    "README.rdoc"
+    "README.md"
   ]
   s.files = [
-    "README.rdoc",
+    "LICENSE.txt",
+    "README.md",
     "Rakefile",
     "VERSION.yml",
-    "examples/directory_without_subdirectory.rb",
-    "examples/find_files.rb",
-    "examples/print_files.rb",
+    "examples/directory_walker/directory_without_subdirectory.rb",
+    "examples/directory_walker/find_files.rb",
+    "examples/directory_walker/print_files.rb",
+    "examples/protovis/directory_to_json_visitor.rb",
+    "examples/protovis/index.html",
+    "examples/protovis/protovis-d3.2.js",
+    "examples/protovis/treevisitor.js",
+    "examples/protovis/treevisitor.png",
     "lib/tree_visitor.rb",
     "lib/treevisitor.rb",
     "lib/treevisitor/abs_node.rb",
+    "lib/treevisitor/basic_tree_node_visitor.rb",
     "lib/treevisitor/cli/cli_tree.rb",
-    "lib/treevisitor/dir_processor.rb",
-    "lib/treevisitor/dir_tree_walker.rb",
+    "lib/treevisitor/directory_walker.rb",
     "lib/treevisitor/leaf_node.rb",
     "lib/treevisitor/tree_node.rb",
     "lib/treevisitor/tree_node_visitor.rb",
+    "lib/treevisitor/util/dir_processor.rb",
     "lib/treevisitor/visitors/block_tree_node_visitor.rb",
     "lib/treevisitor/visitors/build_dir_tree_visitor.rb",
     "lib/treevisitor/visitors/callback_tree_node_visitor.rb",
     "lib/treevisitor/visitors/callback_tree_node_visitor2.rb",
     "lib/treevisitor/visitors/clone_tree_node_visitor.rb",
     "lib/treevisitor/visitors/depth_tree_node_visitor.rb",
+    "lib/treevisitor/visitors/directory_to_hash_visitor.rb",
     "lib/treevisitor/visitors/flat_print_tree_node_visitors.rb",
     "lib/treevisitor/visitors/print_dir_tree_visitor.rb",
     "lib/treevisitor/visitors/print_tree_node_visitor.rb",
     "lib/treevisitor_cli.rb",
     "tasks/jeweler.rake",
     "tasks/rspec.rake",
-    "tasks/rubyforge.rake",
-    "tasks/yard.rake"
+    "tasks/yard.rake",
+    "treevisitor.gemspec"
   ]
   s.homepage = %q{http://github.com/tokiro/treevisitor}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Implementation of visitor design pattern}
   s.test_files = [
-    "spec/fixtures/test_dir/.dir_with_dot/dummy.txt",
-    "spec/fixtures/test_dir/dir.1/dir.1.2/file.1.2.1",
-    "spec/fixtures/test_dir/dir.1/file.1.1",
-    "spec/fixtures/test_dir/dir.2/file.2.1",
+    "spec/fixtures/test_dir_1/.dir_with_dot/dummy.txt",
+    "spec/fixtures/test_dir_1/dir.1/dir.1.2/file.1.2.1",
+    "spec/fixtures/test_dir_1/dir.1/file.1.1",
+    "spec/fixtures/test_dir_1/dir.2/file.2.1",
     "spec/spec_helper.rb",
     "spec/treevisitor/cli/cli_tree_spec.rb",
-    "spec/treevisitor/dir_processor_spec.rb",
-    "spec/treevisitor/dir_tree_walker_spec.rb",
-    "spec/treevisitor/tree_node_dsl_spec.rb",
+    "spec/treevisitor/directory_walker_spec.rb",
+    "spec/treevisitor/tree_dsl_spec.rb",
+    "spec/treevisitor/tree_dsl_with_derived_class1_spec.rb",
+    "spec/treevisitor/tree_dsl_with_derived_class_spec.rb",
     "spec/treevisitor/tree_node_spec.rb",
-    "spec/treevisitor/tree_node_visitor_spec.rb"
+    "spec/treevisitor/util/dir_processor_spec.rb",
+    "spec/treevisitor/visitor_dsl_spec.rb",
+    "spec/treevisitor/visitors/block_tree_node_visitor_spec.rb",
+    "spec/treevisitor/visitors/callback_tree_node_visitor2_spec.rb",
+    "spec/treevisitor/visitors/callback_tree_node_visitors_spec.rb",
+    "spec/treevisitor/visitors/depth_tree_node_visitor_spec.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -74,14 +88,14 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<abstract>, [">= 0"])
+      s.add_runtime_dependency(%q<json>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<rake>, [">= 0"])
       s.add_development_dependency(%q<yard>, [">= 0"])
       s.add_development_dependency(%q<bundler>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
     else
-      s.add_dependency(%q<abstract>, [">= 0"])
+      s.add_dependency(%q<json>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<rake>, [">= 0"])
       s.add_dependency(%q<yard>, [">= 0"])
@@ -89,7 +103,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rspec>, [">= 0"])
     end
   else
-    s.add_dependency(%q<abstract>, [">= 0"])
+    s.add_dependency(%q<json>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<rake>, [">= 0"])
     s.add_dependency(%q<yard>, [">= 0"])
