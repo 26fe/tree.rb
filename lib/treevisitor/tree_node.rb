@@ -170,8 +170,8 @@ module TreeVisitor
 
     #
     # Find a node down the hierarchy with content
-    # @param [Object] content of searched node
-    # @return [Object, nil] nil if no
+    # @param [Object,Regexp] content of searched node
+    # @return [Object, nil] nil if not found
     #
     def find(content = nil, &block)
       if content and block_given?
@@ -179,7 +179,11 @@ module TreeVisitor
       end
 
       if content
-        block = proc { |c| c == content }
+        if content.class == Regexp
+          block = proc { |c| c =~ content }
+        else
+          block = proc { |c| c == content }
+        end
       end
       return self if block.call(self.content)
 

@@ -79,16 +79,17 @@ describe TreeNode do
       ln1       = LeafNode.new("1", @tree)
       ln2       = LeafNode.new("2", @tree)
       @sub_tree = TreeNode.new("b", @tree)
-      @ln3       = LeafNode.new("3", @sub_tree)
+      @ln3      = LeafNode.new("3", @sub_tree)
+      @ln4      = LeafNode.new("12", @sub_tree)
     end
 
     it "nr_nodes and nr_leaves and nr_children" do
-      @tree.nr_nodes.should == 4
-      @tree.nr_leaves.should == 3
+      @tree.nr_nodes.should == 5
+      @tree.nr_leaves.should == 4
       @tree.nr_children.should == 1
 
-      @sub_tree.nr_nodes.should == 1
-      @sub_tree.nr_leaves.should == 1
+      @sub_tree.nr_nodes.should == 2
+      @sub_tree.nr_leaves.should == 2
       @sub_tree.nr_children.should == 0
     end
 
@@ -124,29 +125,41 @@ describe TreeNode do
       @sub_tree.depth.should == 3
     end
 
-    it "find without block" do
-      @tree.find("a").should === @tree
-      @tree.find("b").should === @sub_tree
-      @tree.find("3").should === @ln3
-      @tree.find("not existent").should be_nil
-    end
+    context "find" do
 
-    it "find with block" do
-      @tree.find {|e| e == "a"}.should === @tree
-      @tree.find {|e| e == "b"}.should === @sub_tree
-      @tree.find {|e| e == "3"}.should === @ln3
-      @tree.find {|e| e == "not existent"}.should be_nil
-    end
+      it "find by string" do
+        @tree.find("a").should === @tree
+        @tree.find("b").should === @sub_tree
+        @tree.find("3").should === @ln3
+        @tree.find("not existent").should be_nil
+      end
 
-    it "to_str" do
-      out = <<EOS
+      it "find by regex" do
+        @tree.find(/[a,b]/).should === @tree
+        @tree.find(/[b,c]/).should === @sub_tree
+        @tree.find(/\d\d/).should === @ln4
+        @tree.find(/not existent/).should be_nil
+      end
+
+      it "find with block" do
+        @tree.find { |e| e == "a" }.should === @tree
+        @tree.find { |e| e == "b" }.should === @sub_tree
+        @tree.find { |e| e == "3" }.should === @ln3
+        @tree.find { |e| e == "not existent" }.should be_nil
+      end
+
+      it "to_str" do
+        out = <<EOS
 a
 |-- 1
 |-- 2
 `-- b
-    `-- 3
+    |-- 3
+    `-- 12
 EOS
-      @tree.to_str.should == out
+        @tree.to_str.should == out
+      end
+
     end
 
   end

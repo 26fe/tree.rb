@@ -9,7 +9,7 @@ require 'yaml'
 #
 # rubygems
 #
-require 'rubygems'
+# require 'rubygems' # rubygems must be loaded from binary file to not modify $LOAD_PATH
 require 'json'
 
 #
@@ -40,6 +40,10 @@ require 'treevisitor/directory_walker'
 #
 require 'treevisitor/visitors/block_tree_node_visitor'
 require 'treevisitor/visitors/build_dir_tree_visitor'
+require 'treevisitor/visitors/callback_tree_node_visitor'
+require 'treevisitor/visitors/callback_tree_node_visitor2'
+require 'treevisitor/visitors/clone_tree_node_visitor'
+require 'treevisitor/visitors/depth_tree_node_visitor'
 require 'treevisitor/visitors/print_dir_tree_visitor'
 require 'treevisitor/visitors/directory_to_hash_visitor'
 

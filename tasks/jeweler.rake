@@ -31,7 +31,6 @@ begin
     gem.files.concat Dir['tasks/**/*.rake']
     gem.files.concat Dir['examples/**/*']
 
-
     #
     # test files
     #
@@ -40,10 +39,6 @@ begin
     gem.test_files.concat Dir['spec/fixtures/**/.gitkeep']
     gem.test_files.concat Dir['spec/fixtures/**/.dir_with_dot/*']
 
-    #
-    # rubyforge
-    #
-    # gem.rubyforge_project = 'treevisitor'
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

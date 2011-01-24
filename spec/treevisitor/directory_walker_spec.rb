@@ -3,38 +3,53 @@ require File.join(File.dirname(__FILE__), "..", "spec_helper")
 
 describe DirTreeWalker do
 
+  it "should accept option :ignore" do
+    walker = DirTreeWalker.new :ignore => /^\./
+    walker.ignore_file?(".thumbnails").should be_true
+    walker.ignore_dir?(".thumbnails").should be_true
+  end
+
+  it "should accept option :ignore" do
+    walker = DirTreeWalker.new :ignore => ".git"
+    walker.ignore_file?(".git").should be_true
+    walker.ignore_dir?(".git").should be_true
+  end
+
+
+  it "should accept option :ignore_dir" do
+    dtw = DirTreeWalker.new :ignore_dir => [/^\./, "private_dir" ]
+    dtw.should be_ignore_dir ".git"
+    dtw.should be_ignore_dir "private_dir"
+  end
+
+  it "should accept option :ignore_file" do
+    dtw = DirTreeWalker.new :ignore_file => [/.xml/, /(ignore)|(orig)/ ]
+    dtw.should be_ignore_file "pippo.xml"
+  end
+
+  it "should accept option :match" do
+    dtw = DirTreeWalker.new :match => /.jpg/
+    dtw.should be_match "foo.jpg"
+  end
+
   it "should ignore files and directory" do
-    dtp = DirTreeWalker.new(".")
+    walker = DirTreeWalker.new(".")
 
-    dtp.ignore(/^\./)
-    dtp.ignore_file?(".thumbnails").should be_true
-    dtp.ignore_dir?(".thumbnails").should be_true
+    walker.ignore(/^\./)
+    walker.ignore_file?(".thumbnails").should be_true
+    walker.ignore_dir?(".thumbnails").should be_true
 
-    dtp.ignore_dir("thumbnails")
-    dtp.ignore_dir?(".thumbnails").should be_true
-    dtp.ignore_dir?("thumbnails").should be_true
-    dtp.ignore_dir?("pippo").should be_false
+    walker.ignore_dir("thumbnails")
+    walker.ignore_dir?(".thumbnails").should be_true
+    walker.ignore_dir?("thumbnails").should be_true
+    walker.ignore_dir?("pippo").should be_false
 
-    dtp.ignore_file("xvpics")
-    dtp.ignore_file?("xvpics").should be_true
+    walker.ignore_file("xvpics")
+    walker.ignore_file?("xvpics").should be_true
 
-    dtp.ignore("sub")
-    dtp.ignore_file?("[Dsube]").should be_false
-    dtp.ignore_dir?("[Dsube]").should be_false
-  end
-
-  it "should accept option :ignore" do
-    dtp = DirTreeWalker.new :ignore => /^\./
-
-    dtp.ignore_file?(".thumbnails").should be_true
-    dtp.ignore_dir?(".thumbnails").should be_true
-  end
-
-  it "should accept option :ignore" do
-    dtp = DirTreeWalker.new :ignore => ".git"
-
-    dtp.ignore_file?(".git").should be_true
-    dtp.ignore_dir?(".git").should be_true
+    walker.ignore("sub")
+    walker.ignore_file?("[Dsube]").should be_false
+    walker.ignore_dir?("[Dsube]").should be_false
   end
 
   it "should accumulate file names" do

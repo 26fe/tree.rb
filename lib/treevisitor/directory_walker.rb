@@ -17,9 +17,12 @@ module TreeVisitor
     # @overload initialize(dirname)
     #   @param [String] dirname the root of the tree (top level directory)
     # 
-    # @overload initialize(dirname,options)
+    # @overload initialize(dirname, options)
     #   @param [Hash] options
     #   @option options [String,Regex, Array<String,Regexp>] :ignore list of ignore pattern
+    #   @option options [String] :ignore_dir
+    #   @option options [String] :ignore_file
+    #   @option options [String] :match
     #
     #
     # @example Print the contents of tmp directory
@@ -57,6 +60,27 @@ module TreeVisitor
           options[:ignore] = [options[:ignore]]
         end
         options[:ignore].each { |p| ignore(p) }
+      end
+
+      if options and options[:ignore_dir]
+        unless options[:ignore_dir].respond_to?(:at)
+          options[:ignore_dir] = [options[:ignore_dir]]
+        end
+        options[:ignore_dir].each { |p| ignore_dir(p) }
+      end
+
+      if options and options[:ignore_file]
+        unless options[:ignore_file].respond_to?(:at)
+          options[:ignore_file] = [options[:ignore_file]]
+        end
+        options[:ignore_file].each { |p| ignore_file(p) }
+      end
+
+      if options and options[:match]
+        unless options[:match].respond_to?(:at)
+          options[:match] = [options[:match]]
+        end
+        options[:match].each { |p| match(p) }
       end
 
       #
