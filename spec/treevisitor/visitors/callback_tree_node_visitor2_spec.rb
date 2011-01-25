@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 require File.join(File.dirname(__FILE__), "..", "..", "spec_helper")
 
-require 'treevisitor/visitors/callback_tree_node_visitor2'
-
 describe "Tree Node Visitors" do
 
   before do
@@ -18,10 +16,12 @@ describe "Tree Node Visitors" do
 
   it CallbackTreeNodeVisitor2 do
     visitor = CallbackTreeNodeVisitor2.new
-    visitor.on_enter_tree_node{ |tree_node, new_parent_node|
+    visitor.on_enter_node{ |tree_node, new_parent_node|
+      # puts "**** #{tree_node}"
       TreeNode.new("n" + tree_node.content, new_parent_node)
     }
-    visitor.on_visit_leaf_node{ |leaf_node, new_parent_node|
+    visitor.on_visit_leaf{ |leaf_node, new_parent_node|
+      # puts "**** #{leaf_node}"
       LeafNode.new( "n" + leaf_node.content, new_parent_node )
     }
     @tree.accept( visitor )

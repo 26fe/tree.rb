@@ -4,16 +4,16 @@ module TreeVisitor
   # Visitor for DirTreeWalker
   # Prints the node at enter
   # TODO: join this con PrintTreeNodeVisitor
-  class PrintDirTreeVisitor < BasicTreeNodeVisitor
+  class PrintDirTreeVisitor # < BasicTreeNodeVisitor
 
-    def enter_tree_node( pathname )
+    def enter_node( pathname )
       puts pathname
     end
 
-    def exit_tree_node( pathname )
+    def exit_node( pathname )
     end
 
-    def visit_leaf_node( pathname )
+    def visit_leaf( pathname )
       puts pathname
     end
 

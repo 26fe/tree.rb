@@ -6,12 +6,12 @@ require 'treevisitor'
 include TreeVisitor
 
 class MyVisitor < BasicTreeNodeVisitor
-  def visit_leaf_node( pathname )
+  def visit_leaf( pathname )
     puts pathname
   end
 end
 
-dtw = DirTreeWalker.new( ".." )
+dtw = DirTreeWalker.new( File.join(File.dirname(__FILE__), "..", ".." ) )
 dtw.match "leaf_node.rb"
 dtw.match "abs_node.rb"
 dtw.run( MyVisitor.new )

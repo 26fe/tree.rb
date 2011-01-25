@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 require File.join(File.dirname(__FILE__), "..", "..", "spec_helper")
 
-require 'treevisitor/visitors/depth_tree_node_visitor'
-require 'treevisitor/visitors/clone_tree_node_visitor'
 
 describe "Tree Node Visitors" do
 

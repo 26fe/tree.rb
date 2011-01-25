@@ -6,7 +6,7 @@ include TreeVisitor
 
 dtw = DirTreeWalker.new( :ignore => ".git" )
 dtw.run ".." do
-  on_visit_leaf_node do |pathname|
+  on_leaf do |pathname|
     puts pathname
   end
 end

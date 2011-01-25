@@ -25,7 +25,7 @@ module TreeVisitor
     # @return [TreeNodeVisitor] the visitor
     #
     def accept( visitor )
-      visitor.visit_leaf_node( self )
+      visitor.visit_leaf( self )
       visitor
     end
 

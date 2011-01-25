@@ -16,13 +16,13 @@ class DirWithoutSubDir < TreeVisitor::BasicTreeNodeVisitor
     @nr = 0
   end
 
-  def enter_tree_node( pathname )
+  def enter_node( pathname )
     @nr += 1
     info = OpenStruct.new(:nr => @nr, :pathname => pathname)
     @stack.push( info )
   end
 
-  def exit_tree_node( pathname )
+  def exit_node( pathname )
     info = @stack.pop
     if info.nr == @nr
       puts "leaf: #{pathname}"

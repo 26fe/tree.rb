@@ -4,7 +4,7 @@ module TreeVisitor
   # Clone a tree_node, nodes are duplicated.
   # Node content are not duplicated!
   #
-  class CloneTreeNodeVisitor < BasicTreeNodeVisitor
+  class CloneTreeNodeVisitor # < BasicTreeNodeVisitor
 
     #
     # Contains the cloned tree node after the visit
@@ -17,7 +17,7 @@ module TreeVisitor
       @stack = []
     end
 
-    def enter_tree_node( tree_node )
+    def enter_node( tree_node )
       if @stack.empty?
         cloned_tree_node = TreeNode.new( tree_node.content )
         @cloned_root = cloned_tree_node
@@ -27,11 +27,11 @@ module TreeVisitor
       @stack.push( cloned_tree_node )
     end
 
-    def exit_tree_node( tree_node )
+    def exit_node( tree_node )
       @stack.pop
     end
 
-    def visit_leaf_node( leaf_node )
+    def visit_leaf( leaf_node )
       LeafNode.new( leaf_node.content, @stack.last )
     end
 

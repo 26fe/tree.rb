@@ -9,11 +9,11 @@ module TreeVisitor
       @block = action
     end
 
-    def enter_tree_node( tree_node )
+    def enter_node( tree_node )
       @block.call( tree_node )
     end
 
-    def visit_leaf_node( leaf_node )
+    def visit_leaf( leaf_node )
       @block.call( leaf_node )
     end
 

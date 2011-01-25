@@ -3,13 +3,13 @@ module TreeVisitor
   #
   # Prints TreeNode names indenting according to depth
   #
-  class PrintTreeNodeVisitor < BasicTreeNodeVisitor
+  class PrintTreeNodeVisitor # < BasicTreeNodeVisitor
 
     def initialize
       @depth = 0
     end
 
-    def enter_tree_node( tree_node )
+    def enter_node( tree_node )
       str = ""
       (0...@depth).step {
         str << " |-"
@@ -23,11 +23,11 @@ module TreeVisitor
       @depth += 1
     end
 
-    def exit_tree_node( tree_node )
+    def exit_node( tree_node )
       @depth -= 1
     end
 
-    def visit_leaf_node( leaf_node )
+    def visit_leaf( leaf_node )
       str = ""
       (0...@depth-1).step {
         str << " |-"

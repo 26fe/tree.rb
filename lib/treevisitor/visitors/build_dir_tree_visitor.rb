@@ -4,7 +4,7 @@ module TreeVisitor
   # Builds a TreeNode from a filesystem directory
   # It similar to CloneTreeNodeVisitor
   #
-  class BuildDirTreeVisitor < BasicTreeNodeVisitor
+  class BuildDirTreeVisitor # < BasicTreeNodeVisitor
   
     attr_reader :root
 
@@ -28,7 +28,7 @@ module TreeVisitor
       @nr_files = 0
     end
   
-    def enter_tree_node( pathname )
+    def enter_node( pathname )
       if @stack.empty?
         tree_node = TreeNode.new( File.basename( pathname ) )
         @root = tree_node
@@ -39,11 +39,11 @@ module TreeVisitor
       @stack.push( tree_node )
     end
 
-    def exit_tree_node( pathname )
+    def exit_node( pathname )
       @stack.pop
     end
 
-    def visit_leaf_node( pathname )
+    def visit_leaf( pathname )
       @nr_files  += 1
       # connect the leaf_node created to the last tree_node on the stack
       LeafNode.new( File.basename(pathname), @stack.last )

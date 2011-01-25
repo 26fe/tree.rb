@@ -201,14 +201,14 @@ module TreeVisitor
     # return the visitor
     #
     def accept(visitor)
-      visitor.enter_tree_node(self)
+      visitor.enter_node(self)
       @leaves.each { |leaf|
         leaf.accept(visitor)
       }
       @children.each { |child|
         child.accept(visitor)
       }
-      visitor.exit_tree_node(self)
+      visitor.exit_node(self)
       visitor
     end
 

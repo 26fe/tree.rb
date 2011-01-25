@@ -4,7 +4,7 @@ module TreeVisitor
   #
   # Build hash with directory structure
   #
-  class DirectoryToHashVisitor < TreeVisitor::BasicTreeNodeVisitor
+  class DirectoryToHashVisitor # < TreeVisitor::BasicTreeNodeVisitor
 
     attr_reader :root
 
@@ -14,18 +14,18 @@ module TreeVisitor
       @root = @node
     end
 
-    def enter_tree_node(pathname)
+    def enter_node(pathname)
       subnode                        = {}
       @node[File.basename(pathname)] = subnode
       @stack.push(@node)
       @node = subnode
     end
 
-    def exit_tree_node(pathname)
+    def exit_node(pathname)
       @node = @stack.pop
     end
 
-    def visit_leaf_node(pathname)
+    def visit_leaf(pathname)
       @node[File.basename(pathname)] = File.stat(pathname).size
     end
 

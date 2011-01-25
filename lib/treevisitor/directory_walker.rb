@@ -203,7 +203,7 @@ module TreeVisitor
       #
       # args detection
       #
-      if dirname and dirname.respond_to?(:enter_tree_node)
+      if dirname and dirname.respond_to?(:enter_node)
         tree_node_visitor = dirname
         dirname           = nil
       end
@@ -259,7 +259,7 @@ module TreeVisitor
     # recurse on other directories
     #
     def process_directory(dirname)
-      @visitor.enter_tree_node(dirname)
+      @visitor.enter_node(dirname)
       # return if ignore_dir?( dirname )
 
       begin
@@ -271,14 +271,14 @@ module TreeVisitor
             process_directory(pathname) unless ignore_dir?(basename)
           else
             if !!@visit_file && match?(basename) && !ignore_file?(basename)
-              @visitor.visit_leaf_node(pathname)
+              @visitor.visit_leaf(pathname)
             end
           end
         }
       rescue Errno::EACCES => e
         $stderr.puts e
       end
-      @visitor.exit_tree_node(dirname)
+      @visitor.exit_node(dirname)
     end
   end
 end
