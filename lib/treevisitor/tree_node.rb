@@ -180,14 +180,14 @@ module TreeVisitor
 
       if content
         if content.class == Regexp
-          block = proc { |c| c =~ content }
+          block = proc { |l| l.content =~ content }
         else
-          block = proc { |c| c == content }
+          block = proc { |l| l.content == content }
         end
       end
-      return self if block.call(self.content)
+      return self if block.call(self)
 
-      leaf = @leaves.find { |l| block.call(l.content) }
+      leaf = @leaves.find { |l| block.call(l) }
       return leaf if leaf
 
       @children.each do |child|

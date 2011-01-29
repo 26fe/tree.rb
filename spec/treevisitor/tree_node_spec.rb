@@ -142,10 +142,10 @@ describe TreeNode do
       end
 
       it "find with block" do
-        @tree.find { |e| e == "a" }.should === @tree
-        @tree.find { |e| e == "b" }.should === @sub_tree
-        @tree.find { |e| e == "3" }.should === @ln3
-        @tree.find { |e| e == "not existent" }.should be_nil
+        @tree.find { |e| e.content == "a" }.should === @tree
+        @tree.find { |e| e.content == "b" }.should === @sub_tree
+        @tree.find { |e| e.content == "3" }.should === @ln3
+        @tree.find { |e| e.content == "not existent" }.should be_nil
       end
 
       it "to_str" do
