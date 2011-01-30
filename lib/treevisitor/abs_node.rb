@@ -34,7 +34,7 @@ module TreeVisitor
 
     attr_reader :parent
     attr_reader :content
-  
+
     attr_accessor :prev
     attr_accessor :next
 
@@ -43,39 +43,38 @@ module TreeVisitor
     #
     # @param content of node
     #
-    def initialize( content )
-      @parent = nil
-      @content = content
+    def initialize(content)
+      @parent      = nil
+      @content     = content
       @prefix_path = nil
       invalidate
     end
-  
+
     #
     # invalidate cached path info
     #
     def invalidate
-      @path = nil
+      @path             = nil
       @path_with_prefix = nil
-      @depth = nil
-      @root = nil
+      @depth            = nil
+      @root             = nil
     end
 
     #
     # Root node could have assigned a path
     #
     def prefix_path
-      if not @parent.nil?
-        raise "Not root!!"
-      end
+      raise "Not root!!" unless @parent.nil?
       @prefix_path
     end
-  
-    def prefix_path=( prefix )
-      if not @parent.nil?
-        raise "Not root!!"
-      end
+
+    def prefix_path=(prefix)
+      raise "Not root!!" unless @parent.nil?
       if prefix != @prefix_path
         @prefix_path = prefix
+        if prefix and prefix !~ /\/$/
+          @prefix_path += AbsNode::path_separator
+        end
         invalidate
       end
     end
@@ -107,13 +106,12 @@ module TreeVisitor
     # @return [String] path to this node with prefix
     #
     def path_with_prefix
-      return @path_with_prefix unless @path_with_prefix.nil?
-      if @parent.nil?
-        @path_with_prefix = @prefix_path.nil? ? @content : @prefix_path + @content
+      return @path_with_prefix if @path_with_prefix
+      if root.prefix_path
+        @path_with_prefix = root.prefix_path + path
       else
-        @path_with_prefix = @parent.path_with_prefix + AbsNode::path_separator + @content
+        @path_with_prefix = path
       end
-      @path_with_prefix
     end
 
     #
@@ -128,7 +126,7 @@ module TreeVisitor
     #
     # Accept a node visitor
     #
-    def accept( visitor )
+    def accept(visitor)
       not_implemented
     end
 
@@ -138,7 +136,7 @@ module TreeVisitor
 
     protected
 
-    def parent=( parent )
+    def parent=(parent)
       @parent = parent
     end
 

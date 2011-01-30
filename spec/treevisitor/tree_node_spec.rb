@@ -93,37 +93,6 @@ describe TreeNode do
       @sub_tree.nr_children.should == 0
     end
 
-    it "prefix_path" do
-      @tree.path.should == "a"
-      @sub_tree.path.should == "a/b"
-      @tree.path_with_prefix.should == "a"
-      @sub_tree.path_with_prefix.should == "a/b"
-
-      @tree.prefix_path= "<root>/"
-
-      @tree.prefix_path.should == "<root>/"
-      @tree.path.should == "a"
-      @sub_tree.path.should == "a/b"
-      @tree.path_with_prefix.should == "<root>/a"
-      @sub_tree.path_with_prefix.should == "<root>/a/b"
-    end
-
-    it "invalidate" do
-      @tree.prefix_path="root/"
-      @sub_tree.path.should == "a/b"
-      @sub_tree.path_with_prefix.should == "root/a/b"
-      @sub_tree.depth.should == 2
-
-      r = TreeNode.new("r")
-      r.add_child(@tree)
-      @sub_tree.path.should == "r/a/b"
-      @sub_tree.path_with_prefix.should == "r/a/b"
-
-      r.prefix_path="new_root/"
-      @sub_tree.path.should == "r/a/b"
-      @sub_tree.path_with_prefix.should == "new_root/r/a/b"
-      @sub_tree.depth.should == 3
-    end
 
     context "find" do
 
