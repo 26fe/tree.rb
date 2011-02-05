@@ -18,15 +18,13 @@ module TreeVisitor
   #
   class TreeNodeVisitor
 
-    def initialize(&block)
-
+    def initialize(delegate = nil, &block)
       @on_enter_tree_node_blocks = []
       @on_exit_tree_node_blocks  = []
       @on_visit_leaf_node_blocks = []
-
       @stack                     = []
       @root                      = nil
-
+      @delegate                  = delegate
       if block
         instance_eval(&block)
       end
@@ -37,63 +35,66 @@ module TreeVisitor
     #
     def enter_node(tree_node)
       parent = @stack.last
-      @on_enter_tree_node_blocks.each { |b| b.call(tree_node, parent) }
+      if @delegate
+        @delegate.enter_node(tree_node) if @delegate.respond_to? :enter_node
+      else
+        @on_enter_tree_node_blocks.each { |b| b.call(tree_node, parent) }
+      end
       @root = tree_node if @stack.empty?
       @stack.push(tree_node)
     end
-
-    # alias :enter_tree_node :enter_node
 
     #
     # called on tree node at end of the visit i.e. oll subtree are visited
     #
     def exit_node(tree_node)
       parent = @stack.last
-      @on_exit_tree_node_blocks.each { |b| b.call(tree_node, parent) }
+      if @delegate
+        @delegate.exit_node(tree_node) if @delegate.respond_to? :exit_node
+      else
+        @on_exit_tree_node_blocks.each { |b| b.call(tree_node, parent) }
+      end
       @stack.pop
     end
-
-    # alias :exit_tree_node :exit_node
 
     #
     # called when visit leaf node
     #
     def visit_leaf(leaf_node)
       parent = @stack.last
-      @on_visit_leaf_node_blocks.each { |b| b.call(leaf_node, parent) }
+      if @delegate
+        @delegate.visit_leaf(leaf_node) if @delegate.respond_to? :visit_leaf
+      else
+        @on_visit_leaf_node_blocks.each { |b| b.call(leaf_node, parent) }
+      end
     end
-
-    # alias :visit_leaf_node :visit_leaf
 
     #
     # add a block to be called when entering into a tree_node
     #
     def on_enter_node(&block)
+      raise "already defined a delegate" if @delegate
       raise "block missing" unless block
       @on_enter_tree_node_blocks << block
     end
-
-    # alias :on_enter_tree_node :on_enter_node
 
     #
     # add a block to be called when exiting from a TreeNode
     #
     def on_exit_node(&block)
+      raise "already defined a delegate" if @delegate
       raise "block missing" unless block
       @on_exit_tree_node_blocks << block
     end
-
-    # alias :on_exit_tree_node :on_exit_node
 
     #
     # add a block to be called when visiting a leaf node
     #
     def on_leaf(&block)
+      raise "already defined a delegate" if @delegate
       raise "block missing" unless block
       @on_visit_leaf_node_blocks << block
     end
-
-    # alias :on_visit_leaf_node :on_leaf
 
   end
 

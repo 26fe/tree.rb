@@ -5,7 +5,7 @@ module TreeVisitor
   # The block are defined from on_enter_X methods
   # The blocks take as argument the node and the parent_node
   #
-  class CallbackTreeNodeVisitor2 # < BasicTreeNodeVisitor
+  class CallbackTreeNodeVisitor2
 
     attr_reader :root
 
@@ -16,21 +16,20 @@ module TreeVisitor
       @delegate = delegate
     end
 
-    def on_enter_node(&action)
-      @action_enter_tree_node = action
+    def on_enter_node(&block)
+      raise "already defined a delegate" if @delegate
+      @action_enter_tree_node = block
     end
 
-    def on_visit_leaf(&action)
-      @action_visit_leaf_node = action
+    def on_visit_leaf(&block)
+      raise "already defined a delegate" if @delegate
+      @action_visit_leaf_node = block
     end
 
     def enter_node(src_tree_node)
       dst_parent_node = @stack.empty? ? nil : @stack.last
-      if @action_enter_tree_node
-        dst_tree_node = @action_enter_tree_node.call(src_tree_node, dst_parent_node)
-      elsif @delegate
-        dst_tree_node = @delegate.on_enter_tree_node(src_tree_node, dst_parent_node)
-      end
+      dst_tree_node = @action_enter_tree_node.call(src_tree_node, dst_parent_node) if @action_enter_tree_node
+      dst_tree_node = @delegate.enter_node(src_tree_node, dst_parent_node) if @delegate and @delegate.respond_to? :enter_node
       @root = dst_tree_node if @stack.empty?
       @stack.push(dst_tree_node)
     end
@@ -41,11 +40,8 @@ module TreeVisitor
 
     def visit_leaf(src_leaf_node)
       parent_node = @stack.last
-      if @action_visit_leaf_node
-        @action_visit_leaf_node.call(src_leaf_node, parent_node)
-      elsif @delegate
-        @delegate.on_visit_leaf_node(src_leaf_node, parent_node)
-      end
+      @action_visit_leaf_node.call(src_leaf_node, parent_node) if @action_visit_leaf_node
+      @delegate.visit_leaf(src_leaf_node, parent_node) if @delegate and @delegate.respond_to? :visit_leaf
     end
   end
 
