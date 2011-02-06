@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{treevisitor}
-  s.version = "0.2.0"
+  s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tokiro"]
-  s.date = %q{2011-02-01}
+  s.date = %q{2011-02-06}
   s.default_executable = %q{tree.rb}
   s.description = %q{      Implementation of visitor design pattern. It contains a 'tree.rb'
       command line clone of the tree unix tool.
@@ -61,7 +61,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = %q{http://github.com/tokiro/treevisitor}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.5.0}
   s.summary = %q{Implementation of visitor design pattern}
   s.test_files = [
     "spec/fixtures/test_dir_1/.dir_with_dot/dummy.txt",
@@ -76,16 +76,16 @@ Gem::Specification.new do |s|
     "spec/treevisitor/tree_dsl_with_derived_class_spec.rb",
     "spec/treevisitor/tree_node_paths_spec.rb",
     "spec/treevisitor/tree_node_spec.rb",
+    "spec/treevisitor/tree_node_visitor_delegate_spec.rb",
+    "spec/treevisitor/tree_node_visitor_dsl_spec.rb",
     "spec/treevisitor/util/dir_processor_spec.rb",
-    "spec/treevisitor/visitor_dsl_spec.rb",
     "spec/treevisitor/visitors/block_tree_node_visitor_spec.rb",
     "spec/treevisitor/visitors/callback_tree_node_visitor2_spec.rb",
-    "spec/treevisitor/visitors/callback_tree_node_visitors_spec.rb",
-    "spec/treevisitor/visitors/depth_tree_node_visitor_spec.rb"
+    "spec/treevisitor/visitors/depth_tree_node_visitor_spec.rb",
+    "spec/treevisitor/visitors/tree_node_visitors_spec.rb"
   ]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
