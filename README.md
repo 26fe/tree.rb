@@ -23,7 +23,6 @@ Tree visitor is an implementation of visitor design pattern.
      `-- visitors
          |-- block_tree_node_visitor.rb
          |-- build_dir_tree_visitor.rb
-         |-- callback_tree_node_visitor.rb
          |-- callback_tree_node_visitor2.rb
          |-- clone_tree_node_visitor.rb
          |-- depth_tree_node_visitor.rb
@@ -57,7 +56,6 @@ $ ruby bin/tree.rb --format json lib
       "visitors": {
         "block_tree_node_visitor.rb": 386,
         "build_dir_tree_visitor.rb": 1167,
-        "callback_tree_node_visitor.rb": 1029,
         "callback_tree_node_visitor2.rb": 1652,
         "clone_tree_node_visitor.rb": 837,
         "depth_tree_node_visitor.rb": 427,

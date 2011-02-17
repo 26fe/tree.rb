@@ -30,7 +30,6 @@ require 'treevisitor/directory_walker'
 #
 require 'treevisitor/visitors/block_tree_node_visitor'
 require 'treevisitor/visitors/build_dir_tree_visitor'
-require 'treevisitor/visitors/callback_tree_node_visitor'
 require 'treevisitor/visitors/callback_tree_node_visitor2'
 require 'treevisitor/visitors/clone_tree_node_visitor'
 require 'treevisitor/visitors/depth_tree_node_visitor'
