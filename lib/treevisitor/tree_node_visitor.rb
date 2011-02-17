@@ -38,7 +38,13 @@ module TreeVisitor
       if @delegate
         @delegate.enter_node(tree_node) if @delegate.respond_to? :enter_node
       else
-        @on_enter_tree_node_blocks.each { |b| b.call(tree_node, parent) }
+        @on_enter_tree_node_blocks.each do |b|
+          if b.arity == 1
+            b.call(tree_node)
+          elsif b.arity == 2
+            b.call(tree_node, parent)
+          end
+        end
       end
       @root = tree_node if @stack.empty?
       @stack.push(tree_node)
@@ -52,7 +58,13 @@ module TreeVisitor
       if @delegate
         @delegate.exit_node(tree_node) if @delegate.respond_to? :exit_node
       else
-        @on_exit_tree_node_blocks.each { |b| b.call(tree_node, parent) }
+        @on_exit_tree_node_blocks.each do |b|
+          if b.arity == 1
+            b.call(tree_node)
+          elsif b.arity == 2
+            b.call(tree_node, parent)
+          end
+        end
       end
       @stack.pop
     end
@@ -65,7 +77,13 @@ module TreeVisitor
       if @delegate
         @delegate.visit_leaf(leaf_node) if @delegate.respond_to? :visit_leaf
       else
-        @on_visit_leaf_node_blocks.each { |b| b.call(leaf_node, parent) }
+        @on_visit_leaf_node_blocks.each do |b|
+          if b.arity == 1
+            b.call(leaf_node)
+          elsif b.arity == 2
+            b.call(leaf_node, parent)
+          end
+        end
       end
     end
 
