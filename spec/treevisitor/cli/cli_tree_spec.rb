@@ -16,7 +16,7 @@ describe CliTree do
       args = %w{--version}
       CliTree.new.parse_args(args)
     end
-    version = TreeVisitor.version
+    version = TreeVisitor::VERSION
     out.should match version
   end
 

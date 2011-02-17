@@ -28,7 +28,7 @@ module TreeVisitor
       end
 
       opts.on("--version", "Show the version") do
-        puts "tree.rb version #{TreeVisitor::version}"
+        puts "tree.rb version #{TreeVisitor::VERSION}"
         return 0
       end
 

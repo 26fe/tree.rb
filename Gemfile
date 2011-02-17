@@ -1,11 +1,14 @@
-source :gemcutter
+source "http://rubygems.org"
 
-gem "json"
+# Specify your gem's dependencies in treevisitor.gemspec
+gemspec
 
-group :development do
-  gem "jeweler"
-  gem "rake"
-  gem "yard"
-  gem "bundler"  
-  gem "rspec"
-end
+#gem "json"
+#
+#group :development do
+#  gem "jeweler"
+#  gem "rake"
+#  gem "yard"
+#  gem "bundler"
+#  gem "rspec"
+#end
