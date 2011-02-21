@@ -21,7 +21,6 @@ Gem::Specification.new do |gem|
   #
 
   gem.add_runtime_dependency(%q<json>, [">= 0"])
-  gem.add_development_dependency(%q<jeweler>, [">= 0"])
   gem.add_development_dependency(%q<rake>, [">= 0"])
   gem.add_development_dependency(%q<yard>, [">= 0"])
   gem.add_development_dependency(%q<bundler>, [">= 0"])
@@ -50,7 +49,6 @@ Gem::Specification.new do |gem|
   gem.test_files.concat Dir['spec/fixtures/**/.gitkeep']
   gem.test_files.concat Dir['spec/fixtures/**/.dir_with_dot/*']
   # s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-
 
   gem.require_paths = ["lib"]
 end
