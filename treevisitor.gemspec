@@ -29,26 +29,26 @@ Gem::Specification.new do |gem|
   #
   # bin
   #
-  gem.executables = %w{ tree.rb }
   # s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  gem.executables = %w{ tree.rb }
 
   #
   # files
   #
+  # s.files         = `git ls-files`.split("\n")
   gem.files = %w{LICENSE.txt README.md Rakefile treevisitor.gemspec .gemtest}
   gem.files.concat Dir['lib/**/*.rb']
   gem.files.concat Dir['tasks/**/*.rake']
   gem.files.concat Dir['examples/**/*']
-  # s.files         = `git ls-files`.split("\n")
 
   #
   # test files
   #
+  # s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.test_files = Dir['spec/**/*.rb']
   gem.test_files.concat Dir['spec/fixtures/**/*']
   gem.test_files.concat Dir['spec/fixtures/**/.gitkeep']
   gem.test_files.concat Dir['spec/fixtures/**/.dir_with_dot/*']
-  # s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
 
   gem.require_paths = ["lib"]
 end

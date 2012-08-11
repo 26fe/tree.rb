@@ -11,14 +11,18 @@ include TreeVisitor
 
 FIXTURES = File.expand_path( File.join( File.dirname(__FILE__), "fixtures" ) )
 
-def with_stdout_captured
+def with_output_captured
   old_stdout = $stdout
+  old_stderr = $stderr
   out = StringIO.new
+  err = StringIO.new
   $stdout = out
+  $stderr = err
   begin
     yield
   ensure
     $stdout = old_stdout
+    $stderr = old_stderr
   end
-  out.string
+  { :stdout => out.string, :stderr => err.string }
 end

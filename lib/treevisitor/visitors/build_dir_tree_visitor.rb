@@ -5,7 +5,7 @@ module TreeVisitor
   # It similar to CloneTreeNodeVisitor
   #
   class BuildDirTreeVisitor # < BasicTreeNodeVisitor
-  
+
     attr_reader :root
 
     #
@@ -19,7 +19,7 @@ module TreeVisitor
     # @see AbsNode#nr_leaves
     #
     attr_reader :nr_files
-  
+
     def initialize
       super
       @root = nil
@@ -27,7 +27,7 @@ module TreeVisitor
       @nr_directories = 0
       @nr_files = 0
     end
-  
+
     def enter_node( pathname )
       if @stack.empty?
         tree_node = TreeNode.new( File.basename( pathname ) )
@@ -37,6 +37,10 @@ module TreeVisitor
       end
       @nr_directories += 1
       @stack.push( tree_node )
+    end
+
+    def cannot_enter_node(pathname, error)
+
     end
 
     def exit_node( pathname )

@@ -12,6 +12,12 @@ module TreeVisitor
     def enter_node( tree_node )
     end
 
+    #
+    # called when the tree node is not accessible or an exception is raise when the node is accessed
+    #
+    def cannot_enter_node( tree_node, error)
+    end
+
     # alias :enter_tree_node :enter_node
 
     #
@@ -28,7 +34,11 @@ module TreeVisitor
     def visit_leaf( leaf_node )
     end
 
-    # alias :visit_leaf_node :visit_leaf
+    #
+    # called when the leaf node is not accessible or an exception is raise when the node is accessed
+    #
+    def cannot_visit_leaf( tree_node, error)
+    end
   end
 
 end

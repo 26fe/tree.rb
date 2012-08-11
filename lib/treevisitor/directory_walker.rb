@@ -16,7 +16,7 @@ module TreeVisitor
     #
     # @overload initialize(dirname)
     #   @param [String] dirname the root of the tree (top level directory)
-    # 
+    #
     # @overload initialize(dirname, options)
     #   @param [Hash] options
     #   @option options [String,Regex, Array<String,Regexp>] :ignore list of ignore pattern
@@ -259,11 +259,24 @@ module TreeVisitor
     # recurse on other directories
     #
     def process_directory(dirname)
-      @visitor.enter_node(dirname)
       # return if ignore_dir?( dirname )
 
       begin
-        Dir.entries(dirname).sort.each { |basename|
+        entries = Dir.entries(dirname).sort
+      rescue Errno::EACCES => e
+        $stderr.puts e
+        @visitor.cannot_enter_node(dirname, e)
+        return
+      rescue  Errno::EPERM => e
+        $stderr.puts e
+        @visitor.cannot_enter_node(dirname, e)
+        return
+      end
+
+
+      @visitor.enter_node(dirname)
+        entries.each { |basename|
+          begin
           next if basename == "." or basename == ".." # ignore always "." and ".."
           pathname = File.join(dirname, basename)
 
@@ -274,10 +287,13 @@ module TreeVisitor
               @visitor.visit_leaf(pathname)
             end
           end
+          rescue Errno::EACCES => e
+            $stderr.puts e
+          rescue  Errno::EPERM
+            $stderr.puts e
+          end
         }
-      rescue Errno::EACCES => e
-        $stderr.puts e
-      end
+
       @visitor.exit_node(dirname)
     end
   end

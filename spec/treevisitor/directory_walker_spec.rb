@@ -73,4 +73,27 @@ describe DirTreeWalker do
     accumulator.sort.should == %w{ [Dsube] test_dir_2 }.sort
   end
 
+  it "should ignore not accessible directory" do
+
+    dir = File.join(FIXTURES, "test_dir_3_with_error")
+
+    f1 = File.join(dir, "no_accessible_dir")
+    Dir.rmdir(f1) if File.exist?(f1)
+    Dir.mkdir(f1, 0000)
+
+    f2 = File.join(dir, "accessible_dir")
+    Dir.rmdir(f2) if File.exist?(f2)
+    Dir.mkdir(f2)
+
+    dir_tree_walker = DirTreeWalker.new(File.join(FIXTURES, "test_dir_3_with_error"))
+    accumulator = []
+    visitor     = BlockTreeNodeVisitor.new { |pathname| accumulator << File.basename(pathname) }
+    dir_tree_walker.run(visitor)
+    accumulator.length.should == 2
+    accumulator.sort.should == %w{accessible_dir test_dir_3_with_error }.sort
+
+    # Dir.rmdir(f1)
+    # Dir.rmdir(f2)
+  end
+
 end
