@@ -11,6 +11,9 @@ module TreeVisitor
 
     class << self
 
+      # @param [Class] class1  Subclass of TreeNode default TreeNode
+      # @param [Class] class2  Subclass of LeafNode default LeafNode
+      # @param [Object] block
       def create(class1 = TreeNode, class2 = LeafNode, &block)
         if class1.ancestors.include?(TreeNode) and class2.ancestors.include?(LeafNode)
           @tree_node_class = class1
@@ -64,14 +67,17 @@ module TreeVisitor
         end
         leaf_node
       end
-    end
+    end  # end class << self
 
+    # leaves of this node
     attr_reader :leaves
+
+    # children i.e. other tree node
     attr_reader :children
 
     #
     # @param [Object] content of this node
-    #
+    # @param [Object] parent of this node. If parent is nil, it is a root
     def initialize(content, parent = nil)
       @leaves   = []
       @children = []
@@ -82,6 +88,7 @@ module TreeVisitor
     #
     # Test if is a root
     #
+    # @return [Boolean] true if this node is a root
     def root?
       @parent.nil?
     end
@@ -202,12 +209,12 @@ module TreeVisitor
     #
     def accept(visitor)
       visitor.enter_node(self)
-      @leaves.each { |leaf|
+      @leaves.each do |leaf|
         leaf.accept(visitor)
-      }
-      @children.each { |child|
+      end
+      @children.each do |child|
         child.accept(visitor)
-      }
+      end
       visitor.exit_node(self)
       visitor
     end
@@ -218,8 +225,9 @@ module TreeVisitor
     def to_str(prefix= "")
       str = ""
 
+      # print node itself
       if root?
-        str << to_s << "\n"
+        str << ANSI.red{ to_s } << "\n"
       else
         str << prefix
         if self.next
@@ -227,10 +235,11 @@ module TreeVisitor
         else
           str << '`-- '
         end
-        str << to_s << "\n"
+        str << ANSI.red{ to_s } << "\n"
         prefix += self.next ? "|   " : "    "
       end
 
+      # print leaves
       @leaves.each do |leaf|
         str << prefix
         if !leaf.next.nil? or !@children.empty?
@@ -238,9 +247,10 @@ module TreeVisitor
         else
           str << '`-- '
         end
-        str << leaf.to_s << "\n"
+        str << ANSI.green{ leaf.to_s } << "\n"
       end
 
+      # print children
       @children.each do |child|
         str << child.to_str(prefix)
       end

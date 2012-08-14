@@ -18,6 +18,7 @@ module TreeVisitor
   #
   class TreeNodeVisitor
 
+    # @param [Object] delegate
     def initialize(delegate = nil, &block)
       @on_enter_tree_node_blocks = []
       @on_exit_tree_node_blocks  = []

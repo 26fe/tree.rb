@@ -9,8 +9,9 @@ require 'yaml'
 #
 # rubygems
 #
-# require 'rubygems' # rubygems must be loaded from binary file to not modify $LOAD_PATH
+# require 'rubygems' # rubygems must be loaded from binary file (tree.rb) so $LOAD_PATH is not modified
 require 'json'
+require 'ansi/code'
 
 #
 # treevisitor

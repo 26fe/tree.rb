@@ -12,8 +12,7 @@ include TreeVisitor
 FIXTURES = File.expand_path( File.join( File.dirname(__FILE__), "fixtures" ) )
 
 def with_output_captured
-  old_stdout = $stdout
-  old_stderr = $stderr
+  old_stdout, old_stderr = $stdout, $stderr
   out = StringIO.new
   err = StringIO.new
   $stdout = out

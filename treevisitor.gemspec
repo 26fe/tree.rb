@@ -21,6 +21,8 @@ Gem::Specification.new do |gem|
   #
 
   gem.add_runtime_dependency(%q<json>, [">= 0"])
+  gem.add_runtime_dependency(%q<ansi>, [">= 0"])
+
   gem.add_development_dependency(%q<rake>, [">= 0"])
   gem.add_development_dependency(%q<yard>, [">= 0"])
   gem.add_development_dependency(%q<bundler>, [">= 0"])
