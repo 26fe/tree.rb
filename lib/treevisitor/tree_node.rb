@@ -7,10 +7,25 @@ module TreeVisitor
   # TreeNode @children -1---n-> TreeNode
   #          @leaves   -1---n-> LeafNode
   #
+  # define dsl to create Tree
+  # 
+  # @example
+  #   tree = TreeNode.create do
+  #     node "root" do
+  #       leaf "l1"
+  #       node "sub" do
+  #         leaf "l3"
+  #       end
+  #       node "wo leaves"
+  #     end
   class TreeNode < AbsNode
 
     class << self
 
+      # DSL create a root node
+      #
+      # tree = TreeNode.create do ... end
+      #
       # @param [Class] class1  Subclass of TreeNode default TreeNode
       # @param [Class] class2  Subclass of LeafNode default LeafNode
       # @param [Object] block
@@ -33,6 +48,10 @@ module TreeVisitor
 
       private
 
+      # DSL node add a child to the surrounding node
+      # TreeNode.create do 
+      #   node "..." 
+      # end
       def node(*args, &block)
         parent_node = @scope_stack.length > 0 ? @scope_stack[-1] : nil
         args << parent_node
@@ -51,6 +70,10 @@ module TreeVisitor
         @scope_stack.pop
       end
 
+      # DSL node add a leaf to the surround node
+      # TreeNode.create do 
+      #   leaf "..." 
+      # end
       def leaf(*args, &block)
         tree_node = @scope_stack[-1]
         args << tree_node
@@ -222,12 +245,16 @@ module TreeVisitor
     #
     # Format the content of tree
     #
-    def to_str(prefix= "")
+    def to_str(prefix= "", tty_color = false)
       str = ""
 
       # print node itself
       if root?
-        str << ANSI.red{ to_s } << "\n"
+        if tty_color
+          str << ANSI.red{ to_s } << "\n"
+        else
+          str << to_s << "\n"
+        end
       else
         str << prefix
         if self.next
@@ -235,7 +262,11 @@ module TreeVisitor
         else
           str << '`-- '
         end
-        str << ANSI.red{ to_s } << "\n"
+        if tty_color
+          str << ANSI.red{ to_s } << "\n"
+        else
+          str << to_s << "\n"
+        end
         prefix += self.next ? "|   " : "    "
       end
 
@@ -247,12 +278,16 @@ module TreeVisitor
         else
           str << '`-- '
         end
-        str << ANSI.green{ leaf.to_s } << "\n"
+        if tty_color
+          str << ANSI.green{ leaf.to_s } << "\n" 
+        else
+          str << leaf.to_s << "\n" 
+        end
       end
 
       # print children
       @children.each do |child|
-        str << child.to_str(prefix)
+        str << child.to_str(prefix, tty_color)
       end
       str
     end

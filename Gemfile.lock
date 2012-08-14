@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    treevisitor (0.2.3)
+    tree.rb (0.2.3)
       ansi
       json
 
@@ -30,5 +30,5 @@ DEPENDENCIES
   bundler
   rake
   rspec
-  treevisitor!
+  tree.rb!
   yard

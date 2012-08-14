@@ -1,8 +1,35 @@
 tree.rb / tree visitor library
 ================================================
 
-**tree.rb** is a 'clone' of tree unix command. It is based on tree visitor library.
-Tree visitor is an implementation of visitor design pattern.
+**tree.rb** is a 'clone' of tree unix command. 
+The gem contains also a library to build tree with a dsl (domain specific language), and 
+an implementation of visitor design pattern.
+
+## Usage as command line
+
+To use the command line tool tree.rb execute into command line tree.rb --help
+Try tree.rb -h to get help on command line.
+
+<pre>
+$ tree.rb --help
+Usage: tree.rb [options] [directory]
+list contents of directories in a tree-like format
+this is a almost :-) a clone of tree unix command written in ruby
+Code https://github.com/tokiro/treevisitor. Feedback to tokiro.oyama@gmail.com
+
+options: 
+    -h, --help                       Show this message
+        --version                    Show the version
+    -a                               All file are listed
+    -d                               List directories only
+    -v, --[no-]verbose               Run verbosely
+    -q, --quiet                      quiet mode as --no-verbose
+    -f, --format ALGO                select an algo
+                                       (b,v,j,y,build-dir,print-dir,json,yaml)
+</pre>
+
+To print the tree of a directory execute tree.rb with the name of the directory. 
+For example:
 
 <pre>
  $ tree.rb lib
@@ -71,32 +98,63 @@ $ ruby bin/tree.rb --format json lib
 </pre>
 
 The json structure can be transformed into image:
+<img src='https://github.com/tokiro/tree.rb/raw/master/examples/protovis/treevisitor.png'/>
 
-<img src='https://github.com/tokiro/treevisitor/raw/master/examples/protovis/treevisitor.png'/>
-
-### Documentation
-
-http://rubydoc.info/gems/treevisitor
-
-Try tree.rb -h to get help on command line.
+## Usage as library
 See examples directory to use treevisitor in your code.
 
-### INSTALL:
+DSL to build tree:
+<pre>
+   tree = TreeNode.create do
+     node "root" do
+       leaf "l1"
+       node "sub" do
+         leaf "l3"
+       end
+       node "wo leaves"
+     end
+</pre>
 
-  sudo gem install treevisitor
+## Documentation
 
-### Contributions
+http://rubydoc.info/gems/tree.rb
+
+
+## Installation
+
+To use the command line tool tree.rb, it is enough to install the gem:
+
+  [sudo] gem install tree.rb
+
+To use into your project, add this line to your application's Gemfile:
+
+    gem 'tree.rb'
+
+And then execute:
+
+    $ bundle
+
+## Contributing
 
 Everybody is welcome to contribute to this project by commenting the source code, suggesting modifications or new ideas,
 reporting bugs, writing some documentation and, of course, you're also welcome to contribute with patches as well!
 
+To contribute:
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Added some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
 ### Rubies
 
-This gem have been tested on [MRI][8] 1.9.2.
+This gem have been tested on [MRI][8] 1.9.3
 
 ### Copyright
 
-Copyright (c) 2009-2011 tokiro.oyama@gmail.com. See LICENSE for details.
+Copyright (c) 2009-2012 tokiro.oyama@gmail.com. See LICENSE for details.
 
 [1]: http://vis.stanford.edu/protovis/
 [8]: http://www.ruby-lang.org/en/
+

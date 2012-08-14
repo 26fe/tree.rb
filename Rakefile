@@ -1,3 +1,4 @@
+# -*- encoding: utf-8; mode: ruby -*-
 require 'rubygems'
 require 'rake'
 

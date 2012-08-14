@@ -1,9 +1,9 @@
-# -*- encoding: utf-8 -*-
+# -*- encoding: utf-8; mode: ruby -*-
 $:.push File.expand_path("../lib", __FILE__)
 require "treevisitor/version"
 
 Gem::Specification.new do |gem|
-  gem.name = "treevisitor"
+  gem.name = "tree.rb"
   gem.version = TreeVisitor::VERSION
   gem.platform = Gem::Platform::RUBY
   gem.summary = "Implementation of visitor design pattern"
@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
 
   gem.authors = ["Tokiro"]
   gem.email = "tokiro.oyama@gmail.com"
-  gem.homepage = "http://github.com/tokiro/treevisitor"
+  gem.homepage = "http://github.com/tokiro/tree.rb"
 
   #
   # dependencies
