@@ -11,7 +11,7 @@ module TreeRb
 
     def parse_args(argv)
 
-      options     = {:verbose => true, :force => false, :algo => 'build-dir'}
+      options = { :verbose => true, :force => false, :algo => 'build-dir' }
 
       opts        = OptionParser.new
       opts.banner = "Usage: tree.rb [options] [directory]"
@@ -32,11 +32,11 @@ module TreeRb
         return 0
       end
 
-      opts.on("-a", "All file are listed") do |v|
+      opts.on("-a", "All file are listed") do
         options[:all_files] = true
       end
 
-      opts.on("-d", "List directories only") do |v|
+      opts.on("-d", "List directories only") do
         options[:only_directories] = true
       end
 
@@ -44,17 +44,35 @@ module TreeRb
         options[:verbose] = v
       end
 
-      opts.on("-q", "--quiet", "quiet mode as --no-verbose") do |v|
+      opts.on("-q", "--quiet", "quiet mode as --no-verbose") do
         options[:verbose] = false
       end
 
       algos        = %w[build-dir print-dir json yaml]
-      algo_aliases = {"b" => "build-dir", "v" => "print-dir", "j" => "json", "y" => "yaml"}
+      algo_aliases = { "b" => "build-dir", "v" => "print-dir", "j" => "json", "y" => "yaml" }
 
-      algo_list    = (algo_aliases.keys + algos).join(',')
+      algo_list = (algo_aliases.keys + algos).join(',')
       opts.on("-f", "--format ALGO", algos, algo_aliases, "select an algo", "  (#{algo_list})") do |algo|
         options[:algo] = algo
       end
+
+      #
+      # begin colorize
+      #
+      # copied from tree man page
+      opts.on("-n", "Turn colorization off always, over-ridden by the -C option.") do
+        options[:colorize] = false
+      end
+
+      # copied from tree man page
+      opts.on("-C", "Turn colorization on always, using built-in color defaults if the LS_COLORS environment variable is not set.  Useful to colorize output to a pipe.") do
+        options[:colorize] = true
+      end
+      options[:colorize] ||= $stdout.isatty
+
+      #
+      # end colorize
+      #
 
       begin
         rest = opts.parse(argv)
@@ -72,7 +90,7 @@ module TreeRb
 
       dirname = File.expand_path(dirname)
 
-      dtw     = DirTreeWalker.new(dirname)
+      dtw = DirTreeWalker.new(dirname)
       unless options[:all_files]
         dtw.ignore(/^\.[^.]+/) # ignore all file starting with "."
       end
@@ -84,17 +102,12 @@ module TreeRb
         when 'build-dir'
           # TODO: capture CTRL^C
           # http://ruby-doc.org/core-1.9.3/Kernel.html#method-i-trap
-          Kernel.trap('INT') { put "User interrupted exit"; exit; }
+          Kernel.trap('INT') { put "User interrupted exit"; exit }
 
           visitor = BuildDirTreeVisitor.new
           dtw.run(visitor)
 
-          # colors also in windows
-          if $stdout.isatty
-            puts visitor.root.to_str('', true)  #use color
-          else
-            puts visitor.root.to_str
-          end
+          puts visitor.root.to_str('', options[:colorize])
           puts
           puts "#{visitor.nr_directories} directories, #{visitor.nr_files} files"
 
