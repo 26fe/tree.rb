@@ -29,12 +29,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency(%q<rspec>, [">= 0"])
 
   #
-  # bin
-  #
-  # s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  gem.executables = %w{ tree.rb }
-
-  #
   # files
   #
   # s.files         = `git ls-files`.split("\n")
