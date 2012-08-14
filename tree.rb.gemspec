@@ -6,10 +6,24 @@ Gem::Specification.new do |gem|
   gem.name = "tree.rb"
   gem.version = TreeVisitor::VERSION
   gem.platform = Gem::Platform::RUBY
-  gem.summary = "Implementation of visitor design pattern"
+  gem.summary = "tree.rb is a 'clone' of tree unix command. The gem implements a library to mange tree structures."
+
   gem.description = <<-EOF
-      Implementation of visitor design pattern. It contains a 'tree.rb'
-      command line clone of the tree unix tool.
+(This gem was named as treevisitor)
+tree.rb is a 'clone' of tree unix command. The gem implements a library to mange tree structures.
+The gem contains also a library to build tree with a dsl (domain specific language), and 
+an implementation of visitor design pattern.
+An example of DSL to build tree:
+<pre>
+   tree = TreeNode.create do
+     node "root" do
+       leaf "l1"
+       node "sub" do
+         leaf "l3"
+       end
+       node "wo leaves"
+     end
+</pre>
   EOF
 
   gem.authors = ["Tokiro"]
@@ -38,7 +52,7 @@ Gem::Specification.new do |gem|
   # files
   #
   # s.files         = `git ls-files`.split("\n")
-  gem.files = %w{LICENSE.txt README.md Rakefile treevisitor.gemspec .gemtest}
+  gem.files = %w{LICENSE.txt README.md Rakefile tree.rb.gemspec .gemtest}
   gem.files.concat Dir['lib/**/*.rb']
   gem.files.concat Dir['tasks/**/*.rake']
   gem.files.concat Dir['examples/**/*']
