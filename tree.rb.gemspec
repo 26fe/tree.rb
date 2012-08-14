@@ -29,6 +29,7 @@ An example of DSL to build tree:
   gem.authors = ["Tokiro"]
   gem.email = "tokiro.oyama@gmail.com"
   gem.homepage = "http://github.com/tokiro/tree.rb"
+  gem.require_paths = ["lib"]
 
   #
   # dependencies
@@ -43,28 +44,31 @@ An example of DSL to build tree:
   gem.add_development_dependency(%q<rspec>, [">= 0"])
 
   #
-  # bin
-  #
-  # s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  gem.executables = %w{ tree.rb }
-
-  #
   # files
   #
   # s.files         = `git ls-files`.split("\n")
+  # gem.files         = `git ls-files`.split($\)
   gem.files = %w{LICENSE.txt README.md Rakefile tree.rb.gemspec .gemtest}
   gem.files.concat Dir['lib/**/*.rb']
   gem.files.concat Dir['tasks/**/*.rake']
   gem.files.concat Dir['examples/**/*']
 
   #
+  # bin
+  #
+  # s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  # gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  gem.executables = %w{ tree.rb }
+
+
+  #
   # test files
   #
   # s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  # gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.test_files = Dir['spec/**/*.rb']
   gem.test_files.concat Dir['spec/fixtures/**/*']
   gem.test_files.concat Dir['spec/fixtures/**/.gitkeep']
   gem.test_files.concat Dir['spec/fixtures/**/.dir_with_dot/*']
 
-  gem.require_paths = ["lib"]
 end

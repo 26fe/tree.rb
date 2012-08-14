@@ -98,6 +98,7 @@ $ ruby bin/tree.rb --format json lib
 </pre>
 
 The json structure can be transformed into image:
+
 <img src='https://github.com/tokiro/tree.rb/raw/master/examples/protovis/treevisitor.png'/>
 
 ## Usage as library
