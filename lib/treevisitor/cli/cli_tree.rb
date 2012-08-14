@@ -80,21 +80,30 @@ module TreeVisitor
       dtw.visit_file = !options[:only_directories]
 
       case options[:algo]
+
         when 'build-dir'
           visitor = BuildDirTreeVisitor.new
           dtw.run(visitor)
-          puts visitor.root.to_str
+          if $stdout.isatty
+            puts visitor.root.to_str('', true)  #use color
+          else
+            puts visitor.root.to_str
+          end
           puts
           puts "#{visitor.nr_directories} directories, #{visitor.nr_files} files"
+
         when 'print-dir'
           visitor = PrintDirTreeVisitor.new
           dtw.run(visitor)
+
         when 'json'
           root = dtw.run(DirectoryToHashVisitor.new(dirname)).root
           puts JSON.pretty_generate(root)
+
         when 'yaml'
           root = dtw.run(DirectoryToHashVisitor.new(dirname)).root
           puts root.to_yaml
+
         else
           puts "unknown algo #{options[:algo]} specified"
       end
