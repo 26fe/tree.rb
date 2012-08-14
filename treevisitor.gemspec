@@ -47,4 +47,6 @@ Gem::Specification.new do |gem|
   gem.test_files.concat Dir['spec/fixtures/**/.dir_with_dot/*']
 
   gem.require_paths = ["lib"]
+ 
+  gem.post_install_message = "This gems was renamed to tree.rb, please update your dependencies"
 end

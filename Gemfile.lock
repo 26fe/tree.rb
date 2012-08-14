@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    treevisitor (0.3.0)
+    treevisitor (0.2.4)
       json
       tree.rb
 
