@@ -8,7 +8,7 @@ require 'treevisitor'
 #
 # Find directories without subdirectories
 #
-class DirWithoutSubDir < TreeVisitor::BasicTreeNodeVisitor
+class DirWithoutSubDir < TreeRb::BasicTreeNodeVisitor
 
   def initialize
     super
@@ -31,7 +31,7 @@ class DirWithoutSubDir < TreeVisitor::BasicTreeNodeVisitor
 
 end
 
-dtw = TreeVisitor::DirTreeWalker.new( ".." )
+dtw = TreeRb::DirTreeWalker.new( ".." )
 dtw.ignore /^\./
 dtw.visit_file=false
 dtw.run( DirWithoutSubDir.new )

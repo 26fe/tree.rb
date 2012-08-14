@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module TreeVisitor
+module TreeRb
   #
   #
   #
@@ -28,7 +28,7 @@ module TreeVisitor
       end
 
       opts.on("--version", "Show the version") do
-        puts "tree.rb version #{TreeVisitor::VERSION}"
+        puts "tree.rb version #{TreeRb::VERSION}"
         return 0
       end
 
@@ -85,10 +85,10 @@ module TreeVisitor
           # TODO: capture CTRL^C
           # http://ruby-doc.org/core-1.9.3/Kernel.html#method-i-trap
           Kernel.trap('INT') { put "User interrupted exit"; exit; }
-          
+
           visitor = BuildDirTreeVisitor.new
           dtw.run(visitor)
-          
+
           # colors also in windows
           if $stdout.isatty
             puts visitor.root.to_str('', true)  #use color

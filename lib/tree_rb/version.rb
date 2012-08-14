@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
-module TreeVisitor
-  VERSION="0.3.0"
+module TreeRb
+  VERSION="0.3.1"
 end

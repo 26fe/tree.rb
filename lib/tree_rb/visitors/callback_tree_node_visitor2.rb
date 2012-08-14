@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module TreeVisitor
+module TreeRb
   #
   # Executes a block when enter in a node
   # The block are defined from on_enter_X methods

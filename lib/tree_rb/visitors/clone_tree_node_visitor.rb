@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module TreeVisitor
+module TreeRb
   #
   # Clone a tree_node, nodes are duplicated.
   # Node content are not duplicated!

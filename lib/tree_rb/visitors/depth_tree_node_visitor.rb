@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module TreeVisitor
+module TreeRb
   #
   # Simple visitor: show how calculate the depth of a tree
   #

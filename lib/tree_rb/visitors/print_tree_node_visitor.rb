@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module TreeVisitor
+module TreeRb
   #
   # Prints TreeNode names indenting according to depth
   #

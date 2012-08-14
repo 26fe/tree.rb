@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module TreeVisitor
+module TreeRb
 
   #
   # @abstract Subclass to implement a concrete Node (Leaf or Tree).

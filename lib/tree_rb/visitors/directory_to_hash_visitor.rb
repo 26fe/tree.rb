@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module TreeVisitor
+module TreeRb
   #
   # Build hash with directory structure
   #

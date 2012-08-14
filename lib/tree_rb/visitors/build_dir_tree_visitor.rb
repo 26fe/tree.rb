@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module TreeVisitor
+module TreeRb
   #
   # Builds a TreeNode from a filesystem directory
   # It similar to CloneTreeNodeVisitor

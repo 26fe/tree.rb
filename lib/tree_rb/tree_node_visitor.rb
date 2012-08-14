@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module TreeVisitor
+module TreeRb
 
   #
   # More complex TreeNodeVisitor, define a simple dsl

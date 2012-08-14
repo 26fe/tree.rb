@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module TreeVisitor
+module TreeRb
   #
   # TreeNode can contains other TreeNode (children)
   # and can contains LeafNode (leaves)
@@ -8,7 +8,7 @@ module TreeVisitor
   #          @leaves   -1---n-> LeafNode
   #
   # define dsl to create Tree
-  # 
+  #
   # @example
   #   tree = TreeNode.create do
   #     node "root" do
@@ -49,8 +49,8 @@ module TreeVisitor
       private
 
       # DSL node add a child to the surrounding node
-      # TreeNode.create do 
-      #   node "..." 
+      # TreeNode.create do
+      #   node "..."
       # end
       def node(*args, &block)
         parent_node = @scope_stack.length > 0 ? @scope_stack[-1] : nil
@@ -71,8 +71,8 @@ module TreeVisitor
       end
 
       # DSL node add a leaf to the surround node
-      # TreeNode.create do 
-      #   leaf "..." 
+      # TreeNode.create do
+      #   leaf "..."
       # end
       def leaf(*args, &block)
         tree_node = @scope_stack[-1]
@@ -279,9 +279,9 @@ module TreeVisitor
           str << '`-- '
         end
         if tty_color
-          str << ANSI.green{ leaf.to_s } << "\n" 
+          str << ANSI.green{ leaf.to_s } << "\n"
         else
-          str << leaf.to_s << "\n" 
+          str << leaf.to_s << "\n"
         end
       end
 

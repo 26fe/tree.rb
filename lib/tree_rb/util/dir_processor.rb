@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module TreeVisitor
+module TreeRb
 
   #
   # Visit a directory tree
@@ -31,7 +31,7 @@ module TreeVisitor
     end
 
     private
-  
+
     def process_file( pn )
       # puts "file: #{f}"
       pair = @processors.find { |re,action| re =~ pn.to_s }

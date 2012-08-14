@@ -1,17 +1,17 @@
 # -*- encoding: utf-8; mode: ruby -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "treevisitor/version"
+require "tree_rb/version"
 
 Gem::Specification.new do |gem|
   gem.name = "tree.rb"
-  gem.version = TreeVisitor::VERSION
+  gem.version = TreeRb::VERSION
   gem.platform = Gem::Platform::RUBY
   gem.summary = "tree.rb is a 'clone' of tree unix command. The gem implements a library to mange tree structures."
 
   gem.description = <<-EOF
 (This gem was named as treevisitor)
 tree.rb is a 'clone' of tree unix command. The gem implements a library to mange tree structures.
-The gem contains also a library to build tree with a dsl (domain specific language), and 
+The gem contains also a library to build tree with a dsl (domain specific language), and
 an implementation of visitor design pattern.
 An example of DSL to build tree:
 <pre>

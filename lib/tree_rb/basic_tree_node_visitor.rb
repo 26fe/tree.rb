@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module TreeVisitor
+module TreeRb
   #
   # Callback methods used to visit a tree
   # Are empty so it is possible to define only a subset when deriving subclass
