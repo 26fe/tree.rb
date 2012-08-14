@@ -82,8 +82,14 @@ module TreeVisitor
       case options[:algo]
 
         when 'build-dir'
+          # TODO: capture CTRL^C
+          # http://ruby-doc.org/core-1.9.3/Kernel.html#method-i-trap
+          Kernel.trap('INT') { put "User interrupted exit"; exit; }
+          
           visitor = BuildDirTreeVisitor.new
           dtw.run(visitor)
+          
+          # colors also in windows
           if $stdout.isatty
             puts visitor.root.to_str('', true)  #use color
           else
