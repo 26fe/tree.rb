@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- encoding: utf-8; mode: ruby -*-
 $:.push File.expand_path("../lib", __FILE__)
 require "treevisitor/version"
 
@@ -20,7 +20,9 @@ Gem::Specification.new do |gem|
   # dependencies
   #
 
+  gem.add_runtime_dependency(%q<tree.rb>, [">= 0"])
   gem.add_runtime_dependency(%q<json>, [">= 0"])
+
   gem.add_development_dependency(%q<rake>, [">= 0"])
   gem.add_development_dependency(%q<yard>, [">= 0"])
   gem.add_development_dependency(%q<bundler>, [">= 0"])
