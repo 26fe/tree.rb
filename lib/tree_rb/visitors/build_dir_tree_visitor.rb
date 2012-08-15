@@ -40,7 +40,6 @@ module TreeRb
     end
 
     def cannot_enter_node(pathname, error)
-
     end
 
     def exit_node( pathname )

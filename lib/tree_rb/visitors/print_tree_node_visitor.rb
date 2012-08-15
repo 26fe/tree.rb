@@ -27,6 +27,12 @@ module TreeRb
       @depth -= 1
     end
 
+    #
+    # called when the tree node is not accessible or an exception is raise when the node is accessed
+    #
+    def cannot_enter_node( tree_node, error)
+    end
+
     def visit_leaf( leaf_node )
       str = ""
       (0...@depth-1).step {

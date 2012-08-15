@@ -13,6 +13,12 @@ module TreeRb
     def exit_node( pathname )
     end
 
+    #
+    # called when the tree node is not accessible or an exception is raise when the node is accessed
+    #
+    def cannot_enter_node( tree_node, error)
+    end
+
     def visit_leaf( pathname )
       puts pathname
     end

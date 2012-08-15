@@ -80,6 +80,10 @@ module TreeRb
         $stderr.puts e.to_s
         $stderr.puts "try -h for help"
         return false
+      rescue OptionParser::MissingArgument => e
+        $stderr.puts e.to_s
+        $stderr.puts "try -h for help"
+        return false
       end
 
       if rest.length < 1

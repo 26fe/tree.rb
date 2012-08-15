@@ -245,6 +245,14 @@ module TreeRb
     #
     # Format the content of tree
     #
+
+    # TODO: integrate with ansi color
+    # TODO: see dircolors command
+    # http://isthe.com/chongo/tech/comp/ansi_escapes.html
+    # puts "\033[2J" # clear screen
+    # puts "aaaa \033[7;31;40m ciao \033[0m"
+    # ESC[K Clear to end of line
+
     def to_str(prefix= "", tty_color = false)
       str = ""
 
