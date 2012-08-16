@@ -1,6 +1,9 @@
 tree.rb / tree visitor library
 ================================================
 
+Project is moved to new repository tree.rb
+
+
 **tree.rb** is a 'clone' of tree unix command. It is based on tree visitor library.
 Tree visitor is an implementation of visitor design pattern.
 
