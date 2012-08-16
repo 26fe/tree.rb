@@ -74,6 +74,10 @@ module TreeRb
       # end colorize
       #
 
+      opts.on("-s", "Print the size of each file in bytes along with the name.") do
+        options[:show_size] = true
+      end
+
       begin
         rest = opts.parse(argv)
       rescue OptionParser::InvalidOption => e
@@ -106,9 +110,11 @@ module TreeRb
         when 'build-dir'
           # TODO: capture CTRL^C
           # http://ruby-doc.org/core-1.9.3/Kernel.html#method-i-trap
-          Kernel.trap('INT') { put "User interrupted exit"; exit }
+          Signal.trap('INT') { put "User interrupted exit"; exit }
 
           visitor = BuildDirTreeVisitor.new
+          visitor.show_size = options[:show_size]
+  
           dtw.run(visitor)
 
           puts visitor.root.to_str('', options[:colorize])

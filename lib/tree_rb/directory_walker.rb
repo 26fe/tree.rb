@@ -275,7 +275,7 @@ module TreeRb
 
 
       @visitor.enter_node(dirname)
-        entries.each { |basename|
+        entries.each do |basename|
           begin
           next if basename == "." or basename == ".." # ignore always "." and ".."
           pathname = File.join(dirname, basename)
@@ -292,7 +292,7 @@ module TreeRb
           rescue  Errno::EPERM
             $stderr.puts e
           end
-        }
+        end
 
       @visitor.exit_node(dirname)
     end

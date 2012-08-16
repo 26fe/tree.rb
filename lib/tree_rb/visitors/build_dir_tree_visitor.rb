@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 module TreeRb
+
   #
   # Builds a TreeNode from a filesystem directory
   # It similar to CloneTreeNodeVisitor
@@ -13,12 +14,13 @@ module TreeRb
     #
     attr_reader :nr_directories
 
-
     #
     # Number of visited directory (nr_leaves)
     # @see AbsNode#nr_leaves
     #
     attr_reader :nr_files
+
+    attr_accessor :show_size
 
     def initialize
       super
@@ -49,7 +51,14 @@ module TreeRb
     def visit_leaf( pathname )
       @nr_files  += 1
       # connect the leaf_node created to the last tree_node on the stack
-      LeafNode.new( File.basename(pathname), @stack.last )
+      stat = File.lstat(pathname)
+      # stat.symlink?
+      if show_size
+        str  = "#{File.basename(pathname)} #{stat.size}"
+      else
+        str  = "#{File.basename(pathname)}"
+      end
+      LeafNode.new( str, @stack.last )
     end
 
   end
