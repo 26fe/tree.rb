@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-require 'treevisitor'
+require 'tree_rb'

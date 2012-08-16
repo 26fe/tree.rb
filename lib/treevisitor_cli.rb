@@ -1,7 +1,5 @@
+# -*- encoding: utf-8 -*-
 #
 # cli
 #
-
-require 'optparse'
-require 'treevisitor'
-require "treevisitor/cli/cli_tree"
+require "tree_rb/cli/cli_tree"
