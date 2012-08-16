@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tree.rb (0.3.1)
+    tree.rb (0.3.2)
       ansi
       json
 
