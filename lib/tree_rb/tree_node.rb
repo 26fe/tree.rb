@@ -253,52 +253,72 @@ module TreeRb
     # puts "aaaa \033[7;31;40m ciao \033[0m"
     # ESC[K Clear to end of line
 
-    def to_str(prefix= "", tty_color = false)
+
+    def to_str(prefix= "", options = {})
+      #TODO: find a more idiomantic mode to assign an array of options
+      tty_color = options[:colorize].nil? ? false : options[:colorize] 
+      show_indentation = options[:show_indentation].nil? ? true : options[:show_indentation]
       str = ""
 
       # print node itself
       if root?
-        if tty_color
-          str << ANSI.red{ to_s } << "\n"
-        else
-          str << to_s << "\n"
-        end
+        str << node_to_s( to_s, tty_color)
       else
-        str << prefix
-        if self.next
-          str << '|-- '
-        else
-          str << '`-- '
+
+        if show_indentation
+          str << prefix
+          if self.next
+            str << '|-- '
+          else
+            str << '`-- '
+          end
         end
-        if tty_color
-          str << ANSI.red{ to_s } << "\n"
-        else
-          str << to_s << "\n"
+
+        str << node_to_s( to_s, tty_color )
+        if show_indentation
+          prefix += self.next ? "|   " : "    "
         end
-        prefix += self.next ? "|   " : "    "
       end
 
       # print leaves
       @leaves.each do |leaf|
-        str << prefix
-        if !leaf.next.nil? or !@children.empty?
-          str << '|-- '
-        else
-          str << '`-- '
-        end
-        if tty_color
-          str << ANSI.green{ leaf.to_s } << "\n"
-        else
-          str << leaf.to_s << "\n"
-        end
+        
+        if show_indentation
+          str << prefix
+          if !leaf.next.nil? or !@children.empty?
+            str << '|-- '
+          else
+            str << '`-- '
+          end
+        end      
+        
+        str << leaf_to_s( leaf.to_s, tty_color )
       end
 
       # print children
       @children.each do |child|
-        str << child.to_str(prefix, tty_color)
+        str << child.to_str(prefix, options)
       end
       str
     end
 
-  end
-end
+    private
+    
+    def node_to_s( s, tty_color )
+        if tty_color
+          "#{ANSI.red{ s }}\n"
+        else
+          "#{s}\n"
+        end
+    end
+
+    def leaf_to_s( s, tty_color )
+        if tty_color
+          "#{ANSI.green{ s }}\n"
+        else
+          "#{s}\n"
+        end
+    end
+
+  end # end class 
+end # end module TreeRb

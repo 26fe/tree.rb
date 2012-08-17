@@ -78,6 +78,11 @@ module TreeRb
         options[:show_size] = true
       end
 
+      options[:show_indentation] = true
+      opts.on("-i", "Makes tree not print the indentation lines, useful when used in conjunction with the -f option.") do
+        options[:show_indentation] = false
+      end
+
       begin
         rest = opts.parse(argv)
       rescue OptionParser::InvalidOption => e
@@ -108,7 +113,7 @@ module TreeRb
       case options[:algo]
 
         when 'build-dir'
-          # TODO: capture CTRL^C
+          # TODO: capture CTRL^C to avoid show the stack trace
           # http://ruby-doc.org/core-1.9.3/Kernel.html#method-i-trap
           Signal.trap('INT') { put "User interrupted exit"; exit }
 
@@ -117,7 +122,7 @@ module TreeRb
   
           dtw.run(visitor)
 
-          puts visitor.root.to_str('', options[:colorize])
+          puts visitor.root.to_str('', options)
           puts
           puts "#{visitor.nr_directories} directories, #{visitor.nr_files} files"
 
