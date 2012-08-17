@@ -18,6 +18,9 @@ require 'ansi/code'
 #
 
 require "tree_rb/version"
+require "tree_rb/extension_md5"
+require "tree_rb/extension_numeric"
+
 require "tree_rb/abs_node"
 require 'tree_rb/leaf_node'
 require 'tree_rb/tree_node'

@@ -262,7 +262,7 @@ module TreeRb
 
       # print node itself
       if root?
-        str << node_to_s( to_s, tty_color)
+        str << node_to_s( content.to_str, tty_color)
       else
 
         if show_indentation
@@ -274,7 +274,7 @@ module TreeRb
           end
         end
 
-        str << node_to_s( to_s, tty_color )
+        str << node_to_s( content.to_str, tty_color )
         if show_indentation
           prefix += self.next ? "|   " : "    "
         end
@@ -292,7 +292,7 @@ module TreeRb
           end
         end      
         
-        str << leaf_to_s( leaf.to_s, tty_color )
+        str << leaf_to_s( leaf.content.to_str, tty_color )
       end
 
       # print children

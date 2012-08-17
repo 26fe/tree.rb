@@ -22,7 +22,7 @@ module TreeRb
       opts.separator ""
       opts.separator "options: "
 
-      opts.on("-h", "--help", "Show this message") do
+      opts.on("--help", "Show this message") do
         puts opts
         return 0
       end
@@ -78,9 +78,23 @@ module TreeRb
         options[:show_size] = true
       end
 
+      msg =<<-EOS
+       Print the size of each file but in a more human readable way, e.g. appending  a  size  letter  for  kilobytes  (K),
+              megabytes (M), gigabytes (G), terrabytes (T), petabytes (P) and exabytes (E).
+      EOS
+
+      opts.on("-h", msg) do
+        options[:show_size_human] = true
+      end
+
       options[:show_indentation] = true
       opts.on("-i", "Makes tree not print the indentation lines, useful when used in conjunction with the -f option.") do
         options[:show_indentation] = false
+      end
+
+      options[:show_md5] = false
+      opts.on("--md5", "show md5 of file") do
+        options[:show_md5] = true
       end
 
       begin
@@ -117,9 +131,7 @@ module TreeRb
           # http://ruby-doc.org/core-1.9.3/Kernel.html#method-i-trap
           Signal.trap('INT') { put "User interrupted exit"; exit }
 
-          visitor = BuildDirTreeVisitor.new
-          visitor.show_size = options[:show_size]
-  
+          visitor = BuildDirTreeVisitor.new(options)
           dtw.run(visitor)
 
           puts visitor.root.to_str('', options)
