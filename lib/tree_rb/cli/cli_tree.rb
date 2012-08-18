@@ -32,12 +32,18 @@ module TreeRb
         return 0
       end
 
-      opts.on("-a", "All file are listed") do
+      opts.on("-a", "All file are listed i.e. include dot files") do
         options[:all_files] = true
       end
 
       opts.on("-d", "List directories only") do
         options[:only_directories] = true
+      end
+
+      options[:only_files] = false
+      opts.on("--only-files", "show only file implies -i") do
+        options[:only_files]       = true
+        options[:show_indentation] = false
       end
 
       opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
@@ -52,8 +58,13 @@ module TreeRb
       algo_aliases = { "b" => "build-dir", "v" => "print-dir", "j" => "json", "y" => "yaml" }
 
       algo_list = (algo_aliases.keys + algos).join(',')
-      opts.on("-f", "--format ALGO", algos, algo_aliases, "select an algo", "  (#{algo_list})") do |algo|
+      opts.on("--format ALGO", algos, algo_aliases, "select an algo", "  (#{algo_list})") do |algo|
         options[:algo] = algo
+      end
+
+      options[:show_full_path] = false
+      opts.on("-f", "Prints the full path prefix for each file.") do
+        options[:show_full_path] = true
       end
 
       #
@@ -97,6 +108,18 @@ module TreeRb
         options[:show_md5] = true
       end
 
+      options[:show_sha1] = false
+      opts.on("--sha1", "show sha1 of a file") do
+        options[:show_sha1] = true
+      end
+
+      options[:show_md5sum] = false
+      opts.on("--md5sum", "show ake md5sum implies -i and --only-files") do
+        options[:only_files]       = true
+        options[:show_md5sum]      = true
+        options[:show_indentation] = false
+      end
+
       begin
         rest = opts.parse(argv)
       rescue OptionParser::InvalidOption => e
@@ -114,9 +137,6 @@ module TreeRb
       else
         dirname = rest[0]
       end
-
-
-
 
       dirname = File.expand_path(dirname)
 

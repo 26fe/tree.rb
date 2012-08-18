@@ -283,7 +283,9 @@ module TreeRb
 
       # print node itself
       if root?
-        str << node_content_to_str(content, options)
+        unless options[:only_files]
+          str << node_content_to_str(content, options)
+        end
       else
 
         if show_indentation
@@ -295,9 +297,11 @@ module TreeRb
           end
         end
 
-        str << node_content_to_str(content, options)
-        if show_indentation
-          prefix += self.next ? CONT_1 : CONT_2
+        unless options[:only_files]
+          str << node_content_to_str(content, options)
+          if show_indentation
+            prefix += self.next ? CONT_1 : CONT_2
+          end
         end
       end
 
