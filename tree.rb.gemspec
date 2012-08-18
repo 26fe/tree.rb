@@ -31,11 +31,8 @@ An example of DSL to build tree:
   gem.homepage = "http://github.com/tokiro/tree.rb"
 
   gem.post_install_message = %q{
-
   Thank you to have installed tree.rb, any feedback is appreciated.
-
 }
-
 
   gem.require_paths = %w{ lib }
 
@@ -61,6 +58,7 @@ An example of DSL to build tree:
   # s.files         = `git ls-files`.split("\n")
   # gem.files         = `git ls-files`.split($\)
   gem.files = %w{LICENSE.txt README.md Rakefile tree.rb.gemspec .gemtest}
+  gem.files.concat Dir['ext/**/*.rb']
   gem.files.concat Dir['lib/**/*.rb']
   gem.files.concat Dir['tasks/**/*.rake']
   gem.files.concat Dir['examples/**/*']
@@ -70,7 +68,7 @@ An example of DSL to build tree:
   #
   # s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   # gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.executables = %w{ tree.rb }
+  gem.executables = %w{ tree.rb rtree tree_rb }
 
 
   #

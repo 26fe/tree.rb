@@ -335,17 +335,17 @@ module TreeRb
 
     def node_content_to_str(content, options)
       if options[:tty_color]
-        "#{ANSI.red { content }}\n"
+        "#{ANSI.red { content.to_str }}\n"
       else
-        "#{content}\n"
+        "#{content.to_str }\n"
       end
     end
 
     def leaf_content_to_str(content, options)
       if options[:tty_color]
-        "#{ANSI.green { content }}\n"
+        "#{ANSI.green { content.to_str }}\n"
       else
-        "#{content}\n"
+        "#{content.to_str }\n"
       end
     end
 
