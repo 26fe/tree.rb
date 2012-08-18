@@ -90,7 +90,7 @@ module TreeRb
         end
         leaf_node
       end
-    end  # end class << self
+    end # end class << self
 
     # leaves of this node
     attr_reader :leaves
@@ -249,50 +249,71 @@ module TreeRb
     # TODO: integrate with ansi color
     # TODO: see dircolors command
     # http://isthe.com/chongo/tech/comp/ansi_escapes.html
+
     # puts "\033[2J" # clear screen
-    # puts "aaaa \033[7;31;40m ciao \033[0m"
     # ESC[K Clear to end of line
+    # puts "aaaa \033[7;31;40m ciao \033[0m"
 
 
-    def to_str(prefix= "", options = {})
-      #TODO: find a more idiomantic mode to assign an array of options
-      tty_color = options[:colorize].nil? ? false : options[:colorize] 
+    #
+    # check console character encoding
+    # altre variabili LC_CTYPE
+    # LC_ALL
+    # comando locale
+    # puts "enconding: #{ENV['LANG']}"
+    #
+
+
+    # │ (ascii 179)
+    # ├ (ascii 195)
+    # └ (ascii 192)
+    # ─ (ascii 196)
+
+
+    BRANCH      = '|-- '
+    LAST_BRANCH = '`-- '
+    CONT_1      = "|   "
+    CONT_2      = "    "
+
+    def to_str(prefix= "", options = { })
+      #TODO: find a more idiomatic mode to assign an array of options
+      tty_color        = options[:colorize].nil? ? false : options[:colorize]
       show_indentation = options[:show_indentation].nil? ? true : options[:show_indentation]
-      str = ""
+      str              = ""
 
       # print node itself
       if root?
-        str << node_to_s( content.to_str, tty_color)
+        str << node_content_to_str(content, options)
       else
 
         if show_indentation
           str << prefix
           if self.next
-            str << '|-- '
+            str << BRANCH
           else
-            str << '`-- '
+            str << LAST_BRANCH
           end
         end
 
-        str << node_to_s( content.to_str, tty_color )
+        str << node_content_to_str(content, options)
         if show_indentation
-          prefix += self.next ? "|   " : "    "
+          prefix += self.next ? CONT_1 : CONT_2
         end
       end
 
       # print leaves
       @leaves.each do |leaf|
-        
+
         if show_indentation
           str << prefix
           if !leaf.next.nil? or !@children.empty?
-            str << '|-- '
+            str << BRANCH
           else
-            str << '`-- '
+            str << LAST_BRANCH
           end
-        end      
-        
-        str << leaf_to_s( leaf.content.to_str, tty_color )
+        end
+
+        str << leaf_content_to_str(leaf.content, options)
       end
 
       # print children
@@ -302,23 +323,32 @@ module TreeRb
       str
     end
 
+    def self.method_added(s)
+      if s == :to_str
+        puts "Warning: you should not override method 'to_str'"
+      else
+        super
+      end
+    end
+
     private
-    
-    def node_to_s( s, tty_color )
-        if tty_color
-          "#{ANSI.red{ s }}\n"
-        else
-          "#{s}\n"
-        end
+
+    def node_content_to_str(content, options)
+      if options[:tty_color]
+        "#{ANSI.red { content }}\n"
+      else
+        "#{content}\n"
+      end
     end
 
-    def leaf_to_s( s, tty_color )
-        if tty_color
-          "#{ANSI.green{ s }}\n"
-        else
-          "#{s}\n"
-        end
+    def leaf_content_to_str(content, options)
+      if options[:tty_color]
+        "#{ANSI.green { content }}\n"
+      else
+        "#{content}\n"
+      end
     end
 
-  end # end class 
+
+  end # end class
 end # end module TreeRb

@@ -130,10 +130,6 @@ module TreeRb
       not_implemented
     end
 
-    def to_s
-      @content.to_s
-    end
-
     protected
 
     def parent=(parent)

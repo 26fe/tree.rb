@@ -4,14 +4,14 @@ require File.join(File.dirname(__FILE__), "..", "spec_helper")
 describe "Tree Node Dsl Derived Class with no-arg constructor " do
 
   class DTreeNode < TreeNode
-    def to_s
-      "dt: #{content}"
+    def content
+      "dt: #{super}"
     end
   end
 
   class DLeafNode < LeafNode
-    def to_s
-      "dl: #{content}"
+    def content
+      "dl: #{super}"
     end
   end
 
@@ -26,7 +26,7 @@ describe "Tree Node Dsl Derived Class with no-arg constructor " do
       end
     end
 
-    # puts tree.to_str
+    puts tree.to_str
     out =<<EOS
 dt: root
 |-- dl: l1

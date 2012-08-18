@@ -4,7 +4,7 @@
 #
 
 require 'optparse'
-require 'treevisitor'
+require 'tree_rb'
 
 begin
   require 'Win32/Console/ANSI' if RUBY_PLATFORM =~ /win32/

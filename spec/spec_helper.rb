@@ -5,8 +5,8 @@
 require "stringio"
 
 $:.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-require 'treevisitor'
-require 'treevisitor_cli'
+require 'tree_rb'
+require 'tree_rb_cli'
 include TreeRb
 
 FIXTURES = File.expand_path( File.join( File.dirname(__FILE__), "fixtures" ) )

@@ -7,26 +7,22 @@ describe "Tree Node Dsl Derived Class with n-arg constructor" do
     attr_reader :description
 
     def initialize(name, description, parent)
-      super(name, parent)
-      @description =  description
+      content = "a: #{description}"
+      super(content, parent)
+      @description = description
     end
 
-    def to_s
-      "a: #{description}"
-    end
   end
 
   class ArgsLeafNode < LeafNode
     attr_reader :description
 
     def initialize(name, description, parent)
-      super(name, parent)
-      @description =  description
+      content = "a: #{description}"
+      super(content, parent)
+      @description = description
     end
 
-    def to_s
-      "a: #{description}"
-    end
   end
 
   it "test_derivated_args" do

@@ -5,7 +5,7 @@ describe CliTree do
 
   it "help message" do
     out = with_output_captured do
-      args = %w{-h}
+      args = %w{--help}
       CliTree.new.parse_args(args)
     end
     out[:stdout].should match /Usage:/

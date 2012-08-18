@@ -116,25 +116,6 @@ module TreeRb
       end
 
 
-      #
-      # check console character encoding
-      # altre variabili LC_CTYPE
-      # LC_ALL
-      # comando locale
-      puts "enconding: #{ENV['LANG']}"
-      #
-
-
-
-# How would I print these characters in Linux?
-# 
-# │ (ascii 179)
-# 
-# ├ (ascii 195)
-# 
-# └ (ascii 192)
-# 
-# ─ (ascii 196)
 
 
       dirname = File.expand_path(dirname)
