@@ -29,11 +29,13 @@ Gem::Specification.new do |gem|
   gem.files = %w{LICENSE.txt README.md Rakefile treevisitor.gemspec}
   gem.files.concat Dir['tasks/**/*.rake']
 
-  #
-  # test files
-  #
+  s.post_install_message =<<-EOS
+  #######################################################
 
-   WARNING This gem (treevisitor) was renamed to tree.rb, please update your dependencies
+  WARNING This gem (treevisitor) was renamed to tree.rb, please update your dependencies.
+
+  #######################################################
+
 EOS
   gem.files = %w{LICENSE.txt README.md Rakefile treevisitor.gemspec}
 
