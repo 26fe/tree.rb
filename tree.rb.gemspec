@@ -30,11 +30,16 @@ An example of DSL to build tree:
   gem.email = "tokiro.oyama@gmail.com"
   gem.homepage = "http://github.com/tokiro/tree.rb"
 
-  gem.post_install_message = %q{
-  Thank you to have installed tree.rb, any feedback is appreciated.
-}
+  gem.post_install_message = %q{Thank you to have installed tree.rb, any feedback is appreciated.}
 
   gem.require_paths = %w{ lib }
+
+  #
+  # load platform dependent gems
+  #
+  # gem.extensions = 'ext/mkrf_conf.rb'
+  # win32 depends on win32console.gem but this must be installed from ext/mkrf_conf.rb
+  # gem.add_runtime_dependency(%q<win32console>, [">= 0"])
 
   #
   # dependencies
@@ -42,10 +47,7 @@ An example of DSL to build tree:
 
   gem.add_runtime_dependency(%q<json>, [">= 0"])
   gem.add_runtime_dependency(%q<ansi>, [">= 0"])
-
-  # win32 depends on win32console.gem but this must be installed from ext/mkrf_conf.rb
-  # gem.add_runtime_dependency(%q<win32console>, [">= 0"])
-  #
+  gem.add_runtime_dependency(%q<sqlite3-ruby>, [">= 0"])
 
   gem.add_development_dependency(%q<rake>, [">= 0"])
   gem.add_development_dependency(%q<yard>, [">= 0"])
