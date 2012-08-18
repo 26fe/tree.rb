@@ -1,18 +1,22 @@
 # -*- coding: utf-8 -*-
-#
-# cli
-#
 
+#
+# stdlib
+#
 require 'optparse'
-require 'tree_rb'
+
+#
+# gem
+#
 
 begin
-  require 'Win32/Console/ANSI' if RUBY_PLATFORM =~ /win32/
+  require 'Win32/Console/ANSI'
 rescue LoadError
   puts 'You must gem install win32console to use color on Windows'
 end
 
 #
-# gem
+# tree_rb cli
 #
+require 'tree_rb'
 require "tree_rb/cli/cli_tree"
