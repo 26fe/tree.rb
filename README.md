@@ -1,6 +1,14 @@
 tree.rb / tree visitor library
 ================================================
 
+Project is moved to new gem tree.rb (https://rubygems.org/gems/tree.rb/stats)
+and new repository (https://github.com/tokiro/tree.rb)
+
+
+
+
+
+
 **tree.rb** is a 'clone' of tree unix command. It is based on tree visitor library.
 Tree visitor is an implementation of visitor design pattern.
 

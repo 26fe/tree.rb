@@ -8,6 +8,7 @@ Gem::Specification.new do |gem|
   gem.platform = Gem::Platform::RUBY
   gem.summary = "Implementation of visitor design pattern"
   gem.description = <<-EOF
+      Gem renamed to tree.rb
       Implementation of visitor design pattern. It contains a 'tree.rb'
       command line clone of the tree unix tool.
   EOF
@@ -25,16 +26,15 @@ Gem::Specification.new do |gem|
   #
   # files
   #
-  # s.files         = `git ls-files`.split("\n")
   gem.files = %w{LICENSE.txt README.md Rakefile treevisitor.gemspec}
   gem.files.concat Dir['tasks/**/*.rake']
 
-
-  gem.require_paths = ["lib"]
-
-
-  gem.post_install_message = <<EOS
+  #
+  # test files
+  #
 
    WARNING This gem (treevisitor) was renamed to tree.rb, please update your dependencies
 EOS
+  gem.files = %w{LICENSE.txt README.md Rakefile treevisitor.gemspec}
+
 end

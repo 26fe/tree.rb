@@ -8,8 +8,9 @@ GEM
   remote: http://rubygems.org/
   specs:
     ansi (1.4.3)
-    json (1.7.4)
-    tree.rb (0.3.1)
+    json (1.7.5)
+    json (1.7.5-java)
+    tree.rb (0.3.2)
       ansi
       json
 
