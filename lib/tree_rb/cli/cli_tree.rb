@@ -116,13 +116,15 @@ module TreeRb
         options[:only_files]       = true
         options[:show_md5sum]      = true
         options[:show_indentation] = false
+        options[:show_report]      = false
       end
 
       options[:show_sha1sum] = false
-      parser.on("--md5sum", "show ake md5sum implies -i and --only-files") do
+      parser.on("--sha1sum", "show ake sha1sum output implies -i and --only-files") do
         options[:only_files]       = true
         options[:show_sha1sum]     = true
         options[:show_indentation] = false
+        options[:show_report]      = false
       end
 
       parser.on("-o [FILE]", "--output [FILE]", String) do |v|
@@ -136,6 +138,11 @@ module TreeRb
       options[:force_overwrite_output] = false
       parser.on("--force", "overwrite output") do
         options[:force_overwrite_output] = true
+      end
+
+      options[:show_report] = true
+      parser.on("--noreport", "Omits printing of the file and directory report at the end of the tree listing.") do
+        options[:show_report] = false
       end
 
       parser
@@ -210,8 +217,11 @@ module TreeRb
           dtw.run(visitor)
 
           output.puts visitor.root.to_str('', options)
-          output.puts
-          output.puts "#{visitor.nr_directories} directories, #{visitor.nr_files} files"
+
+          if options[:show_report]
+            output.puts
+            output.puts "#{visitor.nr_directories} directories, #{visitor.nr_files} files"
+          end
 
         when 'print-dir'
           visitor = PrintDirTreeVisitor.new
@@ -235,45 +245,11 @@ module TreeRb
             else
               output.close
               filename = options[:output]
-
-              db = SQLite3::Database.new(filename)
-              db.execute("create table files(digest varchar(40),path varchar(1024))")
-
-              start = Time.now
-              me    = self
-              bytes = 0
-              dtw.run do
-                on_leaf do |filename|
-
-                  puts filename
-                  digest = SHA1.file(filename).hexdigest
-                  db.execute("insert into files values(\"#{digest}\",\"#{filename}\")")
-
-                  # entry = Entry.from_filename(filename)
-                  # me.add_entry(entry)
-                  # bytes += entry.size
-                  # if me.verbose_level > 0
-                  #   print "#{CR}#{filename}#{CLEAR}"
-                  # end
-                  # if me.show_progress
-                  #   sec = Time.now - start
-                  #   print "#{CR}bytes: #{bytes.to_human} time: #{sec} bytes/sec #{bytes/sec} #{CLEAR}"
-                  # end
-                end
-              end
-
-              # Loop through digests.
-              db.execute("select digest,count(1) as count from files group by digest order by count desc").each do |row|
-                if row[1] > 1 # Skip unique files.
-                  puts "Duplicates found:"
-                  digest = row[0]
-                  # List the duplicate files.
-                  db.execute("select digest,path from files where digest='#{digest}'").each do |dup_row|
-                    puts "[#{digest}] #{dup_row[1]}"
-                  end
-                end
-              end
-
+              visitor = SqliteDirTreeVisitor.new(filename)
+              #start = Time.now
+              #me    = self
+              #bytes = 0
+              dtw.run(visitor)
             end
 
           rescue LoadError

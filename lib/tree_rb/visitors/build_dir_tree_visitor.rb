@@ -35,7 +35,11 @@ module TreeRb
       end
 
       if options[:show_md5sum]
-        @str = "#{MD5.file(pathname).hexdigest} #{file_name}"
+        @str = "#{MD5.file(pathname).hexdigest}  #{file_name}"
+        return
+      end
+      if options[:show_sha1sum]
+        @str = "#{SHA1.file(pathname).hexdigest}  #{file_name}"
         return
       end
 

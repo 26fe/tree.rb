@@ -37,12 +37,20 @@ require 'tree_rb/directory_walker'
 #
 # visitors
 #
-require 'tree_rb/visitors/block_tree_node_visitor'
-require 'tree_rb/visitors/build_dir_tree_visitor'
-require 'tree_rb/visitors/callback_tree_node_visitor2'
-require 'tree_rb/visitors/clone_tree_node_visitor'
-require 'tree_rb/visitors/depth_tree_node_visitor'
-require 'tree_rb/visitors/print_dir_tree_visitor'
-require 'tree_rb/visitors/directory_to_hash_visitor'
+#require 'tree_rb/visitors/block_tree_node_visitor'
+#require 'tree_rb/visitors/build_dir_tree_visitor'
+#require 'tree_rb/visitors/callback_tree_node_visitor2'
+#require 'tree_rb/visitors/clone_tree_node_visitor'
+#require 'tree_rb/visitors/depth_tree_node_visitor'
+#require 'tree_rb/visitors/print_dir_tree_visitor'
+#require 'tree_rb/visitors/directory_to_hash_visitor'
+#require 'tree_rb/visitors/sqlite_dir_tree_visitor'
+
+visitors_dir = File.join(File.dirname(__FILE__), "tree_rb", "visitors")
+unless Dir.exist? visitors_dir
+  raise "cannot found directory '#{visitors_dir}'"
+end
+Dir[ File.join(visitors_dir, "*.rb") ].each { |f|require f }
+
 
 require 'tree_rb/util/dir_processor'

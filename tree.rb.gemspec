@@ -48,7 +48,7 @@ An example of DSL to build tree:
 
   gem.add_runtime_dependency(%q<json>, [">= 0"])
   gem.add_runtime_dependency(%q<ansi>, [">= 0"])
-  gem.add_runtime_dependency(%q<sqlite3-ruby>, [">= 0"])
+  gem.add_runtime_dependency(%q<sqlite3>, [">= 0"])
 
   gem.add_development_dependency(%q<rake>, [">= 0"])
   gem.add_development_dependency(%q<yard>, [">= 0"])
@@ -58,7 +58,6 @@ An example of DSL to build tree:
   #
   # files
   #
-  # s.files         = `git ls-files`.split("\n")
   # gem.files         = `git ls-files`.split($\)
   gem.files = %w{LICENSE.txt README.md Rakefile tree.rb.gemspec .gemtest}
   gem.files.concat Dir['ext/**/*.rb']
@@ -69,10 +68,9 @@ An example of DSL to build tree:
   #
   # bin
   #
-  # s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  # gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   # gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  # Dir["bin/*"].map(&File.method(:basename))
-  gem.executables = %w{ tree.rb rtree tree_rb }
+  gem.executables = Dir["bin/*"].map(&File.method(:basename))
 
 
   #

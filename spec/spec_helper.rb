@@ -3,7 +3,11 @@
 # std lib
 #
 require "stringio"
+require 'ostruct'
 
+#
+# gem
+#
 $:.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'tree_rb'
 require 'tree_rb_cli'
@@ -11,7 +15,7 @@ include TreeRb
 
 FIXTURES = File.expand_path( File.join( File.dirname(__FILE__), "fixtures" ) )
 
-def with_output_captured
+def capture_output
   old_stdout, old_stderr = $stdout, $stderr
   out = StringIO.new
   err = StringIO.new
@@ -23,5 +27,5 @@ def with_output_captured
     $stdout = old_stdout
     $stderr = old_stderr
   end
-  { :stdout => out.string, :stderr => err.string }
+  OpenStruct.new(:out => out.string, :err => err.string)
 end
