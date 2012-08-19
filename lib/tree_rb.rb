@@ -12,16 +12,21 @@ require 'yaml'
 # require 'rubygems' # rubygems must be loaded from binary file (tree.rb) so $LOAD_PATH is not modified
 require 'json'
 require 'ansi/code'
+begin
+  require 'Win32/Console/ANSI' if RUBY_PLATFORM =~ /win32/
+rescue LoadError
+  puts 'You must gem install win32console to use color on Windows'
+end
 
 #
 # treevisitor
 #
 
-require "tree_rb/version"
-require "tree_rb/extension_digest"
-require "tree_rb/extension_numeric"
+require 'tree_rb/version'
+require 'tree_rb/extension_digest'
+require 'tree_rb/extension_numeric'
 
-require "tree_rb/abs_node"
+require 'tree_rb/abs_node'
 require 'tree_rb/leaf_node'
 require 'tree_rb/tree_node'
 require 'tree_rb/basic_tree_node_visitor'
