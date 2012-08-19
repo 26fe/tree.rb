@@ -1,3 +1,4 @@
+#!/usr/bin/env gem build
 # -*- encoding: utf-8; mode: ruby -*-
 $:.push File.expand_path("../lib", __FILE__)
 require "tree_rb/version"
@@ -70,6 +71,7 @@ An example of DSL to build tree:
   #
   # s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   # gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  # Dir["bin/*"].map(&File.method(:basename))
   gem.executables = %w{ tree.rb rtree tree_rb }
 
 
