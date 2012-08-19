@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |gem|
   gem.name = "treevisitor"
-  gem.version = "0.2.4"
+  gem.version = "0.2.5"
 
   gem.platform = Gem::Platform::RUBY
   gem.summary = "Implementation of visitor design pattern"

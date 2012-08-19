@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    treevisitor (0.2.4)
+    treevisitor (0.2.5)
       tree.rb
 
 GEM
@@ -10,7 +10,7 @@ GEM
     ansi (1.4.3)
     json (1.7.5)
     json (1.7.5-java)
-    tree.rb (0.3.2)
+    tree.rb (0.3.4)
       ansi
       json
 
