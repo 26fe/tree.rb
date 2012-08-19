@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
 
   gem.authors = ["Tokiro"]
   gem.email = "tokiro.oyama@gmail.com"
-  gem.homepage = "http://github.com/tokiro/treevisitor"
+  gem.homepage = "https://github.com/tokiro/tree.rb"
   gem.require_paths = %w{ lib }
 
   #
