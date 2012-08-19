@@ -6,9 +6,6 @@ and new repository (https://github.com/tokiro/tree.rb)
 
 
 
-
-
-
 **tree.rb** is a 'clone' of tree unix command. It is based on tree visitor library.
 Tree visitor is an implementation of visitor design pattern.
 
@@ -80,7 +77,7 @@ $ ruby bin/tree.rb --format json lib
 
 The json structure can be transformed into image:
 
-<img src='https://github.com/tokiro/treevisitor/raw/master/examples/protovis/treevisitor.png'/>
+<img src='https://github.com/tokiro/tree.rb/raw/master/examples/protovis/treevisitor.png'/>
 
 ### Documentation
 
