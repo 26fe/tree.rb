@@ -58,7 +58,7 @@ module TreeRb
         options[:show_indentation] = false
       end
 
-      algos        = %w[build-dir print-dir json yaml sqlite]
+      algos        = %w[build-dir print-dir json json2 yaml sqlite]
       algo_aliases = { "b" => "build-dir", "v" => "print-dir", "j" => "json", "y" => "yaml", "s" => "sqlite" }
 
       algo_list = (algo_aliases.keys + algos).join(',')
@@ -94,7 +94,6 @@ module TreeRb
         options[:max_level] = l
       end
               
-
       options[:show_full_path] = false
       parser.on("-f", "Prints the full path prefix for each file.") do
         options[:show_full_path] = true
@@ -208,6 +207,8 @@ module TreeRb
         options[:colorize] = output.isatty
       end
 
+      # TODO: capture CTRL^C to avoid show the stack trace
+      # http://ruby-doc.org/core-1.9.3/Kernel.html#method-i-trap
       Signal.trap('INT') { puts "intercepted ctr+c"; exit }
 
       if rest.length < 1
@@ -229,8 +230,6 @@ module TreeRb
       case options[:algo]
 
         when 'build-dir'
-          # TODO: capture CTRL^C to avoid show the stack trace
-          # http://ruby-doc.org/core-1.9.3/Kernel.html#method-i-trap
 
           visitor = BuildDirTreeVisitor.new(options)
           dtw.run(visitor)
@@ -248,6 +247,11 @@ module TreeRb
 
         when 'json'
           visitor = DirectoryToHashVisitor.new(dirname)
+          root    = dtw.run(visitor).root
+          output.puts JSON.pretty_generate(root)
+
+        when 'json2'
+          visitor = DirectoryToHash2Visitor.new(dirname)
           root    = dtw.run(visitor).root
           output.puts JSON.pretty_generate(root)
 
