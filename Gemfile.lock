@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tree.rb (0.3.5)
+    tree.rb (0.3.6)
       ansi
       json
       sqlite3

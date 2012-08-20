@@ -19,17 +19,31 @@ module TreeRb
       parser.separator "Code https://github.com/tokiro/treevisitor. Feedback to tokiro.oyama@gmail.com"
 
       parser.separator ""
-      parser.separator "options: "
+      parser.separator "Generic options: "
 
-      parser.on("--help", "Show this message") do
-        puts parser
-        options[:exit] = 1
+      parser.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+        options[:verbose] = v
       end
 
-      parser.on("--version", "Show the version") do
-        puts "tree.rb version #{TreeRb::VERSION}"
-        options[:exit] = 1
+      parser.on("-q", "--quiet", "quiet mode as --no-verbose") do
+        options[:verbose] = false
       end
+
+      parser.on("-o [FILE]", "--output [FILE]", String) do |v|
+        if options[:output]
+          puts "only one file of output can be used"
+          options[:exit] = true
+        end
+        options[:output] = v
+      end
+
+      options[:force_overwrite_output] = false
+      parser.on("--force", "overwrite output") do
+        options[:force_overwrite_output] = true
+      end
+
+      parser.separator ""
+      parser.separator "Filter options: "
 
       parser.on("-a", "All file are listed i.e. include dot files") do
         options[:all_files] = true
@@ -45,14 +59,6 @@ module TreeRb
         options[:show_indentation] = false
       end
 
-      parser.on("-v", "--[no-]verbose", "Run verbosely") do |v|
-        options[:verbose] = v
-      end
-
-      parser.on("-q", "--quiet", "quiet mode as --no-verbose") do
-        options[:verbose] = false
-      end
-
       algos        = %w[build-dir print-dir json yaml sqlite]
       algo_aliases = { "b" => "build-dir", "v" => "print-dir", "j" => "json", "y" => "yaml", "s" => "sqlite" }
 
@@ -61,10 +67,8 @@ module TreeRb
         options[:algo] = algo
       end
 
-      options[:show_full_path] = false
-      parser.on("-f", "Prints the full path prefix for each file.") do
-        options[:show_full_path] = true
-      end
+      parser.separator ""
+      parser.separator "print options:"
 
       #
       # begin colorize
@@ -75,7 +79,10 @@ module TreeRb
       end
 
       # copied from tree man page
-      parser.on("-C", "Turn colorization on always, using built-in color defaults if the LS_COLORS environment variable is not set.  Useful to colorize output to a pipe.") do
+      parser.on("-C", 
+                "Turn colorization on always, using built-in color", 
+                "  defaults if the LS_COLORS environment variable is not set.",
+                "  Useful to colorize output to a pipe.") do
         options[:colorize_force] = true
       end
 
@@ -83,21 +90,32 @@ module TreeRb
       # end colorize
       #
 
+      options[:level] = nil
+      parser.on("-L [LEVEL]", Integer, "Max display depth of the directory tree.") do |l|
+        options[:level] = l
+      end
+              
+
+      options[:show_full_path] = false
+      parser.on("-f", "Prints the full path prefix for each file.") do
+        options[:show_full_path] = true
+      end
+
       parser.on("-s", "Print the size of each file in bytes along with the name.") do
         options[:show_size] = true
       end
 
-      msg =<<-EOS
-       Print the size of each file but in a more human readable way, e.g. appending  a  size  letter  for  kilobytes  (K),
-              megabytes (M), gigabytes (G), terrabytes (T), petabytes (P) and exabytes (E).
-      EOS
-
-      parser.on("-h", msg) do
+      parser.on("-h", 
+                "Print the size of each file but in a more human readable way,", 
+                "  e.g. appending  a  size  letter  for  kilobytes  (K), megabytes (M),", 
+                "  gigabytes (G), terrabytes (T), petabytes (P) and exabytes (E).") do
         options[:show_size_human] = true
       end
 
       options[:show_indentation] = true
-      parser.on("-i", "Makes tree not print the indentation lines, useful when used in conjunction with the -f option.") do
+      parser.on("-i", 
+                "Makes tree not print the indentation lines, ", 
+                "  useful when used in conjunction with the -f option.") do
         options[:show_indentation] = false
       end
 
@@ -110,6 +128,14 @@ module TreeRb
       parser.on("--sha1", "show sha1 of a file") do
         options[:show_sha1] = true
       end
+
+      options[:show_report] = true
+      parser.on("--noreport", "Omits printing of the file and directory report at the end of the tree listing.") do
+        options[:show_report] = false
+      end
+
+      parser.separator ""
+      parser.separator "shortcut options:"
 
       options[:show_md5sum] = false
       parser.on("--md5sum", "show ake md5sum implies -i and --only-files") do
@@ -127,22 +153,17 @@ module TreeRb
         options[:show_report]      = false
       end
 
-      parser.on("-o [FILE]", "--output [FILE]", String) do |v|
-        if options[:output]
-          puts "only one file of output can be used"
-          options[:exit] = true
-        end
-        options[:output] = v
+      parser.separator ""
+      parser.separator "Other options:"
+
+      parser.on_tail("--help", "Show this message") do
+        puts parser
+        options[:exit] = 1
       end
 
-      options[:force_overwrite_output] = false
-      parser.on("--force", "overwrite output") do
-        options[:force_overwrite_output] = true
-      end
-
-      options[:show_report] = true
-      parser.on("--noreport", "Omits printing of the file and directory report at the end of the tree listing.") do
-        options[:show_report] = false
+      parser.on_tail("--version", "Show the version") do
+        puts "tree.rb version #{TreeRb::VERSION}"
+        options[:exit] = 1
       end
 
       parser
