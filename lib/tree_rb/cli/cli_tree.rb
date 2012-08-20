@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 module TreeRb
+
   #
   #
   #
@@ -9,9 +10,7 @@ module TreeRb
       self.new.parse_args(ARGV)
     end
 
-
     def options_parser(options)
-
       parser        = OptionParser.new
       parser.banner = "Usage: tree.rb [options] [directory]"
       parser.separator "list contents of directories in a tree-like format"
@@ -90,9 +89,9 @@ module TreeRb
       # end colorize
       #
 
-      options[:level] = nil
+      options[:max_level] = nil
       parser.on("-L [LEVEL]", Integer, "Max display depth of the directory tree.") do |l|
-        options[:level] = l
+        options[:max_level] = l
       end
               
 
@@ -170,7 +169,6 @@ module TreeRb
     end
 
     def parse_args(argv)
-
       options = { :verbose => true, :force => false, :algo => 'build-dir' }
       parser  = options_parser(options)
 
@@ -219,10 +217,10 @@ module TreeRb
       end
 
       #
-      # 1. build dirtreewalker
+      # 1. build dir tree walker
       #
       dirname = File.expand_path(dirname)
-      dtw     = DirTreeWalker.new(dirname)
+      dtw     = DirTreeWalker.new(dirname, options)
       unless options[:all_files]
         dtw.ignore(/^\.[^.]+/) # ignore all file starting with "."
       end

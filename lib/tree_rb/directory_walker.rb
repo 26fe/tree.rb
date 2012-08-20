@@ -87,6 +87,11 @@ module TreeRb
       # options
       #
       @visit_file = true
+
+      @max_level = nil
+      if options and options[:max_level]
+        @max_level = options[:max_level]
+      end
     end
 
     ##########################################################################
@@ -258,9 +263,7 @@ module TreeRb
     #
     # recurse on other directories
     #
-    def process_directory(dirname)
-      # return if ignore_dir?( dirname )
-
+    def process_directory(dirname, level=0)
       begin
         entries = Dir.entries(dirname).sort
       rescue Errno::EACCES => e
@@ -281,7 +284,9 @@ module TreeRb
           pathname = File.join(dirname, basename)
 
           if File.directory?(pathname)
-            process_directory(pathname) unless ignore_dir?(basename)
+            if not ignore_dir?(basename) and (@max_level.nil? or @max_level > level)
+              process_directory(pathname, level+1) 
+            end
           else
             if !!@visit_file && match?(basename) && !ignore_file?(basename)
               @visitor.visit_leaf(pathname)
