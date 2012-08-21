@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 module TreeRb
-  
+
 #{
 # "name": "flare",
 # "children": [
@@ -393,14 +393,13 @@ module TreeRb
 
     def initialize(pathname)
       @stack = []
-      @node = {name:"root", children:[]}
-      @root = @node
     end
 
     def enter_node(pathname)
+      @root = @node if @root.nil?
       @node = {name: File.basename(pathname), children: []}
-      @stack.last[:children] << @node
-      @stack.push(node)
+      @stack.last[:children] << @node   unless @stack.empty?
+      @stack.push(@node)
     end
 
     def exit_node(pathname)

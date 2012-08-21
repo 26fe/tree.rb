@@ -78,8 +78,8 @@ module TreeRb
       end
 
       # copied from tree man page
-      parser.on("-C", 
-                "Turn colorization on always, using built-in color", 
+      parser.on("-C",
+                "Turn colorization on always, using built-in color",
                 "  defaults if the LS_COLORS environment variable is not set.",
                 "  Useful to colorize output to a pipe.") do
         options[:colorize_force] = true
@@ -93,7 +93,7 @@ module TreeRb
       parser.on("-L [LEVEL]", Integer, "Max display depth of the directory tree.") do |l|
         options[:max_level] = l
       end
-              
+
       options[:show_full_path] = false
       parser.on("-f", "Prints the full path prefix for each file.") do
         options[:show_full_path] = true
@@ -103,16 +103,16 @@ module TreeRb
         options[:show_size] = true
       end
 
-      parser.on("-h", 
-                "Print the size of each file but in a more human readable way,", 
-                "  e.g. appending  a  size  letter  for  kilobytes  (K), megabytes (M),", 
+      parser.on("-h",
+                "Print the size of each file but in a more human readable way,",
+                "  e.g. appending  a  size  letter  for  kilobytes  (K), megabytes (M),",
                 "  gigabytes (G), terrabytes (T), petabytes (P) and exabytes (E).") do
         options[:show_size_human] = true
       end
 
       options[:show_indentation] = true
-      parser.on("-i", 
-                "Makes tree not print the indentation lines, ", 
+      parser.on("-i",
+                "Makes tree not print the indentation lines, ",
                 "  useful when used in conjunction with the -f option.") do
         options[:show_indentation] = false
       end
@@ -268,7 +268,7 @@ module TreeRb
             else
               output.close
               filename = options[:output]
-              visitor = SqliteDirTreeVisitor.new(filename)
+              visitor  = SqliteDirTreeVisitor.new(filename)
               #start = Time.now
               #me    = self
               #bytes = 0
