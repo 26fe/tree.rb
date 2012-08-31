@@ -6,28 +6,33 @@ $:.unshift(cwd) unless $:.include?(cwd)
 
 require 'json'
 
-
-
-# my_json = { :array => [1, 2, 3, { :sample => "hash"} ], :foo => "bar" }
-
+show_input = false
 if ARGV.length < 1
-  puts "missing arg"
+  $stderr.puts "missing arg"
   exit
 end
 
 filename = ARGV[0]
 
 unless File.exists?(filename) 
-  puts "file not exists '#{filename}'"
+  $stderr.puts "file not exists '#{filename}'"
   exit
 end
 
 my_json_str = File.read(filename)
-puts "*************************"
-puts my_json_str
-puts "*************************"
 
-my_json = JSON(my_json_str)
+if show_input
+  $stderr.puts "*************************"
+  $stderr.puts my_json_str
+  $stderr.puts "*************************"
+end
 
+begin
+  my_json = JSON(my_json_str)
+rescue JSON::ParserError
+  $stderr.puts "json is malformed"
+  exit 1
+end
 
 puts JSON.pretty_generate(my_json)
+
