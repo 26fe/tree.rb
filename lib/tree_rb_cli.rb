@@ -14,3 +14,4 @@ require 'optparse'
 #
 require 'tree_rb'
 require 'tree_rb/cli/cli_tree'
+require 'tree_rb/cli/cli_json'
