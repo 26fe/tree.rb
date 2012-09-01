@@ -26,7 +26,7 @@ describe "Tree Node Dsl Derived Class with no-arg constructor " do
       end
     end
 
-    puts tree.to_str
+    # puts tree.to_str
     out =<<EOS
 dt: root
 |-- dl: l1
