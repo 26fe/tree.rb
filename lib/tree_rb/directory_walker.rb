@@ -270,7 +270,11 @@ module TreeRb
         $stderr.puts e
         @visitor.cannot_enter_node(dirname, e)
         return
-      rescue  Errno::EPERM => e
+      rescue Errno::EPERM => e
+        $stderr.puts e
+        @visitor.cannot_enter_node(dirname, e)
+        return
+      rescue Errno::ENOENT => e
         $stderr.puts e
         @visitor.cannot_enter_node(dirname, e)
         return
@@ -278,26 +282,28 @@ module TreeRb
 
 
       @visitor.enter_node(dirname)
-        entries.each do |basename|
-          begin
+      entries.each do |basename|
+        begin
           next if basename == "." or basename == ".." # ignore always "." and ".."
           pathname = File.join(dirname, basename)
 
           if File.directory?(pathname)
             if not ignore_dir?(basename) and (@max_level.nil? or @max_level > level)
-              process_directory(pathname, level+1) 
+              process_directory(pathname, level+1)
             end
           else
             if !!@visit_file && match?(basename) && !ignore_file?(basename)
               @visitor.visit_leaf(pathname)
             end
           end
-          rescue Errno::EACCES => e
-            $stderr.puts e
-          rescue  Errno::EPERM
-            $stderr.puts e
-          end
+        rescue Errno::EACCES => e
+          $stderr.puts e
+        rescue Errno::EPERM => e
+          $stderr.puts e
+        rescue Errno::ENOENT => e
+          $stderr.puts e
         end
+      end
 
       @visitor.exit_node(dirname)
     end

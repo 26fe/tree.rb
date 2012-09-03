@@ -248,12 +248,20 @@ module TreeRb
         when 'json'
           visitor = DirectoryToHashVisitor.new(dirname)
           root    = dtw.run(visitor).root
-          output.puts JSON.pretty_generate(root)
+          begin
+            output.puts JSON.pretty_generate(root)
+          rescue JSON::NestingError => e
+            $stderr.puts "#{File.basename(__FILE__)}:#{__LINE__} #{e.to_s}"
+          end
 
         when 'json2'
           visitor = DirectoryToHash2Visitor.new(dirname)
           root    = dtw.run(visitor).root
-          output.puts JSON.pretty_generate(root)
+          begin
+            output.puts JSON.pretty_generate(root)
+          rescue JSON::NestingError => e
+            $stderr.puts "#{File.basename(__FILE__)}:#{__LINE__} #{e.to_s}"
+          end
 
         when 'yaml'
           visitor = DirectoryToHashVisitor.new(dirname)

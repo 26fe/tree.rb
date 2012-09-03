@@ -275,11 +275,14 @@ module TreeRb
     CONT_1      = "|   "
     CONT_2      = "    "
 
+
     def to_str(prefix= "", options = { })
       #TODO: find a more idiomatic mode to assign an array of options
       tty_color        = options[:colorize].nil? ? false : options[:colorize]
       show_indentation = options[:show_indentation].nil? ? true : options[:show_indentation]
       str              = ""
+
+      prepare_color_map if tty_color
 
       # print node itself
       if root?
@@ -347,12 +350,31 @@ module TreeRb
 
     def leaf_content_to_str(content, options)
       if options[:colorize]
-        "#{ANSI.green { content.to_str }}\n"
+        # "#{ANSI.green { content.to_str }}\n"
+        color_file(content.to_str)
       else
         "#{content.to_str }\n"
       end
     end
 
+    def prepare_color_map
+      @fileToColor = { }
+      ENV['LS_COLORS'].split(":").each do |e|
+        k, v            = e.split('=')
+        @fileToColor[k] = v
+      end
+    end
+
+    def color_file(filename)
+      k = "*.#{File.extname(filename)}"
+      v = @fileToColor[k]
+      if v
+        attribute, color= v.split(';')
+        "\e[#{attribute}m\e[1;#{color}m #{filename}tr \e[0m\n"
+      else
+        "#{filename}\n"
+      end
+    end
 
   end # end class
 end # end module TreeRb

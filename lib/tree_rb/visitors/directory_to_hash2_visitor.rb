@@ -384,9 +384,9 @@ module TreeRb
 #}
 #
 
-  #
-  # Build hash with directory structure
-  #
+#
+# Build hash with directory structure
+#
   class DirectoryToHash2Visitor < BasicTreeNodeVisitor
 
     attr_reader :root
@@ -397,8 +397,8 @@ module TreeRb
 
     def enter_node(pathname)
       @root = @node if @root.nil?
-      @node = {name: File.basename(pathname), children: []}
-      @stack.last[:children] << @node   unless @stack.empty?
+      @node = { name: File.basename(pathname), children: [] }
+      @stack.last[:children] << @node unless @stack.empty?
       @stack.push(@node)
     end
 
@@ -407,7 +407,11 @@ module TreeRb
     end
 
     def visit_leaf(pathname)
-      @node[:children] << {name: File.basename(pathname), size: File.stat(pathname).size}
+      begin
+        @node[:children] << { name: File.basename(pathname), size: File.stat(pathname).size }
+      rescue Errno::ENOENT => e
+        $stderr.puts e.to_s
+      end
     end
 
   end
