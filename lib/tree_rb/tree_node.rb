@@ -6,6 +6,7 @@ module TreeRb
   #
   # TreeNode @children -1---n-> TreeNode
   #          @leaves   -1---n-> LeafNode
+  #          @children_leaves -1---n-> AbsNode  (preserve order)
   #
   # define dsl to create Tree
   #
@@ -98,6 +99,8 @@ module TreeRb
     # children i.e. other tree node
     attr_reader :children
 
+    attr_reader :leaves_and_children
+
     #
     # @param [Object] content of this node
     # @param [Object] parent of this node. If parent is nil, it is a root
@@ -156,9 +159,7 @@ module TreeRb
     #
     def add_leaf(leaf)
       return if leaf.parent == self
-      if not leaf.parent.nil?
-        leaf.remove_from_parent
-      end
+      leaf.remove_from_parent if leaf.parent
       leaf.parent = self
       if @leaves.length > 0
         @leaves.last.next = leaf
@@ -169,6 +170,7 @@ module TreeRb
       leaf.next = nil
       leaf.invalidate
       @leaves << leaf
+      @leaves_and_children << leaf
       self
     end
 

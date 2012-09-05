@@ -7,16 +7,14 @@ module TreeRb
   class ContentDir
     def initialize(pathname, options)
       if options[:show_full_path]
-        file_name = pathname
+        @contents = pathname
       else
-        file_name = File.basename(pathname)
+        @contents = File.basename(pathname)
       end
-
-      @str = file_name
     end
 
     def to_str
-      @basename
+      @contents
     end
   end
 

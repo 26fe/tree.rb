@@ -263,7 +263,7 @@ module TreeRb
     #
     # recurse on other directories
     #
-    def process_directory(dirname, level=0)
+    def process_directory(dirname, level=1)
       begin
         entries = Dir.entries(dirname).sort
       rescue Errno::EACCES => e
