@@ -6,7 +6,7 @@ module TreeRb
   #
   # TreeNode @children -1---n-> TreeNode
   #          @leaves   -1---n-> LeafNode
-  #          @children_leaves -1---n-> AbsNode  (preserve order)
+  #          @children_leaves -1---n-> AbsNode  (to preserve insert order)
   #
   # define dsl to create Tree
   #
@@ -23,9 +23,19 @@ module TreeRb
 
     class << self
 
-      # DSL create a root node
+      # DSL create a root node:
       #
-      # tree = TreeNode.create do ... end
+      #   tree = TreeNode.create do
+      #      ...
+      #   end
+      #
+      #   tree = TreeNode.create(LeafDerivedClass) do
+      #      ...
+      #   end
+      #
+      #   tree = TreeNode.create(TreeNodeDerivedClass, LeafDerivedClass) do
+      #     ...
+      #   end
       #
       # @param [Class] class1  Subclass of TreeNode default TreeNode
       # @param [Class] class2  Subclass of LeafNode default LeafNode
@@ -40,7 +50,7 @@ module TreeRb
         end
 
         if @tree_node_class.nil? || @leaf_node_class.nil?
-          raise "Must be specified class derived from TreeNode and LeafNode"
+          raise "Must be specified classes derived from TreeNode and LeafNode"
         end
 
         @scope_stack = []
@@ -49,15 +59,18 @@ module TreeRb
 
       private
 
-      # DSL node add a child to the surrounding node
-      # TreeNode.create do
-      #   node "..."
-      # end
+      # DSL 'node' adds a child (TreeClass) to the current node
+      #
+      #   TreeNode.create do
+      #     node "..."
+      #   end
       def node(*args, &block)
         parent_node = @scope_stack.length > 0 ? @scope_stack[-1] : nil
         args << parent_node
         tree_node = @tree_node_class.new(*args)
         @scope_stack.push tree_node
+
+        # evaluate block if any
         if block
           if block.arity == 0 || block.arity == -1
             class_eval(&block)
@@ -68,17 +81,21 @@ module TreeRb
             raise "block take too much arguments #{block.arity}"
           end
         end
+
         @scope_stack.pop
       end
 
-      # DSL node add a leaf to the surround node
-      # TreeNode.create do
-      #   leaf "..."
-      # end
+      # DSL 'leaf' add a leaf (LeafClass) to the surround node
+      #
+      #   TreeNode.create do
+      #     leaf "..."
+      #   end
       def leaf(*args, &block)
         tree_node = @scope_stack[-1]
         args << tree_node
         leaf_node = @leaf_node_class.new(*args)
+
+        # evaluate block if any
         if block
           if block.arity == 0 || block.arity == -1
             class_eval(&block)
@@ -99,14 +116,17 @@ module TreeRb
     # children i.e. other tree node
     attr_reader :children
 
+    # leaves and children to preserve insert order
     attr_reader :leaves_and_children
 
     #
     # @param [Object] content of this node
     # @param [Object] parent of this node. If parent is nil, it is a root
+    #
     def initialize(content, parent = nil)
-      @leaves   = []
-      @children = []
+      @leaves              = []
+      @children            = []
+      @leaves_and_children = []
       super(content)
       parent.add_child(self) if parent
     end
@@ -153,7 +173,7 @@ module TreeRb
 
     #
     # Add a Leaf
-    # @param [LeafNode]
+    # @param [LeafNode] leaf
     #
     # @return self
     #
@@ -176,7 +196,7 @@ module TreeRb
 
     #
     # Add a Tree
-    # @param [LeafNode]
+    # @param [LeafNode] tree_node
     #
     # @return self
     #
@@ -197,6 +217,7 @@ module TreeRb
       end
       tree_node.next = nil
       @children << tree_node
+      @leaves_and_children << tree_node
       self
     end
 
@@ -230,7 +251,8 @@ module TreeRb
     end
 
     #
-    # return the visitor
+    # @param [Visitor] visitor
+    # @return the visitor
     #
     def accept(visitor)
       visitor.enter_node(self)
@@ -257,34 +279,15 @@ module TreeRb
     # puts "aaaa \033[7;31;40m ciao \033[0m"
 
 
-    #
-    # check console character encoding
-    # altre variabili LC_CTYPE
-    # LC_ALL
-    # comando locale
-    # puts "enconding: #{ENV['LANG']}"
-    #
-
-
-    # │ (ascii 179)
-    # ├ (ascii 195)
-    # └ (ascii 192)
-    # ─ (ascii 196)
-
-
-    BRANCH      = '|-- '
-    LAST_BRANCH = '`-- '
-    CONT_1      = "|   "
-    CONT_2      = "    "
-
-
     def to_str(prefix= "", options = { })
       #TODO: find a more idiomatic mode to assign an array of options
+
       tty_color        = options[:colorize].nil? ? false : options[:colorize]
       show_indentation = options[:show_indentation].nil? ? true : options[:show_indentation]
       str              = ""
 
       prepare_color_map if tty_color
+      prepare_prefix_map(options)
 
       # print node itself
       if root?
@@ -296,16 +299,16 @@ module TreeRb
         if show_indentation
           str << prefix
           if self.next
-            str << BRANCH
+            str << @prefix[:BRANCH]
           else
-            str << LAST_BRANCH
+            str << @prefix[:LAST_BRANCH]
           end
         end
 
         unless options[:only_files]
           str << node_content_to_str(content, options)
           if show_indentation
-            prefix += self.next ? CONT_1 : CONT_2
+            prefix += self.next ? @prefix[:CONT_1] : @prefix[:CONT_2]
           end
         end
       end
@@ -316,9 +319,9 @@ module TreeRb
         if show_indentation
           str << prefix
           if !leaf.next.nil? or !@children.empty?
-            str << BRANCH
+            str << @prefix[:BRANCH]
           else
-            str << LAST_BRANCH
+            str << @prefix[:LAST_BRANCH]
           end
         end
 
@@ -375,6 +378,37 @@ module TreeRb
         "\e[#{attribute}m\e[1;#{color}m #{filename}tr \e[0m\n"
       else
         "#{filename}\n"
+      end
+    end
+
+    def prepare_prefix_map(options)
+      #
+      # check console character encoding
+      # altre variabili LC_CTYPE
+      # LC_ALL
+      # comando locale
+      # puts "enconding: #{ENV['LANG']}"
+      #
+
+
+      # │ (ascii 179)
+      # ├ (ascii 195)
+      # └ (ascii 192)
+      # ─ (ascii 196)
+
+
+      @prefix = { }
+
+      if options[:ansi_line_graphics]
+        @prefix[:BRANCH]      = '├── '
+        @prefix[:LAST_BRANCH] = '└── '
+        @prefix[:CONT_1]      = "│   "
+        @prefix[:CONT_2]      = "    "
+      else
+        @prefix[:BRANCH]      = '|-- '
+        @prefix[:LAST_BRANCH] = '`-- '
+        @prefix[:CONT_1]      = "|   "
+        @prefix[:CONT_2]      = "    "
       end
     end
 

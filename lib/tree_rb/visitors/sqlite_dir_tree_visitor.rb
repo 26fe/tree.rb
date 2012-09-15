@@ -3,6 +3,7 @@ module TreeRb
 
   class SqliteDirTreeVisitor < BasicTreeNodeVisitor
 
+
     def initialize(filename)
       @db = SQLite3::Database.new(filename)
       @db.execute("create table files(path varchar(1024), size integer, digest varchar(40))")
@@ -24,10 +25,10 @@ module TreeRb
       #   sec = Time.now - start
       #   print "#{CR}bytes: #{bytes.to_human} time: #{sec} bytes/sec #{bytes/sec} #{CLEAR}"
       # end
-      #content   = ContentFile.new(pathname, @options)
+      # content   = ContentFile.new(pathname, @options)
       # connect the leaf_node created to the last tree_node on the stack
-      #@nr_files += 1
-      #LeafNode.new(content, @stack.last)
+      # nr_files += 1
+      # LeafNode.new(content, @stack.last)
     end
 
     def find_duplicates

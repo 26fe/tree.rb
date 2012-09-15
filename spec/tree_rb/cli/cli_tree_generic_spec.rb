@@ -26,7 +26,8 @@ describe CliTree do
       args << File.join(FIXTURES, "test_dir_1")
       CliTree.new.parse_args(args)
     end
-    # puts captured
+    expected = "test_dir_1\n|-- dir.1\n|   `-- dir.1.2\n`-- dir.2\n\n4 directories, 0 files\n"
+    captured.out.should == expected
     captured.out.split("\n").length.should == 6
   end
 
@@ -36,7 +37,8 @@ describe CliTree do
       args << File.join(FIXTURES, "test_dir_1")
       CliTree.new.parse_args(args)
     end
-    # puts captured
+    expected = "test_dir_1\n|-- .dir_with_dot\n|-- dir.1\n|   `-- dir.1.2\n`-- dir.2\n\n5 directories, 0 files\n"
+    captured.out.should == expected
     captured.out.split("\n").length.should == 7
   end
 
@@ -47,6 +49,8 @@ describe CliTree do
       CliTree.new.parse_args(args)
     end
     # pp captured
+    expected ="test_dir_1\n|-- .dir_with_dot\n|   `-- dummy.txt\n|-- dir.1\n|   |-- file.1.1\n|   `-- dir.1.2\n|       `-- file.1.2.1\n`-- dir.2\n    `-- file.2.1\n\n5 directories, 4 files\n"
+    captured.out.should == expected
     captured.out.split("\n").length.should == 11
   end
 
@@ -57,7 +61,20 @@ describe CliTree do
       CliTree.new.parse_args(args)
     end
     # puts captured
+    expected ="test_dir_1\n|-- dir.1\n|   |-- file.1.1\n|   `-- dir.1.2\n|       `-- file.1.2.1\n`-- dir.2\n    `-- file.2.1\n\n4 directories, 3 files\n"
+    captured.out.should == expected
     captured.out.split("\n").length.should == 9
+  end
+
+  it "should accepts -A switch (ascii line graphics)" do
+    captured = capture_output do
+      args = %w{-A}
+      args << File.join(FIXTURES, "test_dir_1")
+      CliTree.new.parse_args(args)
+    end
+    # puts captured
+    expected ="test_dir_1\n├── dir.1\n│   ├── file.1.1\n│   └── dir.1.2\n│       └── file.1.2.1\n└── dir.2\n    └── file.2.1\n\n4 directories, 3 files\n"
+    captured.out.should == expected
   end
 
   it "should show tree with inaccessible directories" do
@@ -66,7 +83,12 @@ describe CliTree do
       args << File.join(FIXTURES, "test_dir_3_with_error")
       CliTree.new.parse_args(args)
     end
-    #puts captured
+    # puts captured
+
+    expected_out="test_dir_3_with_error\n`-- accessible_dir\n\n2 directories, 0 files\n"
+    expected_err="Permission denied - /home/gf/GioPrj.home/tree.rb/spec/fixtures/test_dir_3_with_error/no_accessible_dir\n"
+    captured.out.should == expected_out
+    captured.err.should == expected_err
     captured.err.should_not be_empty
     captured.out.split("\n").length.should == 4
   end

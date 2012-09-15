@@ -149,7 +149,7 @@ module TreeRb
     #
     # Test directory ignore pattern
     #
-    # @param [String] directory name
+    # @param [String] dirname directory name
     # @return [boolean] if dirname match almost one pattern
     #
     def ignore_dir?(dirname)
@@ -159,7 +159,7 @@ module TreeRb
     #
     # Test file ignore pattern
     #
-    # @param [String] file name
+    # @param [String] filename
     # @return [boolean] if filename match almost one pattern
     #
     def ignore_file?(filename)
@@ -169,7 +169,7 @@ module TreeRb
     #
     # Test common ignore pattern
     #
-    # @param [String] file name
+    # @param [String] filename
     # @return [boolean] if filename match almost one pattern
     #
     def match?(filename)

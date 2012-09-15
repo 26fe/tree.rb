@@ -1,3 +1,7 @@
+=== 2012-09-15
+
+* added line graphics
+
 === 2012-08-14
 
 * renamed gem from treevisitor to tree.rb

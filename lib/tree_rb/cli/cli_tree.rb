@@ -17,8 +17,21 @@ module TreeRb
       parser.separator "this is a almost :-) a clone of tree unix command written in ruby"
       parser.separator "Code https://github.com/tokiro/treevisitor. Feedback to tokiro.oyama@gmail.com"
 
+      #
+      # Generic
+      #
       parser.separator ""
       parser.separator "Generic options: "
+
+      parser.on_tail("--help", "Show this message") do
+        puts parser
+        options[:exit] = 1
+      end
+
+      parser.on_tail("--version", "Show the version") do
+        puts "tree.rb version #{TreeRb::VERSION}"
+        options[:exit] = 1
+      end
 
       parser.on("-v", "--[no-]verbose", "Run verbosely") do |v|
         options[:verbose] = v
@@ -41,6 +54,9 @@ module TreeRb
         options[:force_overwrite_output] = true
       end
 
+      #
+      # Filters
+      #
       parser.separator ""
       parser.separator "Filter options: "
 
@@ -66,6 +82,14 @@ module TreeRb
         options[:algo] = algo
       end
 
+      options[:max_level] = nil
+      parser.on("-L [LEVEL]", Integer, "Max display depth of the directory tree.") do |l|
+        options[:max_level] = l
+      end
+
+      #
+      # Presentation options
+      #
       parser.separator ""
       parser.separator "print options:"
 
@@ -84,14 +108,13 @@ module TreeRb
                 "  Useful to colorize output to a pipe.") do
         options[:colorize_force] = true
       end
-
       #
       # end colorize
       #
 
-      options[:max_level] = nil
-      parser.on("-L [LEVEL]", Integer, "Max display depth of the directory tree.") do |l|
-        options[:max_level] = l
+      options[:ansi_line_graphics] = false
+      parser.on("-A", "Turn on ANSI line graphics hack when printing the indentation lines.") do
+        options[:ansi_line_graphics] = true
       end
 
       options[:show_full_path] = false
@@ -151,18 +174,6 @@ module TreeRb
         options[:show_report]      = false
       end
 
-      parser.separator ""
-      parser.separator "Other options:"
-
-      parser.on_tail("--help", "Show this message") do
-        puts parser
-        options[:exit] = 1
-      end
-
-      parser.on_tail("--version", "Show the version") do
-        puts "tree.rb version #{TreeRb::VERSION}"
-        options[:exit] = 1
-      end
 
       parser
     end
