@@ -3,7 +3,7 @@ require 'ostruct'
 
 cwd = File.expand_path( File.join( File.dirname(__FILE__), "..", "..", "lib" ) )
 $:.unshift(cwd) unless $:.include?(cwd)
-require 'treevisitor'
+require 'tree_rb'
 
 #
 # Find directories without subdirectories
@@ -31,7 +31,7 @@ class DirWithoutSubDir < TreeRb::BasicTreeNodeVisitor
 
 end
 
-dtw = TreeRb::DirTreeWalker.new( ".." )
+dtw = TreeRb::DirTreeWalker.new( File.join("..", ".." ))
 dtw.ignore /^\./
 dtw.visit_file=false
 dtw.run( DirWithoutSubDir.new )

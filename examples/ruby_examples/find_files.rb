@@ -2,12 +2,12 @@
 
 cwd = File.expand_path( File.join( File.dirname(__FILE__), "..", "..", "lib" ) )
 $:.unshift(cwd) unless $:.include?(cwd)
-require 'treevisitor'
+require 'tree_rb'
 include TreeRb
 
 class MyVisitor < BasicTreeNodeVisitor
   def visit_leaf( pathname )
-    puts pathname
+    puts "found: #{pathname}"
   end
 end
 
