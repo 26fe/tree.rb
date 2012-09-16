@@ -74,7 +74,7 @@ module TreeRb
         options[:show_indentation] = false
       end
 
-      algos        = %w[build-dir print-dir json js_treemap yaml sqlite]
+      algos        = %w[build-dir print-dir json d3js html_partition yaml sqlite]
       # algo_aliases = { "b" => "build-dir", "v" => "print-dir", "j" => "json", "y" => "yaml", "s" => "sqlite" }
       # algo_list = (algo_aliases.keys + algos).join(',')
       parser.on("--format ALGO", algos, "select an algo", "  (#{algos})") do |algo|
@@ -128,7 +128,7 @@ module TreeRb
       parser.on("-h",
                 "Print the size of each file but in a more human readable way,",
                 "  e.g. appending  a  size  letter  for  kilobytes  (K), megabytes (M),",
-                "  gigabytes (G), terrabytes (T), petabytes (P) and exabytes (E).") do
+                "  gigabytes (G), terabytes (T), petabytes (P) and exabytes (E).") do
         options[:show_size_human] = true
       end
 
@@ -150,7 +150,7 @@ module TreeRb
       end
 
       options[:show_report] = true
-      parser.on("--noreport", "Omits printing of the file and directory report at the end of the tree listing.") do
+      parser.on("--no-report", "Omits printing of the file and directory report at the end of the tree listing.") do
         options[:show_report] = false
       end
 
@@ -264,13 +264,26 @@ module TreeRb
             $stderr.puts "#{File.basename(__FILE__)}:#{__LINE__} #{e.to_s}"
           end
 
-        when 'js_treemap'
+        when 'd3js'
           visitor = DirectoryToHash2Visitor.new(dirname)
           root    = dtw.run(visitor).root
           begin
             str_json = JSON.pretty_generate(root)
             str_json = "var data = " + str_json
             output.puts str_json
+          rescue JSON::NestingError => e
+            $stderr.puts "#{File.basename(__FILE__)}:#{__LINE__} #{e.to_s}"
+          end
+
+        when 'html_partition'
+          visitor = DirectoryToHash2Visitor.new(dirname)
+          root    = dtw.run(visitor).root
+          begin
+            str_json = JSON.pretty_generate(root)
+            str_json = "var data = " + str_json
+
+            render = ErbRender.new("d3js_layout_partition.erb", str_json)
+            output.puts render.render
           rescue JSON::NestingError => e
             $stderr.puts "#{File.basename(__FILE__)}:#{__LINE__} #{e.to_s}"
           end
