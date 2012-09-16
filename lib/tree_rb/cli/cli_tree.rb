@@ -23,12 +23,12 @@ module TreeRb
       parser.separator ""
       parser.separator "Generic options: "
 
-      parser.on_tail("--help", "Show this message") do
+      parser.on("--help", "Show this message") do
         puts parser
         options[:exit] = 1
       end
 
-      parser.on_tail("--version", "Show the version") do
+      parser.on("--version", "Show the version") do
         puts "tree.rb version #{TreeRb::VERSION}"
         options[:exit] = 1
       end
@@ -74,11 +74,10 @@ module TreeRb
         options[:show_indentation] = false
       end
 
-      algos        = %w[build-dir print-dir json json2 yaml sqlite]
-      algo_aliases = { "b" => "build-dir", "v" => "print-dir", "j" => "json", "y" => "yaml", "s" => "sqlite" }
-
-      algo_list = (algo_aliases.keys + algos).join(',')
-      parser.on("--format ALGO", algos, algo_aliases, "select an algo", "  (#{algo_list})") do |algo|
+      algos        = %w[build-dir print-dir json js_treemap yaml sqlite]
+      # algo_aliases = { "b" => "build-dir", "v" => "print-dir", "j" => "json", "y" => "yaml", "s" => "sqlite" }
+      # algo_list = (algo_aliases.keys + algos).join(',')
+      parser.on("--format ALGO", algos, "select an algo", "  (#{algos})") do |algo|
         options[:algo] = algo
       end
 
@@ -265,11 +264,13 @@ module TreeRb
             $stderr.puts "#{File.basename(__FILE__)}:#{__LINE__} #{e.to_s}"
           end
 
-        when 'json2'
+        when 'js_treemap'
           visitor = DirectoryToHash2Visitor.new(dirname)
           root    = dtw.run(visitor).root
           begin
-            output.puts JSON.pretty_generate(root)
+            str_json = JSON.pretty_generate(root)
+            str_json = "var data = " + str_json
+            output.puts str_json
           rescue JSON::NestingError => e
             $stderr.puts "#{File.basename(__FILE__)}:#{__LINE__} #{e.to_s}"
           end
