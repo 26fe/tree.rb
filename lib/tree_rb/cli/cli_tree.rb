@@ -74,7 +74,7 @@ module TreeRb
         options[:show_indentation] = false
       end
 
-      algos        = %w[build-dir print-dir json d3js html_partition yaml sqlite]
+      algos        = %w[build-dir print-dir json d3js html_partition html_tree html_treemap yaml sqlite]
       # algo_aliases = { "b" => "build-dir", "v" => "print-dir", "j" => "json", "y" => "yaml", "s" => "sqlite" }
       # algo_list = (algo_aliases.keys + algos).join(',')
       parser.on("--format ALGO", algos, "select an algo", "  (#{algos})") do |algo|
@@ -231,18 +231,18 @@ module TreeRb
       # 1. build dir tree walker
       #
       dirname = File.expand_path(dirname)
-      dtw     = DirTreeWalker.new(dirname, options)
+      directory_tree_walker     = DirTreeWalker.new(dirname, options)
       unless options[:all_files]
-        dtw.ignore(/^\.[^.]+/) # ignore all file starting with "."
+        directory_tree_walker.ignore(/^\.[^.]+/) # ignore all file starting with "."
       end
-      dtw.visit_file = !options[:only_directories]
+      directory_tree_walker.visit_file = !options[:only_directories]
 
       case options[:algo]
 
         when 'build-dir'
 
           visitor = BuildDirTreeVisitor.new(options)
-          dtw.run(visitor)
+          directory_tree_walker.run(visitor)
 
           output.puts visitor.root.to_str('', options)
 
@@ -253,11 +253,11 @@ module TreeRb
 
         when 'print-dir'
           visitor = PrintDirTreeVisitor.new
-          dtw.run(visitor)
+          directory_tree_walker.run(visitor)
 
         when 'json'
           visitor = DirectoryToHashVisitor.new(dirname)
-          root    = dtw.run(visitor).root
+          root    = directory_tree_walker.run(visitor).root
           begin
             output.puts JSON.pretty_generate(root)
           rescue JSON::NestingError => e
@@ -266,7 +266,7 @@ module TreeRb
 
         when 'd3js'
           visitor = DirectoryToHash2Visitor.new(dirname)
-          root    = dtw.run(visitor).root
+          root    = directory_tree_walker.run(visitor).root
           begin
             str_json = JSON.pretty_generate(root)
             str_json = "var data = " + str_json
@@ -276,21 +276,17 @@ module TreeRb
           end
 
         when 'html_partition'
-          visitor = DirectoryToHash2Visitor.new(dirname)
-          root    = dtw.run(visitor).root
-          begin
-            str_json = JSON.pretty_generate(root)
-            str_json = "var data = " + str_json
+          D3jsHelper.new.run(directory_tree_walker, dirname,"d3js_layout_partition.erb", output)
 
-            render = ErbRender.new("d3js_layout_partition.erb", str_json)
-            output.puts render.render
-          rescue JSON::NestingError => e
-            $stderr.puts "#{File.basename(__FILE__)}:#{__LINE__} #{e.to_s}"
-          end
+        when 'html_tree'
+          D3jsHelper.new.run(directory_tree_walker, dirname,"d3js_layout_tree.erb", output)
+
+        when 'html_treemap'
+          D3jsHelper.new.run(directory_tree_walker, dirname,"d3js_layout_treemap.erb", output)
 
         when 'yaml'
           visitor = DirectoryToHashVisitor.new(dirname)
-          root    = dtw.run(visitor).root
+          root    = directory_tree_walker.run(visitor).root
           output.puts root.to_yaml
 
         when 'sqlite'
@@ -305,7 +301,7 @@ module TreeRb
               #start = Time.now
               #me    = self
               #bytes = 0
-              dtw.run(visitor)
+              directory_tree_walker.run(visitor)
             end
 
           rescue LoadError

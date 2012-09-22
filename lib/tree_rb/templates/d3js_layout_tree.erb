@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
   <script src="http://d3js.org/d3.v2.js"></script>
   <script>
-    <%=json_str%>
+      <%=json_str%>
   </script>
 
 
@@ -120,83 +120,77 @@
           pointer-events: none;
       }
 
+      .node circle {
+        fill: #fff;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+      }
+
+      .node {
+        font: 10px sans-serif;
+      }
+
+      .link {
+        fill: none;
+        stroke: #ccc;
+        stroke-width: 1.5px;
+      }
+
+
   </style>
 </head>
 <body>
 <div id="body">
+
   <div id="footer">
-    d3.layout.partition
-    <div class="hint">click or option-click to descend or ascend</div>
+    d3.layout.tree
   </div>
+
 </div>
 <script type="text/javascript">
 
-    var w = 1120,
-            h = 600,
-            x = d3.scale.linear().range([0, w]),
-            y = d3.scale.linear().range([0, h]);
+
+    var json = data;
+    var radius = 960 / 2;
+
+    var tree = d3.layout.tree()
+            .size([360, radius - 120])
+            .separation(function (a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
+
+    var diagonal = d3.svg.diagonal.radial()
+            .projection(function (d) { return [d.y, d.x / 180 * Math.PI]; });
 
     var vis = d3.select("#body").append("div")
-            .attr("class", "chart")
-            .style("width", w + "px")
-            .style("height", h + "px")
-            .append("svg:svg")
-            .attr("width", w)
-            .attr("height", h);
+            .attr("id", "chart")
+            .append("svg")
+            .attr("width", radius * 2)
+            .attr("height", radius * 2 - 150)
+            .append("g")
+            .attr("transform", "translate(" + radius + "," + radius + ")");
 
-    var partition = d3.layout.partition()
-            .value(function (d) { return d.size; });
+    var nodes = tree.nodes(json);
 
-    root = data;
-    var g = vis.selectAll("g")
-            .data(partition.nodes(root))
-            .enter().append("svg:g")
-            .attr("transform", function (d) { return "translate(" + x(d.y) + "," + y(d.x) + ")"; })
-            .on("click", click);
+    var link = vis.selectAll("path.link")
+            .data(tree.links(nodes))
+            .enter().append("path")
+            .attr("class", "link")
+            .attr("d", diagonal);
 
-    var kx = w / root.dx,
-            ky = h / 1;
+    var node = vis.selectAll("g.node")
+            .data(nodes)
+            .enter().append("g")
+            .attr("class", "node")
+            .attr("transform", function (d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
 
-    g.append("svg:rect")
-            .attr("width", root.dy * kx)
-            .attr("height", function (d) { return d.dx * ky; })
-            .attr("class", function (d) { return d.children ? "parent" : "child"; });
+    node.append("circle")
+            .attr("r", 4.5);
 
-    g.append("svg:text")
-            .attr("transform", transform)
-            .attr("dy", ".35em")
-            .style("opacity", function (d) { return d.dx * ky > 12 ? 1 : 0; })
-            .text(function (d) { return d.name; })
+    node.append("text")
+            .attr("dy", ".31em")
+            .attr("text-anchor", function (d) { return d.x < 180 ? "start" : "end"; })
+            .attr("transform", function (d) { return d.x < 180 ? "translate(8)" : "rotate(180)translate(-8)"; })
+            .text(function (d) { return d.name; });
 
-    d3.select(window)
-            .on("click", function () { click(root); })
-
-    function click(d) {
-        if (!d.children) return;
-
-        kx = (d.y ? w - 40 : w) / (1 - d.y);
-        ky = h / d.dx;
-        x.domain([d.y, 1]).range([d.y ? 40 : 0, w]);
-        y.domain([d.x, d.x + d.dx]);
-
-        var t = g.transition()
-                .duration(d3.event.altKey ? 7500 : 750)
-                .attr("transform", function (d) { return "translate(" + x(d.y) + "," + y(d.x) + ")"; });
-
-        t.select("rect")
-                .attr("width", d.dy * kx)
-                .attr("height", function (d) { return d.dx * ky; });
-
-        t.select("text")
-                .attr("transform", transform)
-                .style("opacity", function (d) { return d.dx * ky > 12 ? 1 : 0; });
-
-        d3.event.stopPropagation();
-    }
-
-    function transform(d) {
-        return "translate(8," + d.dx * ky / 2 + ")";
-    }
 
 </script>
 </body>

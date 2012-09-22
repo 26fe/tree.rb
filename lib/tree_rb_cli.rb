@@ -14,6 +14,7 @@ require 'erb'
 # tree_rb cli
 #
 require 'tree_rb'
+require 'tree_rb/d3js_helper'
 require 'tree_rb/erb_render'
 require 'tree_rb/cli/cli_tree'
 require 'tree_rb/cli/cli_json'
