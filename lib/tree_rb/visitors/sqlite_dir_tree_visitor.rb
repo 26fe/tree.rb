@@ -3,7 +3,6 @@ module TreeRb
 
   class SqliteDirTreeVisitor < BasicTreeNodeVisitor
 
-
     def initialize(filename)
       @db = SQLite3::Database.new(filename)
       @db.execute("create table files(path varchar(1024), size integer, digest varchar(40))")

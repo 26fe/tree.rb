@@ -120,7 +120,6 @@ module TreeRb
     def depth
       return @depth unless @depth.nil?
       @depth = @parent.nil? ? 1 : @parent.depth + 1
-      @depth
     end
 
     #
