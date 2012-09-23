@@ -8,7 +8,6 @@ module TreeRb
     attr_reader :depth
 
     def initialize
-      super
       @depth = 0
     end
 

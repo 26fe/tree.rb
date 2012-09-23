@@ -12,7 +12,6 @@ module TreeRb
     attr_reader :cloned_root
 
     def initialize
-      super
       @cloned_root = nil
       @stack = []
     end

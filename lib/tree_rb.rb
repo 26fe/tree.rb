@@ -5,6 +5,7 @@
 #
 require 'pathname'
 require 'yaml'
+require 'ostruct'
 
 #
 # rubygems
@@ -25,14 +26,15 @@ end
 require 'tree_rb/version'
 require 'tree_rb/extension_digest'
 require 'tree_rb/extension_numeric'
+require 'tree_rb/exception'
 
-require 'tree_rb/abs_node'
-require 'tree_rb/leaf_node'
-require 'tree_rb/tree_node'
-require 'tree_rb/basic_tree_node_visitor'
-require 'tree_rb/tree_node_visitor'
+require 'tree_rb/core/abs_node'
+require 'tree_rb/core/leaf_node'
+require 'tree_rb/core/tree_node'
+require 'tree_rb/core/basic_tree_node_visitor'
+require 'tree_rb/core/tree_node_visitor'
 
-require 'tree_rb/directory_walker'
+require 'tree_rb/file_system/directory_walker'
 
 #
 # visitors
@@ -44,7 +46,6 @@ require 'tree_rb/directory_walker'
 #require 'tree_rb/visitors/depth_tree_node_visitor'
 #require 'tree_rb/visitors/print_dir_tree_visitor'
 #require 'tree_rb/visitors/directory_to_hash_visitor'
-#require 'tree_rb/visitors/sqlite_dir_tree_visitor'
 
 visitors_dir = File.join(File.dirname(__FILE__), "tree_rb", "visitors")
 unless Dir.exist? visitors_dir
@@ -53,4 +54,4 @@ end
 Dir[ File.join(visitors_dir, "*.rb") ].each { |f|require f }
 
 
-require 'tree_rb/util/dir_processor'
+require 'tree_rb/file_system/dir_processor'

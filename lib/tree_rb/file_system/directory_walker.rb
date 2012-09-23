@@ -42,7 +42,7 @@ module TreeRb
       if dirname
         @dirname = dirname
         unless File.directory?(dirname)
-          raise "#{dirname} is not a directory!"
+          raise ArgumentError.new "#{dirname} is not a directory!"
         end
       end
 

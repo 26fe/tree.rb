@@ -8,7 +8,7 @@ describe DirProcessor do
     dp    = DirProcessor.new { |f| files << f }
     dp.process(FIXTURES)
 
-    # puts files
+    puts files
     files.length.should == 4
   end
 

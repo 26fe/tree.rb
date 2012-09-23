@@ -74,7 +74,7 @@ module TreeRb
         options[:show_indentation] = false
       end
 
-      algos        = %w[build-dir print-dir json d3js html_partition html_tree html_treemap yaml sqlite]
+      algos = %w[build-dir print-dir json d3js html_partition html_tree html_treemap yaml sqlite dircat]
       # algo_aliases = { "b" => "build-dir", "v" => "print-dir", "j" => "json", "y" => "yaml", "s" => "sqlite" }
       # algo_list = (algo_aliases.keys + algos).join(',')
       parser.on("--format ALGO", algos, "select an algo", "  (#{algos})") do |algo|
@@ -191,6 +191,10 @@ module TreeRb
         $stderr.puts e.to_s
         $stderr.puts "try --help for help"
         return false
+      rescue OptionParser::InvalidArgument => e
+        $stderr.puts e.to_s
+        $stderr.puts "try --help for help"
+        return false
       end
 
       unless options[:exit].nil?
@@ -230,8 +234,14 @@ module TreeRb
       #
       # 1. build dir tree walker
       #
+
       dirname = File.expand_path(dirname)
-      directory_tree_walker     = DirTreeWalker.new(dirname, options)
+      begin
+        directory_tree_walker = DirTreeWalker.new(dirname, options)
+      rescue ArgumentError => e
+        $stderr.puts e.to_s
+        return false
+      end
       unless options[:all_files]
         directory_tree_walker.ignore(/^\.[^.]+/) # ignore all file starting with "."
       end
@@ -255,6 +265,11 @@ module TreeRb
           visitor = PrintDirTreeVisitor.new
           directory_tree_walker.run(visitor)
 
+        when 'yaml'
+          visitor = DirectoryToHashVisitor.new(dirname)
+          root    = directory_tree_walker.run(visitor).root
+          output.puts root.to_yaml
+
         when 'json'
           visitor = DirectoryToHashVisitor.new(dirname)
           root    = directory_tree_walker.run(visitor).root
@@ -265,51 +280,31 @@ module TreeRb
           end
 
         when 'd3js'
-          visitor = DirectoryToHash2Visitor.new(dirname)
-          root    = directory_tree_walker.run(visitor).root
-          begin
-            str_json = JSON.pretty_generate(root)
-            str_json = "var data = " + str_json
-            output.puts str_json
-          rescue JSON::NestingError => e
-            $stderr.puts "#{File.basename(__FILE__)}:#{__LINE__} #{e.to_s}"
-          end
+          require 'tree_rb/output_html/d3js_helper'
+          D3jsHelper.new.run(directory_tree_walker, dirname, nil, output)
 
         when 'html_partition'
-          D3jsHelper.new.run(directory_tree_walker, dirname,"d3js_layout_partition.erb", output)
+          require 'tree_rb/output_html/d3js_helper'
+          D3jsHelper.new.run(directory_tree_walker, dirname, "d3js_layout_partition.erb", output)
 
         when 'html_tree'
-          D3jsHelper.new.run(directory_tree_walker, dirname,"d3js_layout_tree.erb", output)
+          require 'tree_rb/output_html/d3js_helper'
+          D3jsHelper.new.run(directory_tree_walker, dirname, "d3js_layout_tree.erb", output)
 
         when 'html_treemap'
-          D3jsHelper.new.run(directory_tree_walker, dirname,"d3js_layout_treemap.erb", output)
-
-        when 'yaml'
-          visitor = DirectoryToHashVisitor.new(dirname)
-          root    = directory_tree_walker.run(visitor).root
-          output.puts root.to_yaml
+          require 'tree_rb/output_html/d3js_helper'
+          D3jsHelper.new.run(directory_tree_walker, dirname, "d3js_layout_treemap.erb", output)
 
         when 'sqlite'
-          begin
-            require 'sqlite3'
-            unless options[:output]
-              $stderr.puts "need to specify the -o options"
-            else
-              output.close
-              filename = options[:output]
-              visitor  = SqliteDirTreeVisitor.new(filename)
-              #start = Time.now
-              #me    = self
-              #bytes = 0
-              directory_tree_walker.run(visitor)
-            end
+          require 'tree_rb/output_sqlite/sqlite_helper'
+          SqliteHelper.new.run(directory_tree_walker, output, options)
 
-          rescue LoadError
-            puts 'You must gem install sqlite3 to use this output format'
-          end
+        when 'dircat'
+          require 'tree_rb/output_dircat/dircat_helper'
+          DirCatHelper.new.run(directory_tree_walker, options)
 
         else
-          puts "unknown algo #{options[:algo]} specified"
+          puts "unknown format #{options[:algo]} specified"
       end
 
       0

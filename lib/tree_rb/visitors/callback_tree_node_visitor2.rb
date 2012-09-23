@@ -10,7 +10,6 @@ module TreeRb
     attr_reader :root
 
     def initialize(delegate = nil)
-      super()
       @stack    = []
       @root     = nil
       @delegate = delegate
