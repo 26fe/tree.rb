@@ -49,6 +49,7 @@ An example of DSL to build tree:
   gem.add_runtime_dependency(%q<json>, [">= 0"])
   gem.add_runtime_dependency(%q<ansi>, [">= 0"])
   gem.add_runtime_dependency(%q<sqlite3>, [">= 0"])
+  gem.add_runtime_dependency(%q<nokogiri>, [">= 0"])
 
   gem.add_development_dependency(%q<rake>, [">= 0"])
   gem.add_development_dependency(%q<yard>, [">= 0"])
