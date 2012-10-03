@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-require File.join(File.dirname(__FILE__), "..", "spec_helper")
+require File.join(File.dirname(__FILE__), "..", "..", "spec_helper")
 
 describe "Tree Node Dsl Derived Class with no-arg constructor " do
 

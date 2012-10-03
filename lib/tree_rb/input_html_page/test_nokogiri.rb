@@ -2,6 +2,11 @@ require 'rubygems'
 require 'nokogiri'
 require 'pp'
 
+require './dom_walker'
+require '../../../lib/tree_rb/visitors/flat_print_tree_node_visitor'
+require '../../../lib/tree_rb/visitors/print_tree_node_visitor'
+include TreeRb
+
 value = Nokogiri::HTML.parse(<<-HTML_END)
   "<html>
     <body>
@@ -29,14 +34,31 @@ def recursive_search(parent)
 
 
     puts "---------------"
-    puts ch.methods
+    # puts ch.methods
     puts "***"
-    puts "node_type: #{ch.node_type}"
     puts "name #{ch.name}"
-    pp ch
+    puts "node_type: #{ch.node_type}"
+
+    case ch.node_type
+      when Nokogiri::XML::Node::ELEMENT_NODE
+        puts "element"
+      when Nokogiri::XML::Node::TEXT_NODE
+        puts "text"
+      else
+        put "unknow"
+    end
+
+
+    # pp ch
     recursive_search(ch)
   end
 end
 
 parent = value.search("//body").first
-recursive_search(parent)
+# recursive_search(parent)
+
+dom_walker = DomWalker.new(parent)
+dom_walker.run(FlatPrintTreeNodeVisitor.new)
+dom_walker.run(PrintTreeNodeVisitor.new)
+
+

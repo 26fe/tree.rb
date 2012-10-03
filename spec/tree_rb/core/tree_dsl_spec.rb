@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-require File.join(File.dirname(__FILE__), "..", "spec_helper")
+require File.join(File.dirname(__FILE__), "..", "..", "spec_helper")
 
 describe "TreeNodeDsl" do
 
@@ -30,11 +30,11 @@ EOS
   it "test_dsl_block_with_arg" do
     tree = TreeNode.create do
       node "root" do |node|
-        node.prefix_path=("pre/")        
+        node.prefix_path=("pre/")
         leaf "l1"
         leaf "l2"
         node "sub" do
-          leaf "l3" do |leaf|            
+          leaf "l3" do |leaf|
           end
         end
         node "woleaves"
