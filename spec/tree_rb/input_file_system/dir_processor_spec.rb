@@ -9,7 +9,7 @@ describe DirProcessor do
     dp.process(FIXTURES)
 
     puts files
-    files.length.should == 5
+    files.length.should == 6
   end
 
 end

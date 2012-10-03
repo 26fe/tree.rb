@@ -6,6 +6,7 @@
 require 'pathname'
 require 'yaml'
 require 'ostruct'
+require 'nokogiri'
 
 #
 # rubygems
@@ -34,18 +35,14 @@ require 'tree_rb/core/tree_node'
 require 'tree_rb/core/basic_tree_node_visitor'
 require 'tree_rb/core/tree_node_visitor'
 
-require 'tree_rb/file_system/directory_walker'
+require 'tree_rb/input_file_system/directory_walker'
+require 'tree_rb/input_file_system/dir_processor'
+
+require 'tree_rb/input_html_page/dom_walker'
 
 #
 # visitors
 #
-#require 'tree_rb/visitors/block_tree_node_visitor'
-#require 'tree_rb/visitors/build_dir_tree_visitor'
-#require 'tree_rb/visitors/callback_tree_node_visitor2'
-#require 'tree_rb/visitors/clone_tree_node_visitor'
-#require 'tree_rb/visitors/depth_tree_node_visitor'
-#require 'tree_rb/visitors/print_dir_tree_visitor'
-#require 'tree_rb/visitors/directory_to_hash_visitor'
 
 visitors_dir = File.join(File.dirname(__FILE__), "tree_rb", "visitors")
 unless Dir.exist? visitors_dir
@@ -53,5 +50,9 @@ unless Dir.exist? visitors_dir
 end
 Dir[ File.join(visitors_dir, "*.rb") ].each { |f|require f }
 
+visitors_dir = File.join(File.dirname(__FILE__), "tree_rb", "visitors_file_system")
+unless Dir.exist? visitors_dir
+  raise "cannot found directory '#{visitors_dir}'"
+end
+Dir[ File.join(visitors_dir, "*.rb") ].each { |f|require f }
 
-require 'tree_rb/file_system/dir_processor'
