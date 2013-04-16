@@ -11,8 +11,8 @@ class MyVisitor < BasicTreeNodeVisitor
   end
 end
 
-dtw = DirTreeWalker.new( File.join(File.dirname(__FILE__), "..", ".." ) )
-dtw.match "leaf_node.rb"
-dtw.match "abs_node.rb"
+dtw = DirTreeWalker.new( File.join(File.dirname(__FILE__), '..', '..') )
+dtw.match 'leaf_node.rb'
+dtw.match 'abs_node.rb'
 dtw.run( MyVisitor.new )
 

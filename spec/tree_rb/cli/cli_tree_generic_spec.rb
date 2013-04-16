@@ -86,9 +86,9 @@ describe CliTree do
     # puts captured
 
     expected_out="test_dir_3_with_error\n`-- accessible_dir\n\n2 directories, 0 files\n"
-    expected_err="Permission denied - /home/gf/GioPrj.home/tree.rb/spec/fixtures/test_dir_3_with_error/no_accessible_dir\n"
+    expected_err=/Permission denied/
     captured.out.should == expected_out
-    captured.err.should == expected_err
+    captured.err.should match expected_err
     captured.err.should_not be_empty
     captured.out.split("\n").length.should == 4
   end
