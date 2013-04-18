@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'ostruct'
 
-cwd = File.expand_path( File.join( File.dirname(__FILE__), "..", "..", "lib" ) )
+cwd = File.expand_path( File.join( File.dirname(__FILE__), '..', '..', 'lib') )
 $:.unshift(cwd) unless $:.include?(cwd)
 require 'tree_rb'
 
@@ -31,7 +31,7 @@ class DirWithoutSubDir < TreeRb::BasicTreeNodeVisitor
 
 end
 
-dtw = TreeRb::DirTreeWalker.new( File.join("..", ".." ))
+dtw = TreeRb::DirTreeWalker.new( File.join('..', '..'))
 dtw.ignore /^\./
 dtw.visit_file=false
 dtw.run( DirWithoutSubDir.new )

@@ -217,7 +217,7 @@ module TreeRb
       # check dirname
       #
       if @dirname.nil? and dirname.nil?
-        raise "missing starting directory"
+        raise 'missing starting directory'
       end
       @dirname = dirname if dirname
 
@@ -225,7 +225,7 @@ module TreeRb
       # check visitor
       #
       if tree_node_visitor and block
-        raise "cannot use block and parameter together"
+        raise 'cannot use block and parameter together'
       end
 
       if tree_node_visitor

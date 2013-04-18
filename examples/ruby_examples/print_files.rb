@@ -4,10 +4,20 @@ $:.unshift(cwd) unless $:.include?(cwd)
 require 'tree_rb'
 include TreeRb
 
-dtw = DirTreeWalker.new( :ignore => %w(.git .ini) )
+root_dir =  '..'
 
-dir =  '..'
-dtw.run dir do
+puts '*** print all files excluding "*.git" and "*.ini"'
+dtw = DirTreeWalker.new( :ignore => %w(.git .ini) )
+dtw.run root_dir do
+  on_leaf do |pathname|
+    puts "- #{pathname}"
+  end
+end
+
+puts '*** print files with extension *.sh" and "*.js"'
+#dtw = DirTreeWalker.new( :match => %w(/.sh/ /.jd/) )
+dtw = DirTreeWalker.new( :match => /.sh/ )
+dtw.run root_dir do
   on_leaf do |pathname|
     puts "- #{pathname}"
   end

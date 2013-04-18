@@ -4,7 +4,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "tree_rb/version"
 
 Gem::Specification.new do |gem|
-  gem.name = "tree.rb"
+  gem.name = 'tree.rb'
   gem.version = TreeRb::VERSION
   gem.platform = Gem::Platform::RUBY
   gem.summary = "tree.rb is a 'clone' of tree unix command. The gem implements a library to mange tree structures."
@@ -28,8 +28,8 @@ An example of DSL to build tree:
   EOF
 
   gem.authors = %w{ Tokiro }
-  gem.email = "tokiro.oyama@gmail.com"
-  gem.homepage = "http://github.com/tokiro/tree.rb"
+  gem.email = 'tokiro.oyama@gmail.com'
+  gem.homepage = 'http://github.com/tokiro/tree.rb'
 
   gem.post_install_message = %q{Thank you to have installed tree.rb, any feedback is appreciated.}
 
@@ -46,15 +46,15 @@ An example of DSL to build tree:
   # dependencies
   #
 
-  gem.add_runtime_dependency(%q<json>, [">= 0"])
-  gem.add_runtime_dependency(%q<ansi>, [">= 0"])
-  gem.add_runtime_dependency(%q<sqlite3>, [">= 0"])
-  gem.add_runtime_dependency(%q<nokogiri>, [">= 0"])
+  gem.add_runtime_dependency(%q<json>, ['>= 0'])
+  gem.add_runtime_dependency(%q<ansi>, ['>= 0'])
+  gem.add_runtime_dependency(%q<sqlite3>, ['>= 0'])
+  gem.add_runtime_dependency(%q<nokogiri>, ['>= 0'])
 
-  gem.add_development_dependency(%q<rake>, [">= 0"])
-  gem.add_development_dependency(%q<yard>, [">= 0"])
-  gem.add_development_dependency(%q<bundler>, [">= 0"])
-  gem.add_development_dependency(%q<rspec>, [">= 0"])
+  gem.add_development_dependency(%q<rake>, ['>= 0'])
+  gem.add_development_dependency(%q<yard>, ['>= 0'])
+  gem.add_development_dependency(%q<bundler>, ['>= 0'])
+  gem.add_development_dependency(%q<rspec>, ['>= 0'])
 
   #
   # files
@@ -71,7 +71,7 @@ An example of DSL to build tree:
   #
   # gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   # gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.executables = Dir["bin/*"].map(&File.method(:basename))
+  gem.executables = Dir['bin/*'].map(&File.method(:basename))
 
 
   #
