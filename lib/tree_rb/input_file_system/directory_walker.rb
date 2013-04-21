@@ -11,7 +11,7 @@ module TreeRb
     # if dirname is missing, must be supplied when invoking run
     #
     # @yield [a, b, c] TreeNodeVisitor
-    # @yieldparam [optional, types, ...] argname description
+    # @yieldparam [optional, types, ...] argument name description
     # @yieldreturn [optional, types, ...] description
     #
     # @overload initialize(dirname)
@@ -112,7 +112,12 @@ module TreeRb
     # @param [RegEx] pattern
     #
     def ignore_dir(pattern)
-      @ignore_dir_patterns << pattern
+      # it transforms all in regexp
+      if pattern.kind_of? Regexp
+        @ignore_dir_patterns << pattern
+      else
+        @ignore_dir_patterns << /#{pattern}/
+      end
       self
     end
 
@@ -132,7 +137,11 @@ module TreeRb
     # @param [RegEx] pattern
     #
     def match(pattern)
-      @match_file_patterns << pattern
+      if pattern.kind_of? Regexp
+        @match_file_patterns << pattern
+      else
+        @match_file_patterns << /#{pattern}/
+      end
       self
     end
 
@@ -167,7 +176,7 @@ module TreeRb
     end
 
     #
-    # Test common ignore pattern
+    # Test match pattern
     #
     # @param [String] filename
     # @return [boolean] if filename match almost one pattern
@@ -237,7 +246,7 @@ module TreeRb
       end
 
       unless @visitor
-        raise "missing visitor"
+        raise 'missing visitor'
       end
 
       #
@@ -250,14 +259,13 @@ module TreeRb
     private
 
     def _include?(patterns, basename)
-      # return false if the patters.empty?
-      patterns.find { |pattern|
+      patterns.find do |pattern|
         if pattern.kind_of? Regexp
           pattern.match(basename)
         else
           basename == pattern
         end
-      }
+      end
     end
 
     #
@@ -284,7 +292,7 @@ module TreeRb
       @visitor.enter_node(dirname)
       entries.each do |basename|
         begin
-          next if basename == "." or basename == ".." # ignore always "." and ".."
+          next if basename == '.' or basename == '..' # ignore always "." and ".."
           pathname = File.join(dirname, basename)
 
           if File.directory?(pathname)

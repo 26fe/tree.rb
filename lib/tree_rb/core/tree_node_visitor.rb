@@ -52,6 +52,13 @@ module TreeRb
     end
 
     #
+    # called when the tree node is not accessible or an exception is raise when the node is accessed
+    #
+    # @param [Object] error
+    def cannot_enter_node( tree_node, error)
+    end
+
+    #
     # called on tree node at end of the visit i.e. oll subtree are visited
     #
     def exit_node(tree_node)
@@ -92,8 +99,8 @@ module TreeRb
     # add a block to be called when entering into a tree_node
     #
     def on_enter_node(&block)
-      raise "already defined a delegate" if @delegate
-      raise "block missing" unless block
+      raise 'already defined a delegate' if @delegate
+      raise 'block missing' unless block
       @on_enter_tree_node_blocks << block
     end
 
@@ -101,8 +108,8 @@ module TreeRb
     # add a block to be called when exiting from a TreeNode
     #
     def on_exit_node(&block)
-      raise "already defined a delegate" if @delegate
-      raise "block missing" unless block
+      raise 'already defined a delegate' if @delegate
+      raise 'block missing' unless block
       @on_exit_tree_node_blocks << block
     end
 
@@ -110,8 +117,8 @@ module TreeRb
     # add a block to be called when visiting a leaf node
     #
     def on_leaf(&block)
-      raise "already defined a delegate" if @delegate
-      raise "block missing" unless block
+      raise 'already defined a delegate' if @delegate
+      raise 'block missing' unless block
       @on_visit_leaf_node_blocks << block
     end
 
