@@ -10,9 +10,9 @@ module TreeRb
     end
 
     def enter_node( tree_node )
-      str = ""
+      str = ''
       (0...@depth).step {
-        str << " |-"
+        str << ' |-'
       }
 
       if @depth == 0
@@ -36,9 +36,9 @@ module TreeRb
     def visit_leaf( leaf_node )
       str = ""
       (0...@depth-1).step {
-        str << " |-"
+        str << ' |-'
       }
-      str << " |  "
+      str << ' |  '
       puts str + leaf_node.name.to_s
     end
 

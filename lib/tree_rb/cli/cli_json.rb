@@ -170,7 +170,7 @@ module TreeRb
     end
 
     def parse_args(argv)
-      options = { :verbose => true, :force => false, :algo => 'build-dir' }
+      options = { :verbose => true, :force => false, :format => 'build-dir' }
       parser  = options_parser(options)
 
       begin
@@ -313,7 +313,7 @@ module TreeRb
 
       output.puts JSON.pretty_generate(my_json)
 
-      return SUCCESS
+      SUCCESS
     end
 
   end # end class

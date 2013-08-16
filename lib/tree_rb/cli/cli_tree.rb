@@ -2,7 +2,7 @@
 module TreeRb
 
   #
-  #
+  # Command Line Interface to Tree
   #
   class CliTree
 
@@ -12,10 +12,10 @@ module TreeRb
 
     def options_parser(options)
       parser        = OptionParser.new
-      parser.banner = "Usage: tree.rb [options] [directory]"
-      parser.separator "list contents of directories in a tree-like format"
-      parser.separator "this is a almost :-) a clone of tree unix command written in ruby"
-      parser.separator "Code https://github.com/tokiro/treevisitor. Feedback to tokiro.oyama@gmail.com"
+      parser.banner = 'Usage: tree.rb [options] [directory]'
+      parser.separator 'list contents of directories in a tree-like format'
+      parser.separator 'this is a almost :-) a clone of tree unix command written in ruby'
+      parser.separator 'Code https://github.com/tokiro/treevisitor. Feedback to tokiro.oyama@gmail.com'
 
       #
       # Generic
@@ -74,11 +74,11 @@ module TreeRb
         options[:show_indentation] = false
       end
 
-      algos = %w[build-dir print-dir json d3js html_partition html_tree html_treemap yaml sqlite dircat]
+      formats = %w[build-dir print-dir json d3js html_partition html_tree html_treemap yaml sqlite dircat]
       # algo_aliases = { "b" => "build-dir", "v" => "print-dir", "j" => "json", "y" => "yaml", "s" => "sqlite" }
-      # algo_list = (algo_aliases.keys + algos).join(',')
-      parser.on("--format ALGO", algos, "select an algo", "  (#{algos})") do |algo|
-        options[:algo] = algo
+      # algo_list = (algo_aliases.keys + formats).join(',')
+      parser.on('--format FORMAT', formats, 'select a output format', "  (#{formats})") do |format|
+        options[:format] = format
       end
 
       options[:max_level] = nil
@@ -102,7 +102,7 @@ module TreeRb
 
       # copied from tree man page
       parser.on("-C",
-                "Turn colorization on always, using built-in color",
+                'Turn colorization on always, using built-in color',
                 "  defaults if the LS_COLORS environment variable is not set.",
                 "  Useful to colorize output to a pipe.") do
         options[:colorize_force] = true
@@ -134,8 +134,8 @@ module TreeRb
 
       options[:show_indentation] = true
       parser.on("-i",
-                "Makes tree not print the indentation lines, ",
-                "  useful when used in conjunction with the -f option.") do
+                'Makes tree not print the indentation lines, ',
+                '  useful when used in conjunction with the -f option.') do
         options[:show_indentation] = false
       end
 
@@ -166,7 +166,7 @@ module TreeRb
       end
 
       options[:show_sha1sum] = false
-      parser.on("--sha1sum", "show ake sha1sum output implies -i and --only-files") do
+      parser.on('--sha1sum', 'show ake sha1sum output implies -i and --only-files') do
         options[:only_files]       = true
         options[:show_sha1sum]     = true
         options[:show_indentation] = false
@@ -178,22 +178,22 @@ module TreeRb
     end
 
     def parse_args(argv)
-      options = { :verbose => true, :force => false, :algo => 'build-dir' }
+      options = { :verbose => true, :force => false, :format => 'build-dir' }
       parser  = options_parser(options)
 
       begin
         rest = parser.parse(argv)
       rescue OptionParser::InvalidOption => e
         $stderr.puts e.to_s
-        $stderr.puts "try --help for help"
+        $stderr.puts 'try --help for help'
         return false
       rescue OptionParser::MissingArgument => e
         $stderr.puts e.to_s
-        $stderr.puts "try --help for help"
+        $stderr.puts 'try --help for help'
         return false
       rescue OptionParser::InvalidArgument => e
         $stderr.puts e.to_s
-        $stderr.puts "try --help for help"
+        $stderr.puts 'try --help for help'
         return false
       end
 
@@ -223,7 +223,10 @@ module TreeRb
 
       # TODO: capture CTRL^C to avoid show the stack trace
       # http://ruby-doc.org/core-1.9.3/Kernel.html#method-i-trap
-      Signal.trap('INT') { puts "intercepted ctr+c"; exit }
+      Signal.trap('INT') do
+        puts 'intercepted ctr+c'
+        exit
+      end
 
       if rest.length < 1
         dirname = Dir.pwd
@@ -247,7 +250,7 @@ module TreeRb
       end
       directory_tree_walker.visit_file = !options[:only_directories]
 
-      case options[:algo]
+      case options[:format]
 
         when 'build-dir'
 
@@ -304,7 +307,7 @@ module TreeRb
           DirCatHelper.new.run(directory_tree_walker, options)
 
         else
-          puts "unknown format #{options[:algo]} specified"
+          puts "unknown format #{options[:format]} specified"
       end
 
       0

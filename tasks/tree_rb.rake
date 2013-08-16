@@ -11,11 +11,11 @@ namespace :tree_rb do
         exit
       end
     end
-    puts "All examples run successfully"
+    puts 'All examples run successfully'
 
   end
 
-  desc "Start an IRB shell"
+  desc 'Start an IRB shell'
   task :shell do
     sh 'IRBRC=`pwd`/config/irbrc.rb irb'
   end

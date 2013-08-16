@@ -2,7 +2,7 @@
 #
 # std lib
 #
-require "stringio"
+require 'stringio'
 require 'ostruct'
 
 #
@@ -13,7 +13,7 @@ require 'tree_rb'
 require 'tree_rb_cli'
 include TreeRb
 
-FIXTURES = File.expand_path( File.join( File.dirname(__FILE__), "fixtures" ) )
+FIXTURES = File.expand_path( File.join( File.dirname(__FILE__), 'fixtures') )
 
 def capture_output
   old_stdout, old_stderr = $stdout, $stderr

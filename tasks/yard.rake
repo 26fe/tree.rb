@@ -10,7 +10,7 @@ begin
   end
 
 rescue LoadError
-  puts "Yard (or a dependency) not available. Install it with: sudo gem install jeweler"
+  puts 'Yard (or a dependency) not available. Install it with: sudo gem install yard'
 end
 
 

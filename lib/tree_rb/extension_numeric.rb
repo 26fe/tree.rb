@@ -15,12 +15,12 @@ class Numeric
 
   def to_human
     if self == 0
-      return "0B"
-    end 
+      return '0B'
+    end
     units = %w{B KB MB GB TB}
-   
+
     e     = (Math.log(self)/Math.log(1024)).floor
-    s     = "%.3f" % (to_f / 1024**e)
+    s     = '%.3f' % (to_f / 1024**e)
     s.sub(/\.?0*$/, units[e])
   end
 
