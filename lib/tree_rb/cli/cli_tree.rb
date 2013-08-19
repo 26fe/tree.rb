@@ -11,7 +11,7 @@ module TreeRb
     end
 
     def options_parser(options)
-      parser        = OptionParser.new
+      parser = OptionParser.new
       parser.banner = 'Usage: tree.rb [options] [directory]'
       parser.separator 'list contents of directories in a tree-like format'
       parser.separator 'this is a almost :-) a clone of tree unix command written in ruby'
@@ -70,7 +70,7 @@ module TreeRb
 
       options[:only_files] = false
       parser.on("--only-files", "show only file implies -i") do
-        options[:only_files]       = true
+        options[:only_files] = true
         options[:show_indentation] = false
       end
 
@@ -78,11 +78,11 @@ module TreeRb
       # algo_aliases = { "b" => "build-dir", "v" => "print-dir", "j" => "json", "y" => "yaml", "s" => "sqlite" }
       # algo_list = (algo_aliases.keys + formats).join(',')
       parser.on('--format FORMAT', formats, 'select a output format', "  (#{formats})") do |format|
-        options[:format] = format
+        options[:output_plugins] = format
       end
 
       options[:max_level] = nil
-      parser.on("-L [LEVEL]", Integer, "Max display depth of the directory tree.") do |l|
+      parser.on("-L [LEVEL]", Integer, 'Max display depth of the directory tree.') do |l|
         options[:max_level] = l
       end
 
@@ -96,7 +96,7 @@ module TreeRb
       # begin colorize
       #
       # copied from tree man page
-      parser.on("-n", "Turn colorization off always, over-ridden by the -C option.") do
+      parser.on("-n", 'Turn colorization off always, over-ridden by the -C option.') do
         options[:colorize_force] = false
       end
 
@@ -159,18 +159,18 @@ module TreeRb
 
       options[:show_md5sum] = false
       parser.on("--md5sum", "show ake md5sum implies -i and --only-files") do
-        options[:only_files]       = true
-        options[:show_md5sum]      = true
+        options[:only_files] = true
+        options[:show_md5sum] = true
         options[:show_indentation] = false
-        options[:show_report]      = false
+        options[:show_report] = false
       end
 
       options[:show_sha1sum] = false
       parser.on('--sha1sum', 'show ake sha1sum output implies -i and --only-files') do
-        options[:only_files]       = true
-        options[:show_sha1sum]     = true
+        options[:only_files] = true
+        options[:show_sha1sum] = true
         options[:show_indentation] = false
-        options[:show_report]      = false
+        options[:show_report] = false
       end
 
 
@@ -178,8 +178,8 @@ module TreeRb
     end
 
     def parse_args(argv)
-      options = { :verbose => true, :force => false, :format => 'build-dir' }
-      parser  = options_parser(options)
+      options = {:verbose => true, :force => false, :output_plugins => 'build-dir'}
+      parser = options_parser(options)
 
       begin
         rest = parser.parse(argv)
@@ -211,7 +211,7 @@ module TreeRb
           $stderr.puts "catalog '#{filename}' exists use --force to overwrite"
           return 0
         end
-        output = File.open(filename, "w")
+        output = File.open(filename, 'w')
         $stderr.puts "Writing file '#{filename}'"
       end
 
@@ -250,64 +250,79 @@ module TreeRb
       end
       directory_tree_walker.visit_file = !options[:only_directories]
 
-      case options[:format]
+      formats = {
+          'build-dir' => Proc.new do |directory_tree_walker,output,options|
 
-        when 'build-dir'
+            visitor = BuildDirTreeVisitor.new(options)
+            directory_tree_walker.run(visitor)
 
-          visitor = BuildDirTreeVisitor.new(options)
-          directory_tree_walker.run(visitor)
+            output.puts visitor.root.to_str('', options)
 
-          output.puts visitor.root.to_str('', options)
+            if options[:show_report]
+              output.puts
+              output.puts "#{visitor.nr_directories} directories, #{visitor.nr_files} files"
+            end
+          end,
 
-          if options[:show_report]
-            output.puts
-            output.puts "#{visitor.nr_directories} directories, #{visitor.nr_files} files"
+          'print-dir' => Proc.new do |directory_tree_walker,output,options|
+            visitor = PrintDirTreeVisitor.new
+            directory_tree_walker.run(visitor)
+          end,
+
+          'yaml' => Proc.new do |directory_tree_walker,output,options|
+            visitor = DirectoryToHashVisitor.new(dirname)
+            root = directory_tree_walker.run(visitor).root
+            output.puts root.to_yaml
+          end,
+
+          'json' => Proc.new do |directory_tree_walker,output,options|
+            visitor = DirectoryToHashVisitor.new(dirname)
+            root = directory_tree_walker.run(visitor).root
+            begin
+              output.puts JSON.pretty_generate(root)
+            rescue JSON::NestingError => e
+              $stderr.puts "#{File.basename(__FILE__)}:#{__LINE__} #{e.to_s}"
+            end
+          end,
+
+          'd3js' => Proc.new do |directory_tree_walker,output,options|
+            require 'tree_rb/output_plugins/html/d3js_output'
+            D3jsOutput.new.run(directory_tree_walker, dirname, nil, output)
+          end,
+
+          'html_partition' => Proc.new do |directory_tree_walker,output,options|
+            require 'tree_rb/output_plugins/html/d3js_output'
+            D3jsOutput.new.run(directory_tree_walker, dirname, 'd3js_layout_partition.erb', output)
+          end,
+
+          'html_tree' => Proc.new do |directory_tree_walker,output,options|
+            require 'tree_rb/output_plugins/html/d3js_output'
+            D3jsOutput.new.run(directory_tree_walker, dirname, 'd3js_layout_tree.erb', output)
+          end,
+
+          'html_treemap' => Proc.new do |directory_tree_walker,output,options|
+            require 'tree_rb/output_plugins/html/d3js_output'
+            D3jsOutput.new.run(directory_tree_walker, dirname, 'd3js_layout_treemap.erb', output)
+          end,
+
+          'dircat' => Proc.new do |directory_tree_walker,output,options|
+            require 'tree_rb/output_plugins/dircat/dircat_output'
+            DirCatOutput.new.run(directory_tree_walker, options)
+          end,
+
+          'sqlite' => Proc.new do |directory_tree_walker,output,options|
+            require 'tree_rb/output_plugins/sqlite/sqlite_output'
+            SqliteOutput.new.run(directory_tree_walker, output, options)
           end
+      }
 
-        when 'print-dir'
-          visitor = PrintDirTreeVisitor.new
-          directory_tree_walker.run(visitor)
+      format = options[:output_plugins]
 
-        when 'yaml'
-          visitor = DirectoryToHashVisitor.new(dirname)
-          root    = directory_tree_walker.run(visitor).root
-          output.puts root.to_yaml
-
-        when 'json'
-          visitor = DirectoryToHashVisitor.new(dirname)
-          root    = directory_tree_walker.run(visitor).root
-          begin
-            output.puts JSON.pretty_generate(root)
-          rescue JSON::NestingError => e
-            $stderr.puts "#{File.basename(__FILE__)}:#{__LINE__} #{e.to_s}"
-          end
-
-        when 'd3js'
-          require 'tree_rb/output_html/d3js_helper'
-          D3jsHelper.new.run(directory_tree_walker, dirname, nil, output)
-
-        when 'html_partition'
-          require 'tree_rb/output_html/d3js_helper'
-          D3jsHelper.new.run(directory_tree_walker, dirname, "d3js_layout_partition.erb", output)
-
-        when 'html_tree'
-          require 'tree_rb/output_html/d3js_helper'
-          D3jsHelper.new.run(directory_tree_walker, dirname, "d3js_layout_tree.erb", output)
-
-        when 'html_treemap'
-          require 'tree_rb/output_html/d3js_helper'
-          D3jsHelper.new.run(directory_tree_walker, dirname, "d3js_layout_treemap.erb", output)
-
-        when 'sqlite'
-          require 'tree_rb/output_sqlite/sqlite_helper'
-          SqliteHelper.new.run(directory_tree_walker, output, options)
-
-        when 'dircat'
-          require 'tree_rb/output_dircat/dircat_helper'
-          DirCatHelper.new.run(directory_tree_walker, options)
-
-        else
-          puts "unknown format #{options[:format]} specified"
+      p = formats[format]
+      if p
+        p.call(directory_tree_walker, output, options)
+      else
+        puts "unknown format #{options[:output_plugins]} specified"
       end
 
       0

@@ -35,10 +35,10 @@ require 'tree_rb/core/tree_node'
 require 'tree_rb/core/basic_tree_node_visitor'
 require 'tree_rb/core/tree_node_visitor'
 
-require 'tree_rb/input_file_system/directory_walker'
-require 'tree_rb/input_file_system/dir_processor'
+require 'tree_rb/input_plugins/file_system/directory_walker'
+require 'tree_rb/input_plugins/file_system/dir_processor'
 
-require 'tree_rb/input_html_page/dom_walker'
+require 'tree_rb/input_plugins/html_page/dom_walker'
 
 #
 # visitors
@@ -48,11 +48,11 @@ visitors_dir = File.join(File.dirname(__FILE__), "tree_rb", "visitors")
 unless Dir.exist? visitors_dir
   raise "cannot found directory '#{visitors_dir}'"
 end
-Dir[ File.join(visitors_dir, "*.rb") ].each { |f|require f }
+Dir[ File.join(visitors_dir, '*.rb') ].each { |f|require f }
 
-visitors_dir = File.join(File.dirname(__FILE__), "tree_rb", "visitors_file_system")
+visitors_dir = File.join(File.dirname(__FILE__), 'tree_rb', 'visitors_file_system')
 unless Dir.exist? visitors_dir
   raise "cannot found directory '#{visitors_dir}'"
 end
-Dir[ File.join(visitors_dir, "*.rb") ].each { |f|require f }
+Dir[ File.join(visitors_dir, '*.rb') ].each { |f|require f }
 

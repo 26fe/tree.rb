@@ -17,13 +17,13 @@ describe DirTreeWalker do
 
   it 'should accept option :ignore_dir' do
     dtw = DirTreeWalker.new :ignore_dir => [/^\./, "private_dir" ]
-    dtw.should be_ignore_dir ".git"
-    dtw.should be_ignore_dir "private_dir"
+    dtw.should be_ignore_dir '.git'
+    dtw.should be_ignore_dir 'private_dir'
   end
 
   it 'should accept option :ignore_file' do
     dtw = DirTreeWalker.new :ignore_file => [/.xml/, /(ignore)|(orig)/ ]
-    dtw.should be_ignore_file "pippo.xml"
+    dtw.should be_ignore_file 'pippo.xml'
   end
 
   it 'should accept option :match with string' do
@@ -37,7 +37,7 @@ describe DirTreeWalker do
   end
 
   it 'should ignore files and directory' do
-    walker = DirTreeWalker.new(".")
+    walker = DirTreeWalker.new('.')
 
     walker.ignore(/^\./)
     walker.ignore_file?('.thumbnails').should be_true

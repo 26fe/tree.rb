@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
-begin
-  require 'sqlite3'
-  require 'tree_rb/format_sqlite/sqlite_dir_tree_visitor'
-rescue LoadError
-  $stderr.puts 'You must gem install sqlite3 to use this output format'
-end
-
 module TreeRb
 
   class SqliteOutput
 
     def run(directory_tree_walker, output, options)
+
+      begin
+        require 'sqlite3'
+        require 'tree_rb/output_plugins/sqlite/sqlite_dir_tree_visitor'
+      rescue LoadError
+        $stderr.puts 'You must gem install sqlite3 to use this output format'
+        exit(1)
+      end
+
       unless options[:output]
         $stderr.puts 'need to specify the -o options'
       else

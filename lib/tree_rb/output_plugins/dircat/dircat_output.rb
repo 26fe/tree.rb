@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-require 'tree_rb/output_dircat/entry'
-require 'tree_rb/output_dircat/dircat_visitor'
-
 module TreeRb
 
-  class DirCatFormat
+  class DirCatOutput
 
     def run(directory_tree_walker, options)
+      require 'tree_rb/output_dircat/entry'
+      require 'tree_rb/output_dircat/dircat_visitor'
+
       unless options[:output]
         $stderr.puts 'need to specify the -o options'
       else

@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-require 'tree_rb/output_html/directory_to_hash2_visitor'
-require 'tree_rb/output_html/erb_render'
 
 module TreeRb
 
   class D3jsOutput
 
     def run(directory_tree_walker, dirname, template, output)
+      require 'tree_rb/output_plugins/html/directory_to_hash2_visitor'
+      require 'tree_rb/output_plugins/html/erb_render'
+
       visitor = DirectoryToHash2Visitor.new(dirname)
       root    = directory_tree_walker.run(visitor).root
       begin

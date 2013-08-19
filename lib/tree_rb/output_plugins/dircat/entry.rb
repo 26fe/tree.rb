@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 module DirCat
 
-  FORMAT_VERSION="0.2.1"
+  FORMAT_VERSION='0.2.1'
 
   class EntrySer < OpenStruct
   end
