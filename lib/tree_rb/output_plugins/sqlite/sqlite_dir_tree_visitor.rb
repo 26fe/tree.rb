@@ -12,7 +12,7 @@ module TreeRb
       puts pathname
       stat = File.lstat(pathname)
       digest = SHA1.file(pathname).hexdigest
-      sql = "insert into files (path, name, size, sha1) values ("
+      sql = 'insert into files (path, name, size, sha1) values ('
       sql << "\"#{File.dirname(pathname)}\","
       sql << "\"#{File.basename(pathname)}\","
       sql << "\"#{stat.size}\","

@@ -4,14 +4,14 @@ require 'tree_rb/output_html/erb_render'
 
 module TreeRb
 
-  class D3jsHelper
+  class D3jsOutput
 
     def run(directory_tree_walker, dirname, template, output)
       visitor = DirectoryToHash2Visitor.new(dirname)
       root    = directory_tree_walker.run(visitor).root
       begin
         str_json = JSON.pretty_generate(root)
-        str_json = "var data = " + str_json
+        str_json = 'var data = ' + str_json
 
         if template
           render = ErbRender.new(template, str_json)

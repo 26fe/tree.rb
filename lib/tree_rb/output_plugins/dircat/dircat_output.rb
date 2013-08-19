@@ -4,11 +4,11 @@ require 'tree_rb/output_dircat/dircat_visitor'
 
 module TreeRb
 
-  class DirCatHelper
+  class DirCatFormat
 
     def run(directory_tree_walker, options)
       unless options[:output]
-        $stderr.puts "need to specify the -o options"
+        $stderr.puts 'need to specify the -o options'
       else
         filename = options[:output]
         visitor  = DirCatVisitor.new(filename)

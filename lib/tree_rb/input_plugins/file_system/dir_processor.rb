@@ -20,7 +20,7 @@ module TreeRb
       @dirname = dirname
       old_dirname = Dir.pwd
       Dir.chdir( @dirname )
-      Dir["**/*"].each { |f|
+      Dir['**/*'].each { |f|
         pn = Pathname.new( f ).expand_path
         # puts "#{self.class.name}#loadfromdir #{f}"
         next if pn.directory?
