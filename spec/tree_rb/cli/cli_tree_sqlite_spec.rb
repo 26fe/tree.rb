@@ -6,10 +6,17 @@ describe CliTree do
 
   before(:each) do
     @db_filename = File.join(FIXTURES, 'tmp', 'test.db')
+    if File.exist?(@db_filename)
+       File.chmod(0644, @db_filename)
+       File.unlink(@db_filename) 
+    end
   end
 
   after(:each) do
-    File.unlink(@db_filename) if File.exist?(@db_filename)
+    if File.exist?(@db_filename)
+       File.chmod(0644, @db_filename)
+       File.unlink(@db_filename) 
+    end
   end
 
   it "should accepts '--format sqlite -o test.db' switches" do
@@ -25,6 +32,7 @@ describe CliTree do
     ar = db.execute('select count(*) from files')
     nr_files = ar[0][0]
     nr_files.should == 3
+    db.close
   end
 
 end

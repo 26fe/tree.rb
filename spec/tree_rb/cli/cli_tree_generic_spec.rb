@@ -73,11 +73,33 @@ describe CliTree do
       CliTree.new.parse_args(args)
     end
     # puts captured
-    expected ="test_dir_1\n├── dir.1\n│   ├── file.1.1\n│   └── dir.1.2\n│       └── file.1.2.1\n└── dir.2\n    └── file.2.1\n\n4 directories, 3 files\n"
-    captured.out.should == expected
+    expected = <<EOS
+test_dir_1
+├── dir.1
+│   ├── file.1.1
+│   └── dir.1.2
+│       └── file.1.2.1
+└── dir.2
+    └── file.2.1
+
+4 directories, 3 files
+EOS
+    captured.out.encode('utf-8').should == expected.encode('utf-8') 
   end
 
   it "should show tree with inaccessible directories" do
+
+#    begin
+      d = File.join(FIXTURES, "test_dir_3_with_error", "no_accessible_dir")
+      if File.exists?(d)
+        File.chmod(0644,d) 
+        Dir.rmdir(d) 
+      end
+      FileUtils.mkdir(d)
+      File.chmod(0000, d)
+#    rescue
+#    end
+
     captured = capture_output do
       args = []
       args << File.join(FIXTURES, "test_dir_3_with_error")
@@ -85,11 +107,20 @@ describe CliTree do
     end
     # puts captured
 
-    expected_out="test_dir_3_with_error\n`-- accessible_dir\n\n2 directories, 0 files\n"
+    expected_out= <<EOS
+test_dir_3_with_error
+`-- accessible_dir
+
+2 directories, 0 files
+EOS
     expected_err=/Permission denied/
+
     captured.out.should == expected_out
     captured.err.should match expected_err
     captured.err.should_not be_empty
     captured.out.split("\n").length.should == 4
+
+    # File.chmod(0644,d) 
+    # Dir.unlink(d) 
   end
 end

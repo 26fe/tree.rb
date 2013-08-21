@@ -266,7 +266,7 @@ module TreeRb
       visitor
     end
 
-    ###################################################################################################################
+    ############################################################################################
     #
     # Format the content of tree
     #
@@ -365,10 +365,14 @@ module TreeRb
 
     def prepare_color_map
       @fileToColor = { }
-      ENV['LS_COLORS'].split(":").each do |e|
-        k, v            = e.split('=')
-        @fileToColor[k] = v
+
+      if ENV['LS_COLORS']
+        ENV['LS_COLORS'].split(":").each do |e|
+          k, v            = e.split('=')
+          @fileToColor[k] = v
+        end
       end
+
     end
 
     def color_file(filename)
@@ -383,14 +387,11 @@ module TreeRb
     end
 
     def prepare_prefix_map(options)
-      #
       # check console character encoding
       # altre variabili LC_CTYPE
       # LC_ALL
       # comando locale
       # puts "enconding: #{ENV['LANG']}"
-      #
-
 
       # │ (ascii 179)
       # ├ (ascii 195)
