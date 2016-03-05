@@ -44,7 +44,7 @@ require 'tree_rb/input_plugins/html_page/dom_walker'
 # visitors
 #
 
-visitors_dir = File.join(File.dirname(__FILE__), "tree_rb", "visitors")
+visitors_dir = File.join(File.dirname(__FILE__), 'tree_rb', 'visitors')
 unless Dir.exist? visitors_dir
   raise "cannot found directory '#{visitors_dir}'"
 end
