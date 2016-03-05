@@ -34,7 +34,7 @@ dt: root
 `-- dt: sub
     `-- dl: l3
 EOS
-    tree.to_str.should == out
+    expect(tree.to_str).to be == out
 
     tree = DTreeNode.create(DLeafNode) do
       node "root" do
@@ -45,7 +45,7 @@ EOS
         end
       end
     end
-    tree.to_str.should == out
+    expect(tree.to_str).to be == out
   end
 
 end
