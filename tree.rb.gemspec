@@ -55,7 +55,8 @@ An example of DSL to build tree:
   gem.add_development_dependency(%q<yard>, ['>= 0'])
   gem.add_development_dependency(%q<bundler>, ['>= 0'])
   gem.add_development_dependency(%q<rspec>, ['>= 0'])
-
+  gem.add_development_dependency(%q<rspec-collection_matchers>, ['>= 0'])
+  
   #
   # files
   #
