@@ -20,4 +20,5 @@ test/version_tmp
 tmp
 _yardoc
 .yardoc
-.yardoc
+/.buildpath
+/.project
