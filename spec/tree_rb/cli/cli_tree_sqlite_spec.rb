@@ -26,12 +26,12 @@ describe CliTree do
       args << File.join(FIXTURES, 'test_dir_1')
       CliTree.new.parse_args(args)
     end
-    File.exist?(@db_filename).should be_true
+    expect(File.exist?(@db_filename)).to be true
 
     db = SQLite3::Database.new(@db_filename)
     ar = db.execute('select count(*) from files')
     nr_files = ar[0][0]
-    nr_files.should == 3
+    expect(nr_files).to be == 3
     db.close
   end
 

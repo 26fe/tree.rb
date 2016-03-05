@@ -44,6 +44,6 @@ a: droot
 `-- a: dsub
     `-- a: dl3
 EOS
-    tree.to_str.should == out
+    expect(tree.to_str).to be == out
   end
 end

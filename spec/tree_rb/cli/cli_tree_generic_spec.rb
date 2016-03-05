@@ -8,7 +8,7 @@ describe CliTree do
       args = %w{--help}
       CliTree.new.parse_args(args)
     end
-    captured.out.should match /Usage:/
+    expect(captured.out).to match(/Usage:/)
   end
 
   it "should accept --version switch" do
@@ -17,7 +17,7 @@ describe CliTree do
       CliTree.new.parse_args(args)
     end
     version = TreeRb::VERSION
-    captured.out.should match version
+    expect(captured.out).to match(version)
   end
 
   it "should accepts -d switch (directories only)" do
@@ -27,8 +27,8 @@ describe CliTree do
       CliTree.new.parse_args(args)
     end
     expected = "test_dir_1\n|-- dir.1\n|   `-- dir.1.2\n`-- dir.2\n\n4 directories, 0 files\n"
-    captured.out.should == expected
-    captured.out.split("\n").length.should == 6
+    expect(captured.out).to be == expected
+    expect(captured.out.split("\n").length).to be == 6
   end
 
   it "should accepts -da switch (directories only)" do
@@ -38,8 +38,8 @@ describe CliTree do
       CliTree.new.parse_args(args)
     end
     expected = "test_dir_1\n|-- .dir_with_dot\n|-- dir.1\n|   `-- dir.1.2\n`-- dir.2\n\n5 directories, 0 files\n"
-    captured.out.should == expected
-    captured.out.split("\n").length.should == 7
+    expect(captured.out).to be == expected
+    expect(captured.out.split("\n").length).to be == 7
   end
 
   it "should accepts -a switch (all files)" do
@@ -50,8 +50,8 @@ describe CliTree do
     end
     # pp captured
     expected ="test_dir_1\n|-- .dir_with_dot\n|   `-- dummy.txt\n|-- dir.1\n|   |-- file.1.1\n|   `-- dir.1.2\n|       `-- file.1.2.1\n`-- dir.2\n    `-- file.2.1\n\n5 directories, 4 files\n"
-    captured.out.should == expected
-    captured.out.split("\n").length.should == 11
+    expect(captured.out).to be == expected
+    expect(captured.out.split("\n").length).to be == 11
   end
 
   it "should accepts -a switch (all files)" do
@@ -62,8 +62,8 @@ describe CliTree do
     end
     # puts captured
     expected ="test_dir_1\n|-- dir.1\n|   |-- file.1.1\n|   `-- dir.1.2\n|       `-- file.1.2.1\n`-- dir.2\n    `-- file.2.1\n\n4 directories, 3 files\n"
-    captured.out.should == expected
-    captured.out.split("\n").length.should == 9
+    expect(captured.out).to be == expected
+    expect(captured.out.split("\n").length).to be == 9
   end
 
   it "should accepts -A switch (ascii line graphics)" do
@@ -84,7 +84,7 @@ test_dir_1
 
 4 directories, 3 files
 EOS
-    captured.out.encode('utf-8').should == expected.encode('utf-8') 
+    expect(captured.out.encode('utf-8')).to be == expected.encode('utf-8') 
   end
 
   it "should show tree with inaccessible directories" do
@@ -115,10 +115,10 @@ test_dir_3_with_error
 EOS
     expected_err=/Permission denied/
 
-    captured.out.should == expected_out
-    captured.err.should match expected_err
-    captured.err.should_not be_empty
-    captured.out.split("\n").length.should == 4
+    expect(captured.out).to be == expected_out
+    expect(captured.err).to match(expected_err)
+    expect(captured.err).not_to be_empty
+    expect(captured.out.split("\n").length).to be == 4
 
     # File.chmod(0644,d) 
     # Dir.unlink(d) 

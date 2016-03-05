@@ -24,7 +24,7 @@ root
 |   `-- l3
 `-- wo leaves
 EOS
-    tree.to_str.should == out
+    expect(tree.to_str).to be == out
   end
 
   it "test_dsl_block_with_arg" do
@@ -50,8 +50,8 @@ root
 |   `-- l3
 `-- woleaves
 EOS
-    tree.to_str.should ==  out
-    tree.find("l3").path_with_prefix.should == "pre/root/sub/l3"
+    expect(tree.to_str).to be ==  out
+    expect(tree.find("l3").path_with_prefix).to be == "pre/root/sub/l3"
   end
 
 end

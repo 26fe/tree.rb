@@ -20,8 +20,8 @@ describe TreeNodeVisitor do
     visitor.on_enter_node{ |tree_node| accumulator << tree_node.content }
     visitor.on_leaf{ |leaf_node| accumulator << leaf_node.content }
     @tree.accept( visitor )
-    accumulator.length.should == 5
-    accumulator.should == %w{ a 1 2 b 3 }
+    expect(accumulator.length).to be == 5
+    expect(accumulator).to be == %w{ a 1 2 b 3 }
   end
   
 end

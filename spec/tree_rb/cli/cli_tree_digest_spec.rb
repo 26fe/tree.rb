@@ -15,7 +15,7 @@ a4788ba25d42f21003db11ec53112f1e  file.1.1
 afb96f2652f4ba3cd84f7be0ae6fffe3  file.1.2.1
 c4c0c530b842efe4038ac4a659bfbe77  file.2.1
 EOS
-    captured.out.should == certified_out
+    expect(captured.out).to be == certified_out
   end
 
   it "should accepts --sha1sum switch" do
@@ -30,7 +30,7 @@ EOS
 4b7f45a8c0be069e7eac5f7d64b997c92c740656  file.1.2.1
 3c58aeb1552b0318a86279b52c918f2fb953b4b9  file.2.1
 EOS
-    captured.out.should == certified_out
+    expect(captured.out).to be == certified_out
   end
 
 end

@@ -9,7 +9,7 @@ describe CliJson do
       # args << File.join(FIXTURES, "test_dir_1")
       CliJson.new.parse_args(args)
     end
-    captured.out.should match /Usage:/
+    expect(captured.out).to match /Usage:/
   end
 
   it 'should accept --version switch' do
@@ -18,7 +18,7 @@ describe CliJson do
       CliJson.new.parse_args(args)
     end
     version = TreeRb::VERSION
-    captured.out.should match version
+    expect(captured.out).to match version
   end
 
   it 'should format simple json file' do
@@ -34,7 +34,7 @@ describe CliJson do
   "b": 2
 }
 EOS
-    captured.out.should == certified_out
+    expect(captured.out).to be == certified_out
   end
 
 end

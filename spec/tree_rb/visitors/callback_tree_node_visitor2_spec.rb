@@ -26,13 +26,13 @@ describe "Tree Node Visitors" do
     }
     @tree.accept( visitor )
     new_root = visitor.root
-    new_root.content.should ==  "n" + @tree.content
+    expect(new_root.content).to be ==  "n" + @tree.content
 
     accumulator = []
     visitor = BlockTreeNodeVisitor.new { |node| accumulator << node.content}
     new_root.accept( visitor )
-    accumulator.length.should == 5
-    accumulator.should == %w{ na n1 n2 nb n3 }
+    expect(accumulator.length).to be == 5
+    expect(accumulator).to be == %w{ na n1 n2 nb n3 }
   end
 
 end

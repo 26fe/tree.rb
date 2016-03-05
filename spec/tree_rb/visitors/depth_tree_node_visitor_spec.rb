@@ -18,11 +18,11 @@ describe "Tree Node Visitors" do
   it DepthTreeNodeVisitor do
     visitor = DepthTreeNodeVisitor.new
     @tree.accept( visitor )
-    visitor.depth.should == 0
+    expect(visitor.depth).to be == 0
 
     visitor = CloneTreeNodeVisitor.new
     @tree.accept( visitor )
-    visitor.cloned_root.nr_nodes.should ==  @tree.nr_nodes
+    expect(visitor.cloned_root.nr_nodes).to be ==  @tree.nr_nodes
   end
   
 end
