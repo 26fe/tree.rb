@@ -162,7 +162,7 @@ module TreeRb
     # @return [boolean] if dirname match almost one pattern
     #
     def ignore_dir?(dirname)
-      _include?(@ignore_dir_patterns, File.basename(dirname))
+      _include?(@ignore_dir_patterns, File.basename(dirname)) != nil
     end
 
     #
@@ -172,7 +172,7 @@ module TreeRb
     # @return [boolean] if filename match almost one pattern
     #
     def ignore_file?(filename)
-      _include?(@ignore_file_patterns, File.basename(filename))
+      _include?(@ignore_file_patterns, File.basename(filename)) != nil
     end
 
     #
@@ -183,7 +183,7 @@ module TreeRb
     #
     def match?(filename)
       return true if @match_file_patterns.empty?
-      _include?(@match_file_patterns, File.basename(filename))
+      _include?(@match_file_patterns, File.basename(filename)) != nil
     end
 
     #

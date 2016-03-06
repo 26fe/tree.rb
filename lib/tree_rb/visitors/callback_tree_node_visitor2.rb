@@ -16,12 +16,12 @@ module TreeRb
     end
 
     def on_enter_node(&block)
-      raise "already defined a delegate" if @delegate
+      raise 'already defined a delegate' if @delegate
       @action_enter_tree_node = block
     end
 
     def on_visit_leaf(&block)
-      raise "already defined a delegate" if @delegate
+      raise 'already defined a delegate' if @delegate
       @action_visit_leaf_node = block
     end
 

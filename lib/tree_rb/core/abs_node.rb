@@ -64,12 +64,12 @@ module TreeRb
     # Root node could have assigned a path
     #
     def prefix_path
-      raise "Not root!!" unless @parent.nil?
+      raise 'Not root!!' unless @parent.nil?
       @prefix_path
     end
 
     def prefix_path=(prefix)
-      raise "Not root!!" unless @parent.nil?
+      raise 'Not root!!' unless @parent.nil?
       if prefix != @prefix_path
         @prefix_path = prefix
         if prefix and prefix !~ /\/$/
