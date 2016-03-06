@@ -5,6 +5,8 @@
 require 'stringio'
 require 'ostruct'
 
+require 'rspec/collection_matchers'
+
 #
 # gem
 #
