@@ -20,16 +20,16 @@ describe TreeNodeVisitor do
     end
 
     visitor.enter_node(nil)
-    visitor.instance_eval{ @entered_node }.should be_true
+    expect(visitor.instance_eval{ @entered_node }).to be true
 
     visitor.exit_node(nil)
-    visitor.instance_eval{ @exit_node }.should be_true
+    expect(visitor.instance_eval{ @exit_node }).to be true
 
     visitor.visit_leaf(nil)
-    visitor.instance_eval{ @visit_leaf }.should be_true
+    expect(visitor.instance_eval{ @visit_leaf }).to be true
   end
 
-  it "should initialize correctly" do
+  it 'should initialize correctly' do
     visitor = TreeNodeVisitor.new do
 
       on_enter_node do |node, parent|
@@ -50,17 +50,17 @@ describe TreeNodeVisitor do
 
     visitor.instance_eval{ @stack = ["p"] }
     visitor.enter_node("n")
-    visitor.instance_eval{ @node }.should == "n"
-    visitor.instance_eval{ @parent }.should == "p"
-    visitor.instance_eval{ @stack }.should have(2).node
+    expect(visitor.instance_eval{ @node }).to be == "n"
+    expect(visitor.instance_eval{ @parent }).to be == "p"
+    expect(visitor.instance_eval{ @stack }).to have(2).node
 
     visitor.exit_node("n")
-    visitor.instance_eval{ @node }.should == "n"
-    visitor.instance_eval{ @stack }.should have(1).node
+    expect(visitor.instance_eval{ @node }).to be == "n"
+    expect(visitor.instance_eval{ @stack }).to have(1).node
 
-    visitor.instance_eval{ @stack = ["p"] }
-    visitor.visit_leaf("l")
-    visitor.instance_eval{ @leaf }.should == "l"
-    visitor.instance_eval{ @parent }.should == "p"
+    visitor.instance_eval{ @stack = ['p'] }
+    visitor.visit_leaf('l')
+    expect(visitor.instance_eval{ @leaf }).to be == 'l'
+    expect(visitor.instance_eval{ @parent }).to be == 'p'
   end
 end
