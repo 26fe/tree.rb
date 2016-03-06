@@ -15,55 +15,55 @@ describe TreeNode do
     end
 
     it "correct path" do
-      @tree.path.should == "a"
-      @sub_tree.path.should == "a/b"
-      @tree.path_with_prefix.should == "a"
-      @sub_tree.path_with_prefix.should == "a/b"
+      expect(@tree.path).to be == "a"
+      expect(@sub_tree.path).to be == "a/b"
+      expect(@tree.path_with_prefix).to be == "a"
+      expect(@sub_tree.path_with_prefix).to be == "a/b"
     end
 
     it "assign prefix path with a /" do
       @tree.prefix_path= "<root>/"
 
-      @tree.prefix_path.should == "<root>/"
-      @tree.path.should == "a"
-      @sub_tree.path.should == "a/b"
-      @tree.path_with_prefix.should == "<root>/a"
-      @sub_tree.path_with_prefix.should == "<root>/a/b"
+      expect(@tree.prefix_path).to be == "<root>/"
+      expect(@tree.path).to be == "a"
+      expect(@sub_tree.path).to be == "a/b"
+      expect(@tree.path_with_prefix).to be == "<root>/a"
+      expect(@sub_tree.path_with_prefix).to be == "<root>/a/b"
     end
 
     it "assign empty prefix path" do
       @tree.prefix_path= ""
 
-      @tree.prefix_path.should == "/"
-      @tree.path.should == "a"
-      @sub_tree.path.should == "a/b"
-      @tree.path_with_prefix.should == "/a"
-      @sub_tree.path_with_prefix.should == "/a/b"
+      expect(@tree.prefix_path).to be == "/"
+      expect(@tree.path).to be == "a"
+      expect(@sub_tree.path).to be == "a/b"
+      expect(@tree.path_with_prefix).to be == "/a"
+      expect(@sub_tree.path_with_prefix).to be == "/a/b"
     end
 
     it "assign prefix path wo a /" do
       @tree.prefix_path= "<root>"
 
-      @tree.prefix_path.should == "<root>/"
-      @tree.path_with_prefix.should == "<root>/a"
-      @sub_tree.path_with_prefix.should == "<root>/a/b"
+      expect(@tree.prefix_path).to be == "<root>/"
+      expect(@tree.path_with_prefix).to be == "<root>/a"
+      expect(@sub_tree.path_with_prefix).to be == "<root>/a/b"
     end
 
     it "invalidate" do
       @tree.prefix_path="root/"
-      @sub_tree.path.should == "a/b"
-      @sub_tree.path_with_prefix.should == "root/a/b"
-      @sub_tree.depth.should == 2
+      expect(@sub_tree.path).to be == "a/b"
+      expect(@sub_tree.path_with_prefix).to be == "root/a/b"
+      expect(@sub_tree.depth).to be == 2
 
       r = TreeNode.new("r")
       r.add_child(@tree)
-      @sub_tree.path.should == "r/a/b"
-      @sub_tree.path_with_prefix.should == "r/a/b"
+      expect(@sub_tree.path).to be == "r/a/b"
+      expect(@sub_tree.path_with_prefix).to be == "r/a/b"
 
       r.prefix_path="new_root/"
-      @sub_tree.path.should == "r/a/b"
-      @sub_tree.path_with_prefix.should == "new_root/r/a/b"
-      @sub_tree.depth.should == 3
+      expect(@sub_tree.path).to be == "r/a/b"
+      expect(@sub_tree.path_with_prefix).to be == "new_root/r/a/b"
+      expect(@sub_tree.depth).to be == 3
     end
 
   end
