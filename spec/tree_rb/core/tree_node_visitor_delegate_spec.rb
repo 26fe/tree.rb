@@ -23,13 +23,13 @@ describe TreeNodeVisitor do
     visitor = TreeNodeVisitor.new(delegate)
 
     visitor.enter_node(nil)
-    delegate.instance_eval{ @entered_node }.should be_true
+    expect(delegate.instance_eval{ @entered_node }).to be true
 
     visitor.exit_node(nil)
-    delegate.instance_eval{ @exit_node }.should be_true
+    expect(delegate.instance_eval{ @exit_node }).to be true
 
     visitor.visit_leaf(nil)
-    delegate.instance_eval{ @visited_leaf }.should be_true
+    expect(delegate.instance_eval{ @visited_leaf }).to be true
   end
 
 end
