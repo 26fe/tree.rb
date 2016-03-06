@@ -8,8 +8,8 @@ describe DirProcessor do
     dp    = DirProcessor.new { |f| files << f }
     dp.process(FIXTURES)
 
-    puts files
-    files.length.should == 5
+    # puts files
+    expect(files.length).to be == 8
   end
 
 end
