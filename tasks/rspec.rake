@@ -7,7 +7,7 @@ begin
   RSpec::Core::RakeTask.new(:spec)
 
   RSpec::Core::RakeTask.new do |t|
-    t.rspec_opts = %w(--color --format spec --backtrace)
+    t.rspec_opts = %w(--color --format documentation --backtrace)
     t.pattern    = 'spec/**/*_spec.rb'
   end
 
