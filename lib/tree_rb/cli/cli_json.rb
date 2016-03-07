@@ -15,11 +15,11 @@ module TreeRb
 
     def options_parser(options)
       parser        = OptionParser.new
-      parser.banner = "Usage: rjson.rb [options] [directory]"
+      parser.banner = 'Usage: rjson.rb [options] [directory]'
       parser.separator 'pretty format json file'
       parser.separator 'Code https://github.com/tokiro/treevisitor. Feedback to tokiro.oyama@gmail.com'
 
-      parser.on('-o [FILE]', "--output [FILE]", String) do |v|
+      parser.on('-o [FILE]', '--output [FILE]', String) do |v|
         if options[:output]
           puts 'only one file of output can be used'
           options[:exit] = true
@@ -28,7 +28,7 @@ module TreeRb
       end
 
       options[:force_overwrite_output] = false
-      parser.on("--force", "overwrite output") do
+      parser.on('--force', 'overwrite output') do
         options[:force_overwrite_output] = true
       end
       parser.on_tail('--help', 'Show this message') do

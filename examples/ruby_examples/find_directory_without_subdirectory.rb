@@ -25,13 +25,13 @@ class DirWithoutSubDir < TreeRb::BasicTreeNodeVisitor
   def exit_node( pathname )
     info = @stack.pop
     if info.nr == @nr
-      puts "leaf: #{pathname}"
+      puts "leaf: #{pathname} with no subdir"
     end
   end
 
 end
 
-dtw = TreeRb::DirTreeWalker.new( File.join('..', '..'))
+dtw = TreeRb::DirTreeWalker.new( File.join('..', '..') )
 dtw.ignore /^\./
 dtw.visit_file=false
 dtw.run( DirWithoutSubDir.new )

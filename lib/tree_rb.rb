@@ -17,7 +17,7 @@ require 'ansi/code'
 begin
   require 'Win32/Console/ANSI' if RUBY_PLATFORM =~ /win32/
 rescue LoadError
-  puts 'You must gem install win32console to use color on Windows'
+  puts "to use color on Windows you can install win32console 'gem install win32console'"
 end
 
 #

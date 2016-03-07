@@ -1,6 +1,6 @@
 #!/usr/bin/env gem build
 # -*- encoding: utf-8; mode: ruby -*-
-$:.push File.expand_path("../lib", __FILE__)
+$:.push File.expand_path('../lib', __FILE__)
 require 'tree_rb/version'
 
 Gem::Specification.new do |gem|
