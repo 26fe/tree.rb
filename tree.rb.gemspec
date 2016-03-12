@@ -14,18 +14,7 @@ tree.rb is a 'clone' of tree unix command. It shows directory tree on console.
 tree.rb is also a library to manage tree structures.
 Tree structures can be build using a dsl (domain specific language), and
 it can be explored using a visitor design pattern.
-An example of DSL to build tree:
-<pre>
-   tree = TreeNode.create do
-     node "root" do
-       leaf "l1"
-       node "sub" do
-         leaf "l3"
-       end
-       node "wo leaves"
-     end
-</pre>
-  EOF
+EOF
 
   gem.authors = %w{ Tokiro }
   gem.email = 'tokiro.oyama@gmail.com'
