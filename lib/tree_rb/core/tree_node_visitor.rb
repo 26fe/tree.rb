@@ -100,7 +100,7 @@ module TreeRb
     #
     def on_enter_node(&block)
       raise 'already defined a delegate' if @delegate
-      raise 'block missing' unless block
+      raise 'missing statement `on_enter node <block>`' unless block
       @on_enter_tree_node_blocks << block
     end
 

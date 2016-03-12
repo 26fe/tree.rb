@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 require 'ostruct'
 
+# tree.rb
 cwd = File.expand_path( File.join( File.dirname(__FILE__), '..', '..', 'lib') )
 $:.unshift(cwd) unless $:.include?(cwd)
 require 'tree_rb'
 
 #
-# Find directories without subdirectories
+# This script print on console directories without subdirectories
 #
+
 class DirWithoutSubDir < TreeRb::BasicTreeNodeVisitor
 
   def initialize

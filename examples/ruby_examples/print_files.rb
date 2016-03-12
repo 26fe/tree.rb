@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
+
+# tree.rb
 cwd = File.expand_path( File.join( File.dirname(__FILE__), '..', '..', 'lib') )
 $:.unshift(cwd) unless $:.include?(cwd)
 require 'tree_rb'
 include TreeRb
+
+#
+# Print files contained under a directory
+#
 
 root_dir =  '..'
 

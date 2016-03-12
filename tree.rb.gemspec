@@ -10,10 +10,10 @@ Gem::Specification.new do |gem|
   gem.summary = "tree.rb is a 'clone' of tree unix command. The gem implements a library to mange tree structures."
 
   gem.description = <<-EOF
-(This gem was named as treevisitor)
-tree.rb is a 'clone' of tree unix command. The gem implements a library to mange tree structures.
-The gem contains also a library to build tree with a dsl (domain specific language), and
-an implementation of visitor design pattern.
+tree.rb is a 'clone' of tree unix command. It shows directory tree on console.
+tree.rb is also a library to manage tree structures.
+Tree structures can be build using a dsl (domain specific language), and
+it can be explored using a visitor design pattern.
 An example of DSL to build tree:
 <pre>
    tree = TreeNode.create do
@@ -48,9 +48,9 @@ An example of DSL to build tree:
 
   gem.add_runtime_dependency(%q<json>, ['>= 0'])
   gem.add_runtime_dependency(%q<ansi>, ['>= 0'])
-  gem.add_runtime_dependency(%q<sqlite3>, ['>= 0'])
-  gem.add_runtime_dependency(%q<nokogiri>, ['>= 0'])
 
+  gem.add_development_dependency(%q<nokogiri>, ['>= 0'])
+  gem.add_development_dependency(%q<sqlite3>, ['>= 0'])
   gem.add_development_dependency(%q<rake>, ['>= 0'])
   gem.add_development_dependency(%q<yard>, ['>= 0'])
   gem.add_development_dependency(%q<bundler>, ['>= 0'])
