@@ -2,7 +2,7 @@ namespace :tree_rb do
   #
   # examples
   #
-  desc 'run all tree.rb example'
+  desc 'run all tree.rb examples'
   task :examples do
 
     Dir['examples/*.rb'].sort.each do |filename|
