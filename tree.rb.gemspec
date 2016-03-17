@@ -16,11 +16,11 @@ Tree structures can be build using a dsl (domain specific language), and
 it can be explored using a visitor design pattern.
 EOF
 
-  gem.authors = %w{ Tokiro }
-  gem.email = 'tokiro.oyama@gmail.com'
-  gem.homepage = 'http://github.com/tokiro/tree.rb'
+  gem.authors = %w{ 26fe }
+  gem.email = 'gf@26fe.com'
+  gem.homepage = 'http://github.com/26fe/tree.rb'
 
-  gem.post_install_message = %q{Thank you to have installed tree.rb, any feedback is appreciated.}
+  gem.post_install_message = %q{Thank you for installing tree.rb, any feedback is appreciated.}
 
   gem.require_paths = %w{ lib }
 
