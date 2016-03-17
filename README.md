@@ -1,6 +1,8 @@
 tree.rb / tree visitor library
 ================================================
 
+[![Gem Version](https://badge.fury.io/rb/tree.rb.svg)](https://badge.fury.io/rb/tree.rb)
+
 **tree.rb** is a 'clone' of tree unix command. 
 The gem contains also a library to build tree with a dsl (domain specific language), and 
 an implementation of visitor design pattern.
