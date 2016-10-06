@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-if RUBY_VERSION =~ /1\.8/
+if RUBY_VERSION =~ /\A1\.8/
   # std lib
   require 'md5'
 else
